@@ -25,6 +25,7 @@ public class Toko {
             public void run() {
                 java.io.File f=new java.io.File(System.getProperty("user.home")+"/.wijaya/conn/");
                 if(!f.exists())new ui.Start().setVisible(true);
+                else new ui.VR().show();
             }
         });
     }

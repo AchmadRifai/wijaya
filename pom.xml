@@ -33,9 +33,7 @@
                 </configuration>
             </execution>
         </executions>
-    </plugin>
-
-    <plugin>
+    </plugin><plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
         <configuration>
@@ -65,6 +63,11 @@
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
             <version>6.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>1.1-rc-1</version>
         </dependency>
     </dependencies>
     <properties>

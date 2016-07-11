@@ -47,4 +47,28 @@ public class Work {
     private static RSA loadRSA() throws GeneralSecurityException, IOException {
         return new util.RSA(new java.io.File(System.getProperty("user.home")+"/.wijaya/key/pri"),new java.io.File(System.getProperty("user.home")+"/.wijaya/key/pub"));
     }
+
+    public static Db currentDB() throws GeneralSecurityException, IOException, ClassNotFoundException, SQLException {
+        String host=loadKey("host"),name=loadKey("name"),user=loadKey("user"),pass=loadKey("pass");
+        int port=loadPort();
+        return new util.Db(host, name, user, pass, port);
+    }
+
+    private static String loadKey(String mode) throws GeneralSecurityException, IOException, ClassNotFoundException {
+        java.io.File f=new java.io.File(System.getProperty("user.home")+"/.wijaya/conn/"+mode);
+        RSA r=loadRSA();
+        java.io.ObjectInputStream i=new java.io.ObjectInputStream(new java.io.FileInputStream(f));
+        String s=r.decrypt((byte[]) i.readObject());
+        i.close();
+        return s;
+    }
+
+    private static int loadPort() throws GeneralSecurityException, IOException, ClassNotFoundException {
+        java.io.File f=new java.io.File(System.getProperty("user.home")+"/.wijaya/conn/port");
+        RSA r=loadRSA();
+        java.io.ObjectInputStream i=new java.io.ObjectInputStream(new java.io.FileInputStream(f));
+        String s=r.decrypt((byte[]) i.readObject());
+        i.close();
+        return Integer.parseInt(s);
+    }
 }
