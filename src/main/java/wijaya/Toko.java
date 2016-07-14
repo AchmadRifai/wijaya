@@ -5,6 +5,13 @@
  */
 package wijaya;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ai
@@ -25,7 +32,12 @@ public class Toko {
             public void run() {
                 java.io.File f=new java.io.File(System.getProperty("user.home")+"/.wijaya/conn/");
                 if(!f.exists())new ui.Start().setVisible(true);
-                else new ui.VR().show();
+                else try {
+                    new ui.Dash(util.Work.currentDB()).setVisible(true);
+                } catch (GeneralSecurityException | IOException | ClassNotFoundException | SQLException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                    util.Db.hindar(ex);
+                }
             }
         });
     }
