@@ -202,6 +202,7 @@ public class Start extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(rootPane, "Database created!");
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+                    ennableAll();
                     util.Db.hindar(ex);
                 }
             }
@@ -229,5 +230,14 @@ public class Start extends javax.swing.JFrame {
         name.setEnabled(false);
         user.setEnabled(false);
         pass.setEnabled(false);
+    }
+
+    private void ennableAll() {
+        name.setEnabled(true);
+        user.setEnabled(true);
+        pass.setEnabled(true);
+        host.setEnabled(true);
+        port.setEnabled(true);
+        util.Work.hapusKey();
     }
 }

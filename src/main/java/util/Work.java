@@ -71,4 +71,15 @@ public class Work {
         i.close();
         return Integer.parseInt(s);
     }
+
+    public static void hapusKey() {
+        dleDir(System.getProperty("user.home")+"/.wijaya/key");
+        dleDir(System.getProperty("user.home")+"/.wijaya/conn");
+    }
+
+    private static void dleDir(String dir) {
+        java.io.File d=new java.io.File(dir);
+        for(java.io.File f:d.listFiles())f.delete();
+        d.delete();
+    }
 }

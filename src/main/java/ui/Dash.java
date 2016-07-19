@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 public class Dash extends javax.swing.JFrame {
 private util.Db d;
 private entity.Barang sb;
+private entity.Suplier ss;
     /**
      * Creates new form Dash
      */
@@ -106,9 +107,24 @@ private entity.Barang sb;
 
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "NAMA", "ALAMAT", "JENIS", "DICEKAL"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(tblSuplier);
 
         jTabbedPane2.addTab("SUPLIER", jScrollPane2);
@@ -141,8 +157,10 @@ private entity.Barang sb;
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
     try {
         d.close();
+        System.exit(0);
     } catch (SQLException ex) {
         util.Db.hindar(ex);
+        System.exit(0);
     }
     }//GEN-LAST:event_formWindowClosing
 
@@ -201,6 +219,7 @@ private entity.Barang sb;
 
     private void refresh() throws InterruptedException, SQLException {
         barang();
+        suplier();
         Thread.sleep(5000);
     }
 
@@ -209,5 +228,12 @@ private entity.Barang sb;
         for(int x=m.getRowCount()-1;x>=0;x--)m.removeRow(x);
         for(entity.Barang b:new entity.dao.DAOBarang(d).getDatae())
             m.addRow(new Object[]{b.getKode(),b.getNm(),b.getHrg(),""+b.getStok()+" "+b.getSatuan()});
+    }
+
+    private void suplier() throws SQLException {
+        javax.swing.table.DefaultTableModel m=(javax.swing.table.DefaultTableModel) tblSuplier.getModel();
+        for(int x=m.getRowCount()-1;x>=0;x--)m.removeRow(x);
+        for(entity.Suplier s:new entity.dao.DAOSuplier(d).getDatae())
+            m.addRow(new Object[]{s.getId(),s.getNm(),s.getAlmt(),s.getTlp(),s.getJns(),s.isBlocked()});
     }
 }
