@@ -7,6 +7,7 @@ package ui;
 
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import org.joda.money.CurrencyUnit;
 
 /**
  *
@@ -41,6 +42,11 @@ private entity.Suplier ss;
         tblBarang = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblSuplier = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        tglJual = new javax.swing.JComboBox<>();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblJual = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -129,6 +135,69 @@ private entity.Suplier ss;
 
         jTabbedPane2.addTab("SUPLIER", jScrollPane2);
 
+        jLabel1.setText("Tanggal");
+
+        tglJual.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                tglJualItemStateChanged(evt);
+            }
+        });
+
+        tblJual.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "NOTA", "TOTAL"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblJual.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblJualMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(tblJual);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tglJual, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 783, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(tglJual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE))
+        );
+
+        jTabbedPane2.addTab("PENJUALAN", jPanel1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -136,7 +205,7 @@ private entity.Suplier ss;
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
+                    .addComponent(jTabbedPane2)
                     .addComponent(jTabbedPane1))
                 .addContainerGap())
         );
@@ -146,7 +215,7 @@ private entity.Suplier ss;
                 .addContainerGap()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
+                .addComponent(jTabbedPane2)
                 .addContainerGap())
         );
 
@@ -191,8 +260,12 @@ private entity.Suplier ss;
                         util.Db.hindar(ex);
                     }
             }
-        }).start();
-        sb=null;
+        }).start();try {
+        jual();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        util.Db.hindar(ex);
+    }sb=null;
     }//GEN-LAST:event_formWindowOpened
 
     private void tblBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBarangMouseClicked
@@ -206,20 +279,40 @@ private entity.Suplier ss;
         }
     }//GEN-LAST:event_tblBarangMouseClicked
 
+    private void tglJualItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tglJualItemStateChanged
+        if(null!=tglJual.getItemAt(tglJual.getSelectedIndex()))try {
+            jualTbl();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            util.Db.hindar(ex);
+        }
+    }//GEN-LAST:event_tglJualItemStateChanged
+
+    private void tblJualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblJualMouseClicked
+        int s=tblJual.getSelectedRow();
+        boolean b=tblJual.isRowSelected(s);
+    }//GEN-LAST:event_tblJualMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTable tblBarang;
+    private javax.swing.JTable tblJual;
     private javax.swing.JTable tblSuplier;
+    private javax.swing.JComboBox<java.sql.Date> tglJual;
     // End of variables declaration//GEN-END:variables
 
     private void refresh() throws InterruptedException, SQLException {
         barang();
         suplier();
+        if(null!=tglJual.getItemAt(tglJual.getSelectedIndex()))jualTbl();
         Thread.sleep(5000);
     }
 
@@ -235,5 +328,22 @@ private entity.Suplier ss;
         for(int x=m.getRowCount()-1;x>=0;x--)m.removeRow(x);
         for(entity.Suplier s:new entity.dao.DAOSuplier(d).getDatae())
             m.addRow(new Object[]{s.getId(),s.getNm(),s.getAlmt(),s.getTlp(),s.getJns(),s.isBlocked()});
+    }
+
+    private void jual() throws SQLException {
+        java.sql.ResultSet rs=d.keluar("select distinct tgl from jual");
+        while(rs.next())tglJual.addItem(rs.getDate("tgl"));
+        rs.close();
+    }
+
+    private void jualTbl() throws SQLException {
+        javax.swing.table.DefaultTableModel m=(javax.swing.table.DefaultTableModel) tblJual.getModel();
+        for(int x=m.getRowCount()-1;x>=0;x--)m.removeRow(x);
+        java.sql.PreparedStatement ps=d.getPS("select nota,total from jual where tgl=?");
+        ps.setDate(1, tglJual.getItemAt(tglJual.getSelectedIndex()));
+        java.sql.ResultSet rs=ps.executeQuery();
+        while(rs.next())m.addRow(new Object[]{rs.getString("nota"),org.joda.money.Money.of(CurrencyUnit.getInstance("IDR"), rs.getLong("total"))});
+        rs.close();
+        ps.close();
     }
 }
