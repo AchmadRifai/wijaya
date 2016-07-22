@@ -26,26 +26,29 @@ public class DAOJual implements DAO<entity.Jual>{
                 + "nota varchar(37)primary key,"
                 + "pel varchar(25)not null,"
                 + "tgl date not null,"
-                + "total bigint not null"
+                + "total bigint not null,"
+                + "deleted boolean not null"
                 + ")");
         d.masuk("alter table jual add foreign key(pel)references pelanggan(kode)on update cascade on delete cascade");
     }
 
     @Override
     public void insert(Jual v) throws SQLException {
-        java.sql.PreparedStatement ps=d.getPS("insert into jual values(?,?,?,?)");
+        java.sql.PreparedStatement ps=d.getPS("insert into jual values(?,?,?,?,?)");
         ps.setString(1, v.getNota());
         ps.setString(2, v.getPel());
         ps.setDate(3, v.getTgl());
         ps.setLong(4, v.getTotal().getAmount().longValue());
+        ps.setBoolean(5, v.isDeleted());
         ps.execute();
         ps.close();
     }
 
     @Override
     public void delete(Jual w) throws SQLException {
-        java.sql.PreparedStatement ps=d.getPS("delete from jual where nota=?");
-        ps.setString(1, w.getNota());
+        java.sql.PreparedStatement ps=d.getPS("update jual set deleted=? where nota=?");
+        ps.setBoolean(1, true);
+        ps.setString(2, w.getNota());
         ps.execute();
         ps.close();
     }

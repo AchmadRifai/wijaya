@@ -17,6 +17,7 @@ public class Jual {
     private String nota,pel;
     private java.sql.Date tgl;
     private org.joda.money.Money total;
+    private boolean deleted;
 
     public Jual(String nota,util.Db d) throws SQLException {
         this.nota = nota;
@@ -27,6 +28,7 @@ public class Jual {
             pel=rs.getString("pel");
             tgl=rs.getDate("tgl");
             total=org.joda.money.Money.of(CurrencyUnit.getInstance("IDR"), rs.getBigDecimal("total"));
+            deleted=rs.getBoolean("deleted");
         }rs.close();
         ps.close();
     }
@@ -36,6 +38,7 @@ public class Jual {
         tgl=java.sql.Date.valueOf(LocalDate.now());
         total=org.joda.money.Money.of(CurrencyUnit.getInstance("IDR"), 0);
         nota="wijaya"+tgl.getYear()+tgl.getMonth()+tgl.getDate()+i+pel;
+        deleted=false;
     }
 
     public String getNota() {
@@ -68,5 +71,13 @@ public class Jual {
 
     public void setTotal(org.joda.money.Money total) {
         this.total = total;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 }

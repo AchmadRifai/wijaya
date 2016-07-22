@@ -12,11 +12,13 @@ package entity;
 public class DetJual {
     private String nota,brg;
     private int jum;
+    private org.joda.money.Money byr;
 
-    public DetJual(String nota, String brg, int jum) {
+    public DetJual(String nota, String brg, int jum,org.joda.money.Money byr) {
         this.nota = nota;
         this.brg = brg;
         this.jum = jum;
+        this.byr=byr;
     }
 
     public String getNota() {
@@ -41,5 +43,13 @@ public class DetJual {
 
     public void setJum(int jum) {
         this.jum = jum;
+    }
+
+    public org.joda.money.Money getByr() {
+        return byr;
+    }
+
+    public void setByr(org.joda.money.Money byr) {
+        this.byr = byr;
     }
 }

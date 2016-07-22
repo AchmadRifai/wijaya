@@ -200,10 +200,16 @@ public class Start extends javax.swing.JFrame {
                 try {
                     util.Work.createDB(host.getText(),Integer.parseInt(""+port.getValue()),name.getText(),user.getText(),pass.getText());
                     JOptionPane.showMessageDialog(rootPane, "Database created!");
+                    new ui.Dash(util.Work.currentDB()).setVisible(true);
+                    setVisible(false);
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-                    ennableAll();
                     util.Db.hindar(ex);
+                    ennableAll();
+                } catch (GeneralSecurityException | IOException | ClassNotFoundException ex) {
+                    JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+                    util.Db.hindar(ex);
+                    ennableAll();
                 }
             }
         }).start();

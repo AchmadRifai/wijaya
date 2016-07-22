@@ -21,7 +21,9 @@ public class Work {
         new entity.dao.DAOSuplier(d).createTable();
         new entity.dao.DAOBarang(d).createTable();
         new entity.dao.DAOMemasok(d).createTable();
-        new entity.dao.DAOPelanggan(d).createTable();
+        entity.dao.DAOPelanggan dao=new entity.dao.DAOPelanggan(d);
+        dao.createTable();
+        dao.insert(new entity.Pelanggan("anonym", "Tak dikenal", "-", "-"));
         new entity.dao.DAOJual(d).createTable();
         new entity.dao.DADetJual(d).createTable();
         d.close();
@@ -45,13 +47,13 @@ public class Work {
     }
 
     private static RSA loadRSA() throws GeneralSecurityException, IOException {
-        return new util.RSA(new java.io.File(System.getProperty("user.home")+"/.wijaya/key/pri"),new java.io.File(System.getProperty("user.home")+"/.wijaya/key/pub"));
+        return new RSA(new java.io.File(System.getProperty("user.home")+"/.wijaya/key/pri"),new java.io.File(System.getProperty("user.home")+"/.wijaya/key/pub"));
     }
 
     public static Db currentDB() throws GeneralSecurityException, IOException, ClassNotFoundException, SQLException {
         String host=loadKey("host"),name=loadKey("name"),user=loadKey("user"),pass=loadKey("pass");
         int port=loadPort();
-        return new util.Db(host, name, user, pass, port);
+        return new Db(host, name, user, pass, port);
     }
 
     private static String loadKey(String mode) throws GeneralSecurityException, IOException, ClassNotFoundException {
@@ -79,7 +81,9 @@ public class Work {
 
     private static void dleDir(String dir) {
         java.io.File d=new java.io.File(dir);
-        for(java.io.File f:d.listFiles())f.delete();
-        d.delete();
+        for(java.io.File f:d.listFiles()){
+            if(f.isDirectory())dleDir(f.getAbsolutePath());
+            else f.delete();
+        }d.delete();
     }
 }
