@@ -6,6 +6,7 @@
 package ui;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import org.joda.money.CurrencyUnit;
 
@@ -17,6 +18,7 @@ public class Dash extends javax.swing.JFrame {
 private util.Db d;
 private entity.Barang sb;
 private entity.Suplier ss;
+private entity.Pelanggan sp;
     /**
      * Creates new form Dash
      */
@@ -37,6 +39,11 @@ private entity.Suplier ss;
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jToolBar1 = new javax.swing.JToolBar();
         jButton1 = new javax.swing.JButton();
+        pb2 = new javax.swing.JButton();
+        jToolBar2 = new javax.swing.JToolBar();
+        jToolBar3 = new javax.swing.JToolBar();
+        jToolBar4 = new javax.swing.JToolBar();
+        pb1 = new javax.swing.JButton();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblBarang = new javax.swing.JTable();
@@ -47,6 +54,8 @@ private entity.Suplier ss;
         tglJual = new javax.swing.JComboBox<>();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblJual = new javax.swing.JTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tblPelanggan = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -71,7 +80,41 @@ private entity.Suplier ss;
         });
         jToolBar1.add(jButton1);
 
+        pb2.setText("PENJUALAN BARU");
+        pb2.setEnabled(false);
+        pb2.setFocusable(false);
+        pb2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        pb2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        pb2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pb2ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(pb2);
+
         jTabbedPane1.addTab("HOME", jToolBar1);
+
+        jToolBar2.setRollover(true);
+        jTabbedPane1.addTab("BARANG", jToolBar2);
+
+        jToolBar3.setRollover(true);
+        jTabbedPane1.addTab("SUPLIER", jToolBar3);
+
+        jToolBar4.setRollover(true);
+
+        pb1.setText("PENJUALAN BARU");
+        pb1.setEnabled(false);
+        pb1.setFocusable(false);
+        pb1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        pb1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        pb1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pb1ActionPerformed(evt);
+            }
+        });
+        jToolBar4.add(pb1);
+
+        jTabbedPane1.addTab("PENJUALAN", jToolBar4);
 
         tblBarang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -198,6 +241,38 @@ private entity.Suplier ss;
 
         jTabbedPane2.addTab("PENJUALAN", jPanel1);
 
+        tblPelanggan.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "KODE", "NAMA", "ALAMAT", "TELEPON", "CEKAL"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblPelanggan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPelangganMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(tblPelanggan);
+
+        jTabbedPane2.addTab("PELANGGAN", jScrollPane4);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -253,9 +328,7 @@ private entity.Suplier ss;
             public void run() {
                 while(isVisible())try {
                     refresh();
-                    } catch (InterruptedException ex) {
-                        ex.printStackTrace();
-                    } catch (SQLException ex) {
+                    } catch (InterruptedException | SQLException ex) {
                         JOptionPane.showMessageDialog(rootPane, ex.getMessage());
                         util.Db.hindar(ex);
                     }
@@ -293,6 +366,36 @@ private entity.Suplier ss;
         boolean b=tblJual.isRowSelected(s);
     }//GEN-LAST:event_tblJualMouseClicked
 
+    private void pb2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pb2ActionPerformed
+        if(!sp.isBlocked())try {
+            int i=getTransNow();
+            entity.Jual j=new entity.Jual(sp.getKode(), i);
+            new entity.dao.DAOJual(d).insert(j);
+            new ui.operation.jual.Add(d, j).setVisible(true);
+            this.setVisible(false);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            util.Db.hindar(ex);
+        }else JOptionPane.showMessageDialog(rootPane, "Pelanggan ini dicekal");
+    }//GEN-LAST:event_pb2ActionPerformed
+
+    private void pb1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pb1ActionPerformed
+        this.pb2ActionPerformed(evt);
+    }//GEN-LAST:event_pb1ActionPerformed
+
+    private void tblPelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPelangganMouseClicked
+        int s=tblPelanggan.getSelectedRow();
+        boolean b=tblPelanggan.isRowSelected(s);
+        if(b)try {
+            sp=new entity.Pelanggan(""+tblPelanggan.getValueAt(s, 0), d);
+            pb1.setEnabled(b);
+            pb2.setEnabled(b);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            util.Db.hindar(ex);
+        }
+    }//GEN-LAST:event_tblPelangganMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -300,11 +403,18 @@ private entity.Suplier ss;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JToolBar jToolBar2;
+    private javax.swing.JToolBar jToolBar3;
+    private javax.swing.JToolBar jToolBar4;
+    private javax.swing.JButton pb1;
+    private javax.swing.JButton pb2;
     private javax.swing.JTable tblBarang;
     private javax.swing.JTable tblJual;
+    private javax.swing.JTable tblPelanggan;
     private javax.swing.JTable tblSuplier;
     private javax.swing.JComboBox<java.sql.Date> tglJual;
     // End of variables declaration//GEN-END:variables
@@ -313,6 +423,7 @@ private entity.Suplier ss;
         barang();
         suplier();
         if(null!=tglJual.getItemAt(tglJual.getSelectedIndex()))jualTbl();
+        pelanggan();
         Thread.sleep(5000);
     }
 
@@ -345,5 +456,23 @@ private entity.Suplier ss;
         while(rs.next())m.addRow(new Object[]{rs.getString("nota"),org.joda.money.Money.of(CurrencyUnit.getInstance("IDR"), rs.getLong("total"))});
         rs.close();
         ps.close();
+    }
+
+    private void pelanggan() throws SQLException {
+        javax.swing.table.DefaultTableModel m=(javax.swing.table.DefaultTableModel) tblPelanggan.getModel();
+        for(int x=m.getRowCount()-1;x>=0;x--)m.removeRow(x);
+        for(entity.Pelanggan p:new entity.dao.DAOPelanggan(d).getDatae())
+            m.addRow(new Object[]{p.getKode(),p.getNm(),p.getAlmt(),p.getTlp(),p.isBlocked()});
+    }
+
+    private int getTransNow() throws SQLException {
+        int i=0;
+        java.sql.PreparedStatement ps=d.getPS("select count(nota)as jum from jual where tgl=?");
+        ps.setDate(1, java.sql.Date.valueOf(LocalDate.now()));
+        java.sql.ResultSet rs=ps.executeQuery();
+        if(rs.next())i=1+rs.getInt("jum");
+        rs.close();
+        ps.close();
+        return i;
     }
 }
