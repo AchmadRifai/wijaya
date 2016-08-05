@@ -6,6 +6,7 @@
 package ui.operation.jual;
 
 import java.sql.SQLException;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,14 +16,12 @@ import javax.swing.JOptionPane;
 public class Add extends javax.swing.JFrame {
 private util.Db d;
 private entity.Jual j;
-private java.util.ArrayList<Barange>at;
     /**
      * Creates new form Add
      */
     public Add(util.Db db,entity.Jual ju) {
         d=db;
         j=ju;
-        at=new java.util.ArrayList<Barange>();
         initComponents();
     }
 
@@ -35,9 +34,10 @@ private java.util.ArrayList<Barange>at;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panele = new javax.swing.JPanel();
         kode = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        f = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbl = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Form Penjualan");
@@ -50,13 +50,35 @@ private java.util.ArrayList<Barange>at;
             }
         });
 
-        panele.setAutoscrolls(true);
-        panele.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        panele.setLayout(new java.awt.GridBagLayout());
-
         kode.setText("jLabel1");
 
-        jButton1.setText("jButton1");
+        f.setText("FINISH");
+        f.setEnabled(false);
+        f.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fActionPerformed(evt);
+            }
+        });
+
+        tbl.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        tbl.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblMouseClicked(evt);
+            }
+        });
+        tbl.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tblKeyReleased(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbl);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -65,23 +87,21 @@ private java.util.ArrayList<Barange>at;
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panele, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(kode)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(f, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
+                    .addComponent(kode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panele, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addGap(13, 13, 13)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(kode)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(f)
+                .addContainerGap())
         );
 
         pack();
@@ -103,25 +123,64 @@ private java.util.ArrayList<Barange>at;
     }kode.setText("Nota : "+j.getNota());
     }//GEN-LAST:event_formWindowOpened
 
+    private void tblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMouseClicked
+        int n=0;
+        for(int x=0;x<tbl.getRowCount();x++){
+            Boolean b=(Boolean) tbl.getValueAt(x, 0);
+            if(b)n++;
+        }f.setEnabled(0<n);
+    }//GEN-LAST:event_tblMouseClicked
+
+    private void tblKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblKeyReleased
+        this.tblMouseClicked(null);
+    }//GEN-LAST:event_tblKeyReleased
+
+    private void fActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton f;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel kode;
-    private javax.swing.JPanel panele;
+    private javax.swing.JTable tbl;
     // End of variables declaration//GEN-END:variables
 
     private void setBarang() throws SQLException {
-        int n=0;
-        for(entity.Barang b:new entity.dao.DAOBarang(d).getDatae()){
-            if(b.getStok()>0){
-                java.awt.GridBagConstraints g=new java.awt.GridBagConstraints();
-                g.gridx=0;
-                g.gridy=n;
-                Barange ba=new Barange(b);
-                panele.add(ba, g);
-                n++;
-                at.add(ba);
+        javax.swing.table.DefaultTableModel m=new javax.swing.table.DefaultTableModel(new String[]{"Pilih?","JUMLAH","KODE","MERK","HARGA"}, 0){
+            private Class[]c=new Class[]{Boolean.class,Integer.class,String.class,String.class,org.joda.money.Money.class};
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                if(column==0)return true;
+                if(column==1){
+                    Boolean b=(Boolean) this.getValueAt(0, column);
+                    return b;
+                }return false;
             }
-        }
+
+            @Override
+            public Class<?> getColumnClass(int x) {
+                return c[x];
+            }
+        };tbl.setModel(m);
+        for(entity.Barang b:new entity.dao.DAOBarang(d).getDatae())
+            if(0<b.getStok())m.addRow(new Object[]{false,1,b.getKode(),b.getNm(),b.getHrg()});
+        tbl.setInputVerifier(new javax.swing.InputVerifier() {
+            @Override
+            public boolean verify(JComponent input) {
+                int i=0;try{
+                    i=Integer.parseInt(getSelectTed());
+                }catch(NumberFormatException e){
+                    util.Db.hindar(e);
+                }return 0<i;
+            }
+
+            private String getSelectTed() {
+                int s=tbl.getSelectedRow();
+                return ""+tbl.getValueAt(s, 1);
+            }
+        });
     }
 
     private void hapusTrans() {
