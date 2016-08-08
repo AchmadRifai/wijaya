@@ -43,6 +43,7 @@ private entity.Jual sj;
         pb2 = new javax.swing.JButton();
         jToolBar2 = new javax.swing.JToolBar();
         jButton3 = new javax.swing.JButton();
+        btnMemasok = new javax.swing.JButton();
         jToolBar3 = new javax.swing.JToolBar();
         jButton2 = new javax.swing.JButton();
         jToolBar4 = new javax.swing.JToolBar();
@@ -110,6 +111,18 @@ private entity.Jual sj;
             }
         });
         jToolBar2.add(jButton3);
+
+        btnMemasok.setText("DISUPLAY");
+        btnMemasok.setEnabled(false);
+        btnMemasok.setFocusable(false);
+        btnMemasok.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnMemasok.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnMemasok.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMemasokActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(btnMemasok);
 
         jTabbedPane1.addTab("BARANG", jToolBar2);
 
@@ -212,6 +225,11 @@ private entity.Jual sj;
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tblSuplier.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblSuplierMouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(tblSuplier);
@@ -453,7 +471,24 @@ private entity.Jual sj;
         this.setVisible(false);
     }//GEN-LAST:event_ldPenjActionPerformed
 
+    private void tblSuplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSuplierMouseClicked
+        int s=tblSuplier.getSelectedRow();
+        boolean b=tblSuplier.isRowSelected(s);
+        if(b)try {
+            ss=new entity.Suplier(""+tblSuplier.getValueAt(s, 0), d);
+            btnMemasok.setEnabled(b);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            util.Db.hindar(ex);
+        }
+    }//GEN-LAST:event_tblSuplierMouseClicked
+
+    private void btnMemasokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMemasokActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnMemasokActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnMemasok;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
