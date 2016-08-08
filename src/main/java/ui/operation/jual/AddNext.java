@@ -165,7 +165,21 @@ private java.util.ArrayList<entity.DetJual>ad;
     }//GEN-LAST:event_uangFocusLost
 
     private void gActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gActionPerformed
-        // TODO add your handling code here:
+    try {
+        entity.Jual j2=new entity.Jual(j.getNota(), d);
+        org.joda.money.Money l=org.joda.money.Money.of(CurrencyUnit.getInstance("IDR"), 0);
+        for(int x=0;x<item.getRowCount();x++){
+            org.joda.money.Money m=(org.joda.money.Money) item.getValueAt(x, 3);
+            l=l.plus(m);
+        }j2.setTotal(l);
+        new entity.dao.DAOJual(d).update(j, j2);
+        for(entity.DetJual dj:ad)new entity.dao.DADetJual(d).insert(dj);
+        setJumlahBarang();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        util.Db.hindar(ex);
+    }new ui.operation.jual.LaporanJual(d, j).setVisible(true);
+    this.setVisible(false);
     }//GEN-LAST:event_gActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -192,5 +206,13 @@ private java.util.ArrayList<entity.DetJual>ad;
             org.joda.money.Money m=(org.joda.money.Money) item.getValueAt(x, 3);
             l=l.plus(m);
         }t.setText("Total : "+l);
+    }
+
+    private void setJumlahBarang() throws SQLException {
+        for(entity.DetJual dj:ad){
+            entity.Barang a=new entity.Barang(dj.getBrg(), d),b=new entity.Barang(dj.getBrg(), d);
+            b.setStok(a.getStok()-dj.getJum());
+            new entity.dao.DAOBarang(d).update(a, b);
+        }
     }
 }

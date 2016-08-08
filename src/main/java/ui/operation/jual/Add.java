@@ -6,7 +6,6 @@
 package ui.operation.jual;
 
 import java.sql.SQLException;
-import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 
 /**
@@ -136,7 +135,19 @@ private entity.Jual j;
     }//GEN-LAST:event_tblKeyReleased
 
     private void fActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fActionPerformed
-        // TODO add your handling code here:
+        java.util.ArrayList<entity.DetJual>ad=new java.util.ArrayList<entity.DetJual>();
+        for(int x=0;x<tbl.getRowCount();x++){
+            Boolean b=(Boolean) tbl.getValueAt(x, 0);
+            if(b)try {
+                entity.Barang B=new entity.Barang(""+tbl.getValueAt(x, 2), d);
+                ad.add(new entity.DetJual(j.getNota(), B.getKode(), Integer.parseInt(""+tbl.getValueAt(x, 1)),
+                        B.getHrg().multipliedBy(Integer.parseInt(""+tbl.getValueAt(x, 1)))));
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+                util.Db.hindar(ex);
+            }
+        }new ui.operation.jual.AddNext(d, j, ad).setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_fActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -154,7 +165,7 @@ private entity.Jual j;
             public boolean isCellEditable(int row, int column) {
                 if(column==0)return true;
                 if(column==1){
-                    Boolean b=(Boolean) this.getValueAt(0, column);
+                    Boolean b=(Boolean) this.getValueAt(row, 0);
                     return b;
                 }return false;
             }
@@ -166,26 +177,14 @@ private entity.Jual j;
         };tbl.setModel(m);
         for(entity.Barang b:new entity.dao.DAOBarang(d).getDatae())
             if(0<b.getStok())m.addRow(new Object[]{false,1,b.getKode(),b.getNm(),b.getHrg()});
-        tbl.setInputVerifier(new javax.swing.InputVerifier() {
-            @Override
-            public boolean verify(JComponent input) {
-                int i=0;try{
-                    i=Integer.parseInt(getSelectTed());
-                }catch(NumberFormatException e){
-                    util.Db.hindar(e);
-                }return 0<i;
-            }
-
-            private String getSelectTed() {
-                int s=tbl.getSelectedRow();
-                return ""+tbl.getValueAt(s, 1);
-            }
-        });
     }
 
     private void hapusTrans() {
     try {
-        new entity.dao.DAOJual(d).delete(j);
+        java.sql.PreparedStatement ps=d.getPS("delete from jual where nota=?");
+        ps.setString(1, j.getNota());
+        ps.execute();
+        ps.close();
     } catch (SQLException ex) {
         JOptionPane.showMessageDialog(rootPane, ex.getMessage());
         util.Db.hindar(ex);

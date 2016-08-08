@@ -19,6 +19,7 @@ private util.Db d;
 private entity.Barang sb;
 private entity.Suplier ss;
 private entity.Pelanggan sp;
+private entity.Jual sj;
     /**
      * Creates new form Dash
      */
@@ -41,9 +42,12 @@ private entity.Pelanggan sp;
         jButton1 = new javax.swing.JButton();
         pb2 = new javax.swing.JButton();
         jToolBar2 = new javax.swing.JToolBar();
+        jButton3 = new javax.swing.JButton();
         jToolBar3 = new javax.swing.JToolBar();
+        jButton2 = new javax.swing.JButton();
         jToolBar4 = new javax.swing.JToolBar();
         pb1 = new javax.swing.JButton();
+        ldPenj = new javax.swing.JButton();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblBarang = new javax.swing.JTable();
@@ -95,9 +99,33 @@ private entity.Pelanggan sp;
         jTabbedPane1.addTab("HOME", jToolBar1);
 
         jToolBar2.setRollover(true);
+
+        jButton3.setText("TAMBAH");
+        jButton3.setFocusable(false);
+        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(jButton3);
+
         jTabbedPane1.addTab("BARANG", jToolBar2);
 
         jToolBar3.setRollover(true);
+
+        jButton2.setText("TAMBAH PEMASOK");
+        jButton2.setFocusable(false);
+        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jToolBar3.add(jButton2);
+
         jTabbedPane1.addTab("SUPLIER", jToolBar3);
 
         jToolBar4.setRollover(true);
@@ -113,6 +141,18 @@ private entity.Pelanggan sp;
             }
         });
         jToolBar4.add(pb1);
+
+        ldPenj.setText("LIHAT DETAIL");
+        ldPenj.setEnabled(false);
+        ldPenj.setFocusable(false);
+        ldPenj.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ldPenj.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        ldPenj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ldPenjActionPerformed(evt);
+            }
+        });
+        jToolBar4.add(ldPenj);
 
         jTabbedPane1.addTab("PENJUALAN", jToolBar4);
 
@@ -191,14 +231,14 @@ private entity.Pelanggan sp;
 
             },
             new String [] {
-                "NOTA", "TOTAL"
+                "NOTA", "TOTAL", "PELANGGAN"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class
+                java.lang.String.class, java.lang.Object.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -333,12 +373,7 @@ private entity.Pelanggan sp;
                         util.Db.hindar(ex);
                     }
             }
-        }).start();try {
-        jual();
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-        util.Db.hindar(ex);
-    }sb=null;
+        }).start();sb=null;
     }//GEN-LAST:event_formWindowOpened
 
     private void tblBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBarangMouseClicked
@@ -364,6 +399,13 @@ private entity.Pelanggan sp;
     private void tblJualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblJualMouseClicked
         int s=tblJual.getSelectedRow();
         boolean b=tblJual.isRowSelected(s);
+        if(b)try {
+            sj=new entity.Jual(""+tblJual.getValueAt(s, 0), d);
+            ldPenj.setEnabled(b);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            util.Db.hindar(ex);
+        }
     }//GEN-LAST:event_tblJualMouseClicked
 
     private void pb2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pb2ActionPerformed
@@ -396,8 +438,25 @@ private entity.Pelanggan sp;
         }
     }//GEN-LAST:event_tblPelangganMouseClicked
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        new ui.operation.suplier.Add(d).setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        new ui.operation.barang.Add(d).setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void ldPenjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ldPenjActionPerformed
+        new ui.operation.jual.LaporanJual(d, sj).setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_ldPenjActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -410,18 +469,20 @@ private entity.Pelanggan sp;
     private javax.swing.JToolBar jToolBar2;
     private javax.swing.JToolBar jToolBar3;
     private javax.swing.JToolBar jToolBar4;
+    private javax.swing.JButton ldPenj;
     private javax.swing.JButton pb1;
     private javax.swing.JButton pb2;
     private javax.swing.JTable tblBarang;
     private javax.swing.JTable tblJual;
     private javax.swing.JTable tblPelanggan;
     private javax.swing.JTable tblSuplier;
-    private javax.swing.JComboBox<java.sql.Date> tglJual;
+    private javax.swing.JComboBox<String> tglJual;
     // End of variables declaration//GEN-END:variables
 
     private void refresh() throws InterruptedException, SQLException {
         barang();
         suplier();
+        jual();
         if(null!=tglJual.getItemAt(tglJual.getSelectedIndex()))jualTbl();
         pelanggan();
         Thread.sleep(5000);
@@ -442,19 +503,22 @@ private entity.Pelanggan sp;
     }
 
     private void jual() throws SQLException {
+        tglJual.removeAllItems();
         java.sql.ResultSet rs=d.keluar("select distinct tgl from jual");
-        while(rs.next())tglJual.addItem(rs.getDate("tgl"));
+        while(rs.next())tglJual.addItem(rs.getString("tgl"));
         rs.close();
     }
 
     private void jualTbl() throws SQLException {
         javax.swing.table.DefaultTableModel m=(javax.swing.table.DefaultTableModel) tblJual.getModel();
         for(int x=m.getRowCount()-1;x>=0;x--)m.removeRow(x);
-        java.sql.PreparedStatement ps=d.getPS("select nota,total from jual where tgl=?");
-        ps.setDate(1, tglJual.getItemAt(tglJual.getSelectedIndex()));
+        java.sql.PreparedStatement ps=d.getPS("select nota,total,pel from jual where tgl=?");
+        ps.setDate(1, java.sql.Date.valueOf(tglJual.getItemAt(tglJual.getSelectedIndex())));
         java.sql.ResultSet rs=ps.executeQuery();
-        while(rs.next())m.addRow(new Object[]{rs.getString("nota"),org.joda.money.Money.of(CurrencyUnit.getInstance("IDR"), rs.getLong("total"))});
-        rs.close();
+        while(rs.next()){
+            entity.Pelanggan p=new entity.Pelanggan(rs.getString("pel"), d);
+            m.addRow(new Object[]{rs.getString("nota"),org.joda.money.Money.of(CurrencyUnit.getInstance("IDR"), rs.getLong("total")),p.getNm()});
+        }rs.close();
         ps.close();
     }
 

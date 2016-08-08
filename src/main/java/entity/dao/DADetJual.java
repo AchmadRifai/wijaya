@@ -35,7 +35,7 @@ public class DADetJual implements DAO<DetJual>{
 
     @Override
     public void insert(DetJual v) throws SQLException {
-        java.sql.PreparedStatement ps=d.getPS("insert into detjual values(?,?,?)");
+        java.sql.PreparedStatement ps=d.getPS("insert into detjual values(?,?,?,?)");
         ps.setString(1, v.getNota());
         ps.setString(2, v.getBrg());
         ps.setInt(3, v.getJum());
