@@ -124,7 +124,7 @@ private entity.Jual sj;
         });
         jToolBar1.add(pb2);
 
-        jTabbedPane1.addTab("HOME", jToolBar1);
+        jTabbedPane1.addTab("HOME", new javax.swing.ImageIcon(getClass().getResource("/wijaya/ikon-home-tab.png")), jToolBar1);
 
         jToolBar2.setRollover(true);
 
@@ -260,7 +260,7 @@ private entity.Jual sj;
         });
         jScrollPane2.setViewportView(tblSuplier);
 
-        jTabbedPane2.addTab("SUPLIER", jScrollPane2);
+        jTabbedPane2.addTab("SUPLIER", new javax.swing.ImageIcon(getClass().getResource("/wijaya/ikon-supplier-tab.png")), jScrollPane2);
 
         jLabel1.setText("Tanggal");
 
@@ -320,10 +320,10 @@ private entity.Jual sj;
                     .addComponent(jLabel1)
                     .addComponent(tglJual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE))
+                .addComponent(jScrollPane3))
         );
 
-        jTabbedPane2.addTab("PENJUALAN", jPanel1);
+        jTabbedPane2.addTab("PENJUALAN", new javax.swing.ImageIcon(getClass().getResource("/wijaya/ikon-penjualan-tab.png")), jPanel1);
 
         tblPelanggan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -355,7 +355,7 @@ private entity.Jual sj;
         });
         jScrollPane4.setViewportView(tblPelanggan);
 
-        jTabbedPane2.addTab("PELANGGAN", jScrollPane4);
+        jTabbedPane2.addTab("PELANGGAN", new javax.swing.ImageIcon(getClass().getResource("/wijaya/ikon-pelanggan-tab.png")), jScrollPane4);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -372,10 +372,9 @@ private entity.Jual sj;
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane2)
-                .addContainerGap())
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE))
         );
 
         pack();
