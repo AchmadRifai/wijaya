@@ -1,29 +1,5 @@
 /*
- * To change this li            @Override
-            public int getWidth(ImageObserver observer) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-
-            @Override
-            public int getHeight(ImageObserver observer) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-
-            @Override
-            public ImageProducer getSource() {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-
-            @Override
-            public Graphics getGraphics() {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-
-            @Override
-            public Object getProperty(String name, ImageObserver observer) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-        }ense header, choose License Headers in Project Properties.
+ * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -88,8 +64,6 @@ private entity.Jual sj;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
-        setIconImage(new javax.swing.ImageIcon(getClass().getResource("/wijaya/ikonwin.png")).getImage());
-        setIconImages(getIconImages());
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -228,7 +202,7 @@ private entity.Jual sj;
         });
         jScrollPane1.setViewportView(tblBarang);
 
-        jTabbedPane2.addTab("BARANG", new javax.swing.ImageIcon(getClass().getResource("/wijaya/ikon-barang-tab.png")), jScrollPane1);
+        jTabbedPane2.addTab("BARANG", jScrollPane1);
 
         tblSuplier.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
