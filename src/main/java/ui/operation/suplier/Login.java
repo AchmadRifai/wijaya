@@ -5,20 +5,21 @@
  */
 package ui.operation.suplier;
 
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ai
  */
 public class Login extends javax.swing.JFrame {
 private util.Db d;
-private entity.Suplier s;
 private String keperluan;
     /**
      * Creates new form Login
      */
-    public Login(util.Db db,entity.Suplier ss,String k) {
+    public Login(util.Db db,String k) {
         d=db;
-        s=ss;
         keperluan=k;
         initComponents();
     }
@@ -32,6 +33,12 @@ private String keperluan;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        pass = new javax.swing.JPasswordField();
+        id = new javax.swing.JTextField();
+        m = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -39,15 +46,49 @@ private String keperluan;
             }
         });
 
+        jLabel1.setText("ID");
+
+        jLabel2.setText("Password");
+
+        m.setText("MASUK");
+        m.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(m, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pass, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
+                            .addComponent(id))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addComponent(m)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -58,6 +99,37 @@ private String keperluan;
         new ui.Dash(d).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_formWindowClosing
+
+    private void mActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mActionPerformed
+    try {
+        entity.Suplier s=new entity.Suplier(id.getText(), d);
+        if(s.getAlmt()!=null){
+            if(!s.isDeleted()){
+                if(!s.isBlocked()){
+                    if(!s.isLogon()){
+                        if(pass.getText().equals(s.getPass()))masuk();
+                        else JOptionPane.showMessageDialog(rootPane, "Password salah!");
+                    }else JOptionPane.showMessageDialog(rootPane, "Suplier mengalami duplikat login!");
+                }else JOptionPane.showMessageDialog(rootPane, "Suplier dicekal!");
+            }else JOptionPane.showMessageDialog(rootPane, "Suplier terhapus!");
+        }else JOptionPane.showMessageDialog(rootPane, "Suplier tak terdaftar!");
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        util.Db.hindar(ex);
+    }id.setText("");
+    pass.setText("");
+    }//GEN-LAST:event_mActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField id;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton m;
+    private javax.swing.JPasswordField pass;
     // End of variables declaration//GEN-END:variables
+
+    private void masuk() throws SQLException {
+        entity.Suplier a=new entity.Suplier(id.getText(), d),b=new entity.Suplier(id.getText(), d);
+        b.setLogon(true);
+    }
 }

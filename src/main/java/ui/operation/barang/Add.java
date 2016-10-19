@@ -5,6 +5,13 @@
  */
 package ui.operation.barang;
 
+import java.awt.Color;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import org.joda.money.CurrencyUnit;
+
 /**
  *
  * @author ai
@@ -28,6 +35,16 @@ private util.Db d;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        kode = new javax.swing.JTextField();
+        nm = new javax.swing.JTextField();
+        satuan = new javax.swing.JTextField();
+        hrg = new javax.swing.JSpinner();
+        s = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -35,15 +52,91 @@ private util.Db d;
             }
         });
 
+        jLabel1.setText("Kode Barang");
+
+        jLabel2.setText("Nama");
+
+        jLabel3.setText("Harga");
+
+        jLabel4.setText("Satuan");
+
+        kode.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                kodeKeyReleased(evt);
+            }
+        });
+
+        nm.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                nmKeyReleased(evt);
+            }
+        });
+
+        satuan.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                satuanKeyReleased(evt);
+            }
+        });
+
+        hrg.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        hrg.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                hrgStateChanged(evt);
+            }
+        });
+
+        s.setText("SIMPAN");
+        s.setEnabled(false);
+        s.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(s, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(kode)
+                            .addComponent(nm)
+                            .addComponent(satuan)
+                            .addComponent(hrg, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(kode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(nm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(hrg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(satuan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addComponent(s)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -54,6 +147,56 @@ private util.Db d;
         new ui.Dash(d).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_formWindowClosing
+
+    private void kodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kodeKeyReleased
+    try {
+        entity.Barang tb=new entity.Barang(kode.getText(), d);
+        if(null==tb.getNm())kode.setForeground(Color.BLACK);
+        else kode.setForeground(Color.red);
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        util.Db.hindar(ex);
+        kode.setForeground(Color.red);
+    }refresh();
+    }//GEN-LAST:event_kodeKeyReleased
+
+    private void nmKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nmKeyReleased
+        refresh();
+    }//GEN-LAST:event_nmKeyReleased
+
+    private void hrgStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_hrgStateChanged
+        refresh();
+    }//GEN-LAST:event_hrgStateChanged
+
+    private void satuanKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_satuanKeyReleased
+        refresh();
+    }//GEN-LAST:event_satuanKeyReleased
+
+    private void sActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sActionPerformed
+    try {
+        new entity.dao.DAOBarang(d).insert(new entity.Barang(kode.getText(), nm.getText(), satuan.getText(), 
+                org.joda.money.Money.of(CurrencyUnit.getInstance("IDR"), Long.parseLong(""+hrg.getValue())), 0));
+        new ui.Dash(d).setVisible(true);
+        this.setVisible(false);
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        util.Db.hindar(ex);
+    }
+    }//GEN-LAST:event_sActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JSpinner hrg;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JTextField kode;
+    private javax.swing.JTextField nm;
+    private javax.swing.JButton s;
+    private javax.swing.JTextField satuan;
     // End of variables declaration//GEN-END:variables
+
+    private void refresh() {
+        s.setEnabled(Color.BLACK==kode.getForeground()&&!kode.getText().isEmpty()&&!nm.getText().isEmpty()&&!satuan.getText().isEmpty());
+    }
 }

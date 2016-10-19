@@ -63,6 +63,7 @@ private entity.Jual sj;
         tblPelanggan = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -113,7 +114,6 @@ private entity.Jual sj;
         jToolBar2.add(jButton3);
 
         btnMemasok.setText("DISUPLAY");
-        btnMemasok.setEnabled(false);
         btnMemasok.setFocusable(false);
         btnMemasok.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnMemasok.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -476,7 +476,6 @@ private entity.Jual sj;
         boolean b=tblSuplier.isRowSelected(s);
         if(b)try {
             ss=new entity.Suplier(""+tblSuplier.getValueAt(s, 0), d);
-            btnMemasok.setEnabled(b);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage());
             util.Db.hindar(ex);
@@ -484,7 +483,8 @@ private entity.Jual sj;
     }//GEN-LAST:event_tblSuplierMouseClicked
 
     private void btnMemasokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMemasokActionPerformed
-        // TODO add your handling code here:
+        new ui.operation.suplier.Login(d, "memasok").setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnMemasokActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
