@@ -14,8 +14,8 @@ import java.sql.SQLException;
  * @author ai
  */
 public class Work {
-    public static void createDB(String text, int port, String name, String user, String pass) throws SQLException {
-        util.Db d=new util.Db(pass, "mysql", user, pass, port);
+    public static void createDB(String host, int port, String name, String user, String pass) throws SQLException {
+        util.Db d=new util.Db(host, "mysql", user, pass, port);
         d.masuk("create database "+name);
         d.setName(name);
         new entity.dao.DAOSuplier(d).createTable();

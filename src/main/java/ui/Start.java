@@ -46,6 +46,7 @@ public class Start extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Database Connector");
+        setIconImage(new javax.swing.ImageIcon(getClass().getResource("/wijaya/ikonwin.png")).getImage());
 
         jLabel1.setText("Host");
 

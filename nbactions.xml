@@ -58,4 +58,18 @@
                 
             </goals>
         </action>
+        <action>
+            <actionName>CUSTOM-jalan</actionName>
+            <displayName>jalan</displayName>
+            <goals>
+                <goal>exec:java</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>CUSTOM-mlaku</actionName>
+            <displayName>mlaku</displayName>
+            <goals>
+                <goal>deploy</goal>
+            </goals>
+        </action>
     </actions>
