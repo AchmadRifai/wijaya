@@ -3,24 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ui.operation.memasok;
-
-import java.sql.SQLException;
-import javax.swing.JOptionPane;
+package ui.dial.suplier;
 
 /**
  *
  * @author ai
  */
-public class Add extends javax.swing.JFrame {
+public class LoginSup extends javax.swing.JDialog {
 private util.Db d;
-private entity.Suplier s;
+private String type;
     /**
-     * Creates new form Add
+     * Creates new form LoginSup
      */
-    public Add(util.Db db,entity.Suplier ss) {
+    public LoginSup(java.awt.Frame parent, boolean modal,util.Db db,String t) {
+        super(parent, modal);
         d=db;
-        s=ss;
+        type=t;
         initComponents();
     }
 
@@ -37,9 +35,6 @@ private entity.Suplier s;
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
-            }
-            public void windowOpened(java.awt.event.WindowEvent evt) {
-                formWindowOpened(evt);
             }
         });
 
@@ -59,34 +54,8 @@ private entity.Suplier s;
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        logout();
-        new ui.Dash(d).setVisible(true);
-        this.setVisible(false);
+        // TODO add your handling code here:
     }//GEN-LAST:event_formWindowClosing
-
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                refresh();
-            }
-        }).start();
-    }//GEN-LAST:event_formWindowOpened
-
-    private void logout() {
-    try {
-        entity.Suplier b=new entity.Suplier(s.getId(), d);
-        b.setLogon(false);
-        new entity.dao.DAOSuplier(d).update(s, b);
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-        util.Db.hindar(ex);
-    }
-    }
-
-    private void refresh() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

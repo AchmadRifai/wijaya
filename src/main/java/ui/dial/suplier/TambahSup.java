@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ui.operation.suplier;
+package ui.dial.suplier;
 
 import java.awt.Color;
 import java.sql.SQLException;
@@ -13,12 +13,13 @@ import javax.swing.JOptionPane;
  *
  * @author ai
  */
-public class Add extends javax.swing.JFrame {
+public class TambahSup extends javax.swing.JDialog {
 private util.Db d;
     /**
-     * Creates new form Add
+     * Creates new form TambahSup
      */
-    public Add(util.Db db) {
+    public TambahSup(java.awt.Frame parent, boolean modal,util.Db db) {
+        super(parent, modal);
         d=db;
         initComponents();
     }
@@ -37,17 +38,16 @@ private util.Db d;
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        id = new javax.swing.JTextField();
         pass = new javax.swing.JPasswordField();
         repass = new javax.swing.JPasswordField();
+        id = new javax.swing.JTextField();
         nm = new javax.swing.JTextField();
-        almt1 = new javax.swing.JTextField();
-        almt2 = new javax.swing.JTextField();
-        almt3 = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        almt = new javax.swing.JTextArea();
         jns = new javax.swing.JTextField();
+        tlp = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        tlp = new javax.swing.JTextField();
         s = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -57,21 +57,15 @@ private util.Db d;
             }
         });
 
-        jLabel1.setText("ID Pemasok");
+        jLabel1.setText("Kode Pemasok");
 
-        jLabel2.setText("Password");
+        jLabel2.setText("Kata Sandi Pemasok");
 
-        jLabel3.setText("Ketik Ulang");
+        jLabel3.setText("Ketik Ulang Sandi");
 
-        jLabel4.setText("Nama");
+        jLabel4.setText("Nama Perusahaan");
 
         jLabel5.setText("Alamat");
-
-        id.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                idKeyReleased(evt);
-            }
-        });
 
         pass.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -85,29 +79,26 @@ private util.Db d;
             }
         });
 
+        id.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                idKeyReleased(evt);
+            }
+        });
+
         nm.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 nmKeyReleased(evt);
             }
         });
 
-        almt1.addKeyListener(new java.awt.event.KeyAdapter() {
+        almt.setColumns(20);
+        almt.setRows(5);
+        almt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                almt1KeyReleased(evt);
+                almtKeyReleased(evt);
             }
         });
-
-        almt2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                almt2KeyReleased(evt);
-            }
-        });
-
-        almt3.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                almt3KeyReleased(evt);
-            }
-        });
+        jScrollPane1.setViewportView(almt);
 
         jns.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -115,16 +106,17 @@ private util.Db d;
             }
         });
 
-        jLabel6.setText("Jenis");
-
-        jLabel7.setText("Telepon");
-
         tlp.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 tlpKeyReleased(evt);
             }
         });
 
+        jLabel6.setText("Jenis Barang");
+
+        jLabel7.setText("No. Telepon");
+
+        s.setIcon(new javax.swing.ImageIcon(getClass().getResource("/wijaya/sd-card.png"))); // NOI18N
         s.setText("SIMPAN");
         s.setEnabled(false);
         s.addActionListener(new java.awt.event.ActionListener() {
@@ -140,28 +132,24 @@ private util.Db d;
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(s, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(id)
-                            .addComponent(pass)
-                            .addComponent(repass)
-                            .addComponent(nm)
-                            .addComponent(almt1)
-                            .addComponent(almt2)
-                            .addComponent(almt3)
-                            .addComponent(jns)
-                            .addComponent(tlp, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE))))
-                .addContainerGap())
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tlp)
+                    .addComponent(jns)
+                    .addComponent(pass)
+                    .addComponent(repass)
+                    .addComponent(id)
+                    .addComponent(nm)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(s, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,24 +171,20 @@ private util.Db d;
                     .addComponent(jLabel4)
                     .addComponent(nm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
-                    .addComponent(almt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(almt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(almt3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(tlp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(tlp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addGap(38, 38, 38)
                 .addComponent(s)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -208,51 +192,37 @@ private util.Db d;
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        new ui.Dash(d).setVisible(true);
-        this.setVisible(false);
+        JOptionPane.showMessageDialog(rootPane, "Nothing to do!");
     }//GEN-LAST:event_formWindowClosing
 
     private void idKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_idKeyReleased
     try {
-        java.sql.PreparedStatement ps=d.getPS("select id from suplier where id=?");
-        ps.setString(1, id.getText());
-        java.sql.ResultSet rs=ps.executeQuery();
-        if(rs.next())id.setForeground(Color.red);
+        entity.Suplier s=new entity.Suplier(id.getText(), d);
+        if(null!=s.getNm())id.setForeground(Color.red);
         else id.setForeground(Color.BLACK);
-        rs.close();
-        ps.close();
     } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(rootPane, ex.getMessage());
         util.Db.hindar(ex);
         id.setForeground(Color.red);
     }refresh();
     }//GEN-LAST:event_idKeyReleased
 
     private void passKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passKeyReleased
-        if(pass.getText().equals(repass.getText()))pass.setForeground(Color.BLACK);
-        else pass.setForeground(Color.red);
         refresh();
     }//GEN-LAST:event_passKeyReleased
 
     private void repassKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_repassKeyReleased
-        this.passKeyReleased(evt);
+        if(repass.getText().equals(pass.getText()))pass.setForeground(Color.BLACK);
+        else pass.setForeground(Color.red);
+        refresh();
     }//GEN-LAST:event_repassKeyReleased
 
     private void nmKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nmKeyReleased
         refresh();
     }//GEN-LAST:event_nmKeyReleased
 
-    private void almt1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_almt1KeyReleased
+    private void almtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_almtKeyReleased
         refresh();
-    }//GEN-LAST:event_almt1KeyReleased
-
-    private void almt2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_almt2KeyReleased
-        refresh();
-    }//GEN-LAST:event_almt2KeyReleased
-
-    private void almt3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_almt3KeyReleased
-        refresh();
-    }//GEN-LAST:event_almt3KeyReleased
+    }//GEN-LAST:event_almtKeyReleased
 
     private void jnsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jnsKeyReleased
         refresh();
@@ -264,20 +234,15 @@ private util.Db d;
 
     private void sActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sActionPerformed
     try {
-        new entity.dao.DAOSuplier(d).insert(new entity.Suplier(id.getText(), pass.getText(), nm.getText(), almt1.getText()+" "+almt2.getText()+" "+
-                almt3.getText(), jns.getText(), tlp.getText()));
-        new ui.Dash(d).setVisible(true);
+        new entity.dao.DAOSuplier(d).insert(new entity.Suplier(id.getText(), pass.getText(), nm.getText(), almt.getText(), jns.getText(), tlp.getText()));
         this.setVisible(false);
     } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(rootPane, ex.getMessage());
         util.Db.hindar(ex);
     }
     }//GEN-LAST:event_sActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField almt1;
-    private javax.swing.JTextField almt2;
-    private javax.swing.JTextField almt3;
+    private javax.swing.JTextArea almt;
     private javax.swing.JTextField id;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -286,6 +251,7 @@ private util.Db d;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jns;
     private javax.swing.JTextField nm;
     private javax.swing.JPasswordField pass;
@@ -295,7 +261,7 @@ private util.Db d;
     // End of variables declaration//GEN-END:variables
 
     private void refresh() {
-        s.setEnabled(Color.BLACK==id.getForeground()&&Color.BLACK==pass.getForeground()&&!id.getText().isEmpty()&&!pass.getText().isEmpty()&&!nm.getText().isEmpty()&&
-        (!almt1.getText().isEmpty()||!almt2.getText().isEmpty()||!almt3.getText().isEmpty())&&!jns.getText().isEmpty()&&!tlp.getText().isEmpty());
+        s.setEnabled(Color.BLACK==id.getForeground()&&!id.getText().isEmpty()&&!almt.getText().isEmpty()&&!jns.getText().isEmpty()&&!nm.getText().isEmpty()&&
+        Color.BLACK==pass.getForeground()&&!pass.getText().isEmpty()&&!tlp.getText().isEmpty());
     }
 }

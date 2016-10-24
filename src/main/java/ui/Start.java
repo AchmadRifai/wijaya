@@ -89,6 +89,7 @@ public class Start extends javax.swing.JFrame {
             }
         });
 
+        s.setIcon(new javax.swing.ImageIcon(getClass().getResource("/wijaya/briefcase-with-tick-inside.png"))); // NOI18N
         s.setText("SAVE and Connect");
         s.setEnabled(false);
         s.addActionListener(new java.awt.event.ActionListener() {

@@ -147,6 +147,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="s">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/wijaya/briefcase-with-tick-inside.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="SAVE and Connect"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>

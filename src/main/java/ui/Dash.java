@@ -150,7 +150,7 @@ private entity.Jual sj;
         });
         jToolBar2.add(btnMemasok);
 
-        jTabbedPane1.addTab("BARANG", jToolBar2);
+        jTabbedPane1.addTab("BARANG", new javax.swing.ImageIcon(getClass().getResource("/wijaya/ikon-barang-tab.png")), jToolBar2); // NOI18N
 
         jToolBar3.setRollover(true);
 
@@ -165,7 +165,7 @@ private entity.Jual sj;
         });
         jToolBar3.add(jButton2);
 
-        jTabbedPane1.addTab("SUPLIER", jToolBar3);
+        jTabbedPane1.addTab("SUPLIER", new javax.swing.ImageIcon(getClass().getResource("/wijaya/ikon-supplier-tab.png")), jToolBar3); // NOI18N
 
         jToolBar4.setRollover(true);
 
@@ -193,7 +193,7 @@ private entity.Jual sj;
         });
         jToolBar4.add(ldPenj);
 
-        jTabbedPane1.addTab("PENJUALAN", jToolBar4);
+        jTabbedPane1.addTab("PENJUALAN", new javax.swing.ImageIcon(getClass().getResource("/wijaya/ikon-penjualan-tab.png")), jToolBar4); // NOI18N
 
         tblBarang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -452,16 +452,7 @@ private entity.Jual sj;
     }//GEN-LAST:event_tblJualMouseClicked
 
     private void pb2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pb2ActionPerformed
-        if(!sp.isBlocked())try {
-            int i=getTransNow();
-            entity.Jual j=new entity.Jual(sp.getKode(), i);
-            new entity.dao.DAOJual(d).insert(j);
-            new ui.operation.jual.Add(d, j).setVisible(true);
-            this.setVisible(false);
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-            util.Db.hindar(ex);
-        }else JOptionPane.showMessageDialog(rootPane, "Pelanggan ini dicekal");
+        //
     }//GEN-LAST:event_pb2ActionPerformed
 
     private void pb1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pb1ActionPerformed
@@ -482,18 +473,23 @@ private entity.Jual sj;
     }//GEN-LAST:event_tblPelangganMouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        new ui.operation.suplier.Add(d).setVisible(true);
-        this.setVisible(false);
+        new ui.dial.suplier.TambahSup(this, rootPaneCheckingEnabled, d).setVisible(true);try {
+        suplier();
+    } catch (SQLException ex) {
+        util.Db.hindar(ex);
+    }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        new ui.operation.barang.Add(d).setVisible(true);
-        this.setVisible(false);
+        new ui.dial.suplier.LoginSup(this, rootPaneCheckingEnabled, d, "tambah").setVisible(true);try {
+        suplier();
+    } catch (SQLException ex) {
+        util.Db.hindar(ex);
+    }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void ldPenjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ldPenjActionPerformed
-        new ui.operation.jual.LaporanJual(d, sj).setVisible(true);
-        this.setVisible(false);
+        //
     }//GEN-LAST:event_ldPenjActionPerformed
 
     private void tblSuplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSuplierMouseClicked
@@ -508,8 +504,7 @@ private entity.Jual sj;
     }//GEN-LAST:event_tblSuplierMouseClicked
 
     private void btnMemasokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMemasokActionPerformed
-        new ui.operation.suplier.Login(d, "memasok").setVisible(true);
-        this.setVisible(false);
+        //
     }//GEN-LAST:event_btnMemasokActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -559,7 +554,7 @@ private entity.Jual sj;
         javax.swing.table.DefaultTableModel m=(javax.swing.table.DefaultTableModel) tblSuplier.getModel();
         for(int x=m.getRowCount()-1;x>=0;x--)m.removeRow(x);
         for(entity.Suplier s:new entity.dao.DAOSuplier(d).getDatae())
-            m.addRow(new Object[]{s.getId(),s.getNm(),s.getAlmt(),s.getTlp(),s.getJns(),s.isBlocked()});
+            m.addRow(new Object[]{s.getId(),s.getNm(),s.getAlmt(),s.getJns(),s.isBlocked()});
     }
 
     private void jual() throws SQLException {
