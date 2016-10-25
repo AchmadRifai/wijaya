@@ -70,6 +70,8 @@ private entity.Jual sj;
         btnMemasok = new javax.swing.JButton();
         jToolBar3 = new javax.swing.JToolBar();
         jButton2 = new javax.swing.JButton();
+        hs = new javax.swing.JButton();
+        rds = new javax.swing.JButton();
         jToolBar4 = new javax.swing.JToolBar();
         pb1 = new javax.swing.JButton();
         ldPenj = new javax.swing.JButton();
@@ -85,6 +87,7 @@ private entity.Jual sj;
         tblJual = new javax.swing.JTable();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblPelanggan = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
@@ -101,7 +104,8 @@ private entity.Jual sj;
 
         jToolBar1.setRollover(true);
 
-        jButton1.setText("EXIT");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/wijaya/power.png"))); // NOI18N
+        jButton1.setToolTipText("MENUTUP APLIKASI");
         jButton1.setFocusable(false);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -128,7 +132,8 @@ private entity.Jual sj;
 
         jToolBar2.setRollover(true);
 
-        jButton3.setText("TAMBAH");
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/wijaya/plus.png"))); // NOI18N
+        jButton3.setToolTipText("Mendata Barang Baru");
         jButton3.setFocusable(false);
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -139,7 +144,8 @@ private entity.Jual sj;
         });
         jToolBar2.add(jButton3);
 
-        btnMemasok.setText("DISUPLAY");
+        btnMemasok.setIcon(new javax.swing.ImageIcon(getClass().getResource("/wijaya/truck-4.png"))); // NOI18N
+        btnMemasok.setToolTipText("MENDATA BARANG MASUK");
         btnMemasok.setFocusable(false);
         btnMemasok.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnMemasok.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -154,7 +160,8 @@ private entity.Jual sj;
 
         jToolBar3.setRollover(true);
 
-        jButton2.setText("TAMBAH PEMASOK");
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/wijaya/add-user-button_1.png"))); // NOI18N
+        jButton2.setToolTipText("TAMBAH PEMASOK");
         jButton2.setFocusable(false);
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -164,6 +171,32 @@ private entity.Jual sj;
             }
         });
         jToolBar3.add(jButton2);
+
+        hs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/wijaya/backspace-arrow.png"))); // NOI18N
+        hs.setToolTipText("HAPUS PEMASOK");
+        hs.setEnabled(false);
+        hs.setFocusable(false);
+        hs.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        hs.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        hs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hsActionPerformed(evt);
+            }
+        });
+        jToolBar3.add(hs);
+
+        rds.setIcon(new javax.swing.ImageIcon(getClass().getResource("/wijaya/create-new-pencil-button.png"))); // NOI18N
+        rds.setToolTipText("RALAT DATA PEMASOK");
+        rds.setEnabled(false);
+        rds.setFocusable(false);
+        rds.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        rds.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        rds.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdsActionPerformed(evt);
+            }
+        });
+        jToolBar3.add(rds);
 
         jTabbedPane1.addTab("SUPLIER", new javax.swing.ImageIcon(getClass().getResource("/wijaya/ikon-supplier-tab.png")), jToolBar3); // NOI18N
 
@@ -320,7 +353,7 @@ private entity.Jual sj;
                     .addComponent(jLabel1)
                     .addComponent(tglJual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("PENJUALAN", new javax.swing.ImageIcon(getClass().getResource("/wijaya/ikon-penjualan-tab.png")), jPanel1);
@@ -357,6 +390,19 @@ private entity.Jual sj;
 
         jTabbedPane2.addTab("PELANGGAN", new javax.swing.ImageIcon(getClass().getResource("/wijaya/ikon-pelanggan-tab.png")), jScrollPane4);
 
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 783, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 439, Short.MAX_VALUE)
+        );
+
+        jTabbedPane2.addTab("PASOKAN BARANG", new javax.swing.ImageIcon(getClass().getResource("/wijaya/list.png")), jPanel2); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -374,7 +420,7 @@ private entity.Jual sj;
                 .addContainerGap()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE))
+                .addComponent(jTabbedPane2))
         );
 
         pack();
@@ -481,8 +527,8 @@ private entity.Jual sj;
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        new ui.dial.suplier.LoginSup(this, rootPaneCheckingEnabled, d, "tambah").setVisible(true);try {
-        suplier();
+        new ui.dial.barang.Tambah(this, rootPaneCheckingEnabled, d).setVisible(true);try {
+        barang();
     } catch (SQLException ex) {
         util.Db.hindar(ex);
     }
@@ -497,6 +543,8 @@ private entity.Jual sj;
         boolean b=tblSuplier.isRowSelected(s);
         if(b)try {
             ss=new entity.Suplier(""+tblSuplier.getValueAt(s, 0), d);
+            hs.setEnabled(b);
+            rds.setEnabled(b);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage());
             util.Db.hindar(ex);
@@ -507,13 +555,33 @@ private entity.Jual sj;
         //
     }//GEN-LAST:event_btnMemasokActionPerformed
 
+    private void hsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hsActionPerformed
+        int x=JOptionPane.showConfirmDialog(rootPane, "Apa anda ingin menghapus data suplier ini?", "HAPUS?", JOptionPane.YES_NO_OPTION);
+        if(x==JOptionPane.YES_OPTION)try {
+            new entity.dao.DAOSuplier(d).delete(ss);
+            suplier();
+        } catch (SQLException ex) {
+            util.Db.hindar(ex);
+        }
+    }//GEN-LAST:event_hsActionPerformed
+
+    private void rdsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdsActionPerformed
+    new ui.dial.suplier.EditSup(this, rootPaneCheckingEnabled, d, ss).setVisible(true);try {
+        suplier();
+    } catch (SQLException ex) {
+        util.Db.hindar(ex);
+    }
+    }//GEN-LAST:event_rdsActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMemasok;
+    private javax.swing.JButton hs;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -527,6 +595,7 @@ private entity.Jual sj;
     private javax.swing.JButton ldPenj;
     private javax.swing.JButton pb1;
     private javax.swing.JButton pb2;
+    private javax.swing.JButton rds;
     private javax.swing.JTable tblBarang;
     private javax.swing.JTable tblJual;
     private javax.swing.JTable tblPelanggan;

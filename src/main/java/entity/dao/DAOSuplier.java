@@ -24,7 +24,6 @@ public class DAOSuplier implements DAO<Suplier>{
     public void createTable() throws SQLException {
         d.masuk("create table suplier("
                 + "id varchar(20)primary key,"
-                + "pass varchar(20)not null,"
                 + "nm varchar(40)not null,"
                 + "almt text not null,"
                 + "jns varchar(10)not null,"
@@ -37,16 +36,14 @@ public class DAOSuplier implements DAO<Suplier>{
 
     @Override
     public void insert(Suplier v) throws SQLException {
-        java.sql.PreparedStatement ps=d.getPS("insert into suplier values(?,?,?,?,?,?,?,?,?)");
+        java.sql.PreparedStatement ps=d.getPS("insert into suplier values(?,?,?,?,?,?,?)");
         ps.setString(1, v.getId());
-        ps.setString(2, v.getPass());
-        ps.setString(3, v.getNm());
-        ps.setString(4, v.getAlmt());
-        ps.setString(5, v.getJns());
-        ps.setString(6, v.getTlp());
-        ps.setBoolean(7, v.isDeleted());
-        ps.setBoolean(8, v.isBlocked());
-        ps.setBoolean(9, v.isLogon());
+        ps.setString(2, v.getNm());
+        ps.setString(3, v.getAlmt());
+        ps.setString(4, v.getJns());
+        ps.setString(5, v.getTlp());
+        ps.setBoolean(6, v.isDeleted());
+        ps.setBoolean(7, v.isBlocked());
         ps.execute();
         ps.close();
     }
@@ -62,15 +59,13 @@ public class DAOSuplier implements DAO<Suplier>{
 
     @Override
     public void update(Suplier a, Suplier b) throws SQLException {
-        java.sql.PreparedStatement ps=d.getPS("update suplier set pass=?,nm=?,almt=?,jns=?,tlp=?,blocked=?,logon=? where id=?");
-        ps.setString(1, b.getPass());
-        ps.setString(2, b.getNm());
-        ps.setString(3, b.getAlmt());
-        ps.setString(4, b.getJns());
-        ps.setString(5, b.getTlp());
-        ps.setBoolean(6, b.isBlocked());
-        ps.setBoolean(7, b.isLogon());
-        ps.setString(8, a.getId());
+        java.sql.PreparedStatement ps=d.getPS("update suplier set nm=?,almt=?,jns=?,tlp=?,blocked=? where id=?");
+        ps.setString(1, b.getNm());
+        ps.setString(2, b.getAlmt());
+        ps.setString(3, b.getJns());
+        ps.setString(4, b.getTlp());
+        ps.setBoolean(5, b.isBlocked());
+        ps.setString(6, a.getId());
         ps.execute();
         ps.close();
     }

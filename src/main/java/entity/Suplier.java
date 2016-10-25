@@ -12,7 +12,7 @@ import java.sql.SQLException;
  * @author ai
  */
 public class Suplier {
-    private String id,pass,nm,almt,jns,tlp;
+    private String id,nm,almt,jns,tlp;
     private boolean deleted,blocked,logon;
 
     public Suplier(String id,util.Db d) throws SQLException {
@@ -21,28 +21,24 @@ public class Suplier {
         ps.setString(1, id);
         java.sql.ResultSet rs=ps.executeQuery();
         if(rs.next()){
-            pass=rs.getString("pass");
             nm=rs.getString("nm");
             almt=rs.getString("almt");
             jns=rs.getString("jns");
             tlp=rs.getString("tlp");
             deleted=rs.getBoolean("deleted");
             blocked=rs.getBoolean("blocked");
-            logon=rs.getBoolean("logon");
         }rs.close();
         ps.close();
     }
 
-    public Suplier(String id, String pass, String nm, String almt, String jns, String tlp) {
+    public Suplier(String id,  String nm, String almt, String jns, String tlp) {
         this.id = id;
-        this.pass = pass;
         this.nm = nm;
         this.almt = almt;
         this.jns = jns;
         this.tlp = tlp;
         deleted=false;
         blocked=false;
-        logon=false;
     }
 
     public String getId() {
@@ -51,14 +47,6 @@ public class Suplier {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getPass() {
-        return pass;
-    }
-
-    public void setPass(String pass) {
-        this.pass = pass;
     }
 
     public String getNm() {
@@ -107,13 +95,5 @@ public class Suplier {
 
     public void setBlocked(boolean blocked) {
         this.blocked = blocked;
-    }
-
-    public boolean isLogon() {
-        return logon;
-    }
-
-    public void setLogon(boolean logon) {
-        this.logon = logon;
     }
 }
