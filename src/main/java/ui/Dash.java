@@ -547,7 +547,16 @@ private entity.Jual sj;
     }//GEN-LAST:event_tblJualMouseClicked
 
     private void pb2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pb2ActionPerformed
-        //
+    try {
+        int i=getTransNow();
+        entity.Jual j=new entity.Jual(sp.getKode(), i);
+        new entity.dao.DAOJual(d).insert(j);
+        new ui.dial.jual.Add(this, rootPaneCheckingEnabled, d, j).setVisible(true);
+        jual();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        util.Db.hindar(ex);
+    }
     }//GEN-LAST:event_pb2ActionPerformed
 
     private void pb1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pb1ActionPerformed
@@ -699,6 +708,8 @@ private entity.Jual sj;
         java.sql.ResultSet rs=d.keluar("select distinct tgl from jual");
         while(rs.next())tglJual.addItem(rs.getString("tgl"));
         rs.close();
+        javax.swing.table.DefaultTableModel m=(javax.swing.table.DefaultTableModel) tblJual.getModel();
+        for(int x=m.getRowCount()-1;x>=0;x--)m.removeRow(x);
     }
 
     private void jualTbl() throws SQLException {
