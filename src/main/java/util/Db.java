@@ -23,7 +23,7 @@ public class Db {
             ex.printStackTrace(o);
             o.close();
         } catch (FileNotFoundException ex1) {
-            Db.hindar(ex1);
+            ex1.printStackTrace();
         }
     }
 

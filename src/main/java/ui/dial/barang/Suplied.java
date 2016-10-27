@@ -173,6 +173,11 @@ private util.Db d;
         if("Pilih Satu :"!=sup.getItemAt(sup.getSelectedIndex()))try {
             entity.Suplier s=new entity.Suplier(sup.getItemAt(sup.getSelectedIndex()), d);
             sup.setToolTipText(s.getNm());
+            if(s.isBlocked()){
+                JOptionPane.showMessageDialog(rootPane, "Penyuplai ini dicekal!");
+                sup.setSelectedIndex(0);
+                return;
+            }
         } catch (SQLException ex) {
             util.Db.hindar(ex);
         }else sup.setToolTipText("");
