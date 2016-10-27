@@ -198,8 +198,8 @@ private entity.Jual j;
     private String terdapat() {
         String s="''";
         for(int x=0;x<selled.getRowCount();x++){
-            s+="'"+selled.getValueAt(x, 0)+"'";
             if(x<selled.getRowCount()-1)s+=",";
+            s+="'"+selled.getValueAt(x, 0)+"'";
         }return s;
     }
 }
