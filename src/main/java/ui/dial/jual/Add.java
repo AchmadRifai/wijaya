@@ -56,6 +56,11 @@ private entity.Jual j;
         barange.setVisible(true);
 
         brg.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Satu :" }));
+        brg.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                brgItemStateChanged(evt);
+            }
+        });
 
         nmBrg.setText("Nama BRG : ???");
 
@@ -87,7 +92,7 @@ private entity.Jual j;
                 .addGroup(barangeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(hrgBrg)
                     .addComponent(jum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         selled.setModel(new javax.swing.table.DefaultTableModel(
@@ -149,6 +154,16 @@ private entity.Jual j;
         this.setTitle("PENJUALAN FAKTUR "+j.getNota());
         muat();
     }//GEN-LAST:event_formWindowOpened
+
+    private void brgItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_brgItemStateChanged
+    if(0<brg.getSelectedIndex())try {
+        entity.Barang b=new entity.Barang(brg.getItemAt(brg.getSelectedIndex()), d);
+        hrgBrg.setText("Harga Satuan : "+b.getHrg());
+        nmBrg.setText("Nama BRG : "+b.getNm());
+    } catch (SQLException ex) {
+        util.Db.hindar(ex);
+    }
+    }//GEN-LAST:event_brgItemStateChanged
 
     private void hapus() {
     try {
