@@ -5,8 +5,10 @@
  */
 package ui.dial.jual;
 
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import org.joda.money.CurrencyUnit;
 
 /**
  *
@@ -34,15 +36,22 @@ private entity.Jual j;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        barange = new javax.swing.JInternalFrame();
-        brg = new javax.swing.JComboBox<>();
-        nmBrg = new javax.swing.JLabel();
-        hrgBrg = new javax.swing.JLabel();
-        jum = new javax.swing.JSpinner();
         jScrollPane1 = new javax.swing.JScrollPane();
-        selled = new javax.swing.JTable();
+        item = new javax.swing.JDesktopPane();
+        jLabel1 = new javax.swing.JLabel();
+        total = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        bayar = new javax.swing.JFormattedTextField();
+        jLabel3 = new javax.swing.JLabel();
+        kembali = new javax.swing.JTextField();
+        l = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                formMouseMoved(evt);
+            }
+        });
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -52,93 +61,75 @@ private entity.Jual j;
             }
         });
 
-        barange.setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/wijaya/shopping-cart.png"))); // NOI18N
-        barange.setVisible(true);
+        item.setBackground(new java.awt.Color(255, 255, 255));
+        item.setAutoscrolls(true);
+        item.setLayout(new java.awt.FlowLayout());
+        jScrollPane1.setViewportView(item);
 
-        brg.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Satu :" }));
-        brg.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                brgItemStateChanged(evt);
+        jLabel1.setText("Total Pembayaran :");
+
+        total.setEditable(false);
+        total.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+
+        jLabel2.setText("Dibayar :");
+
+        bayar.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        bayar.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        bayar.setText("0");
+        bayar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                bayarKeyReleased(evt);
             }
         });
 
-        nmBrg.setText("Nama BRG : ???");
+        jLabel3.setText("Kembalian :");
 
-        hrgBrg.setText("Harga Satuan : ???");
+        kembali.setEditable(false);
 
-        javax.swing.GroupLayout barangeLayout = new javax.swing.GroupLayout(barange.getContentPane());
-        barange.getContentPane().setLayout(barangeLayout);
-        barangeLayout.setHorizontalGroup(
-            barangeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(barangeLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(barangeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(brg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(hrgBrg))
-                .addGap(50, 50, 50)
-                .addGroup(barangeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nmBrg))
-                .addContainerGap(158, Short.MAX_VALUE))
-        );
-        barangeLayout.setVerticalGroup(
-            barangeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(barangeLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(barangeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(brg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nmBrg))
-                .addGap(18, 18, 18)
-                .addGroup(barangeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(hrgBrg)
-                    .addComponent(jum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(65, Short.MAX_VALUE))
-        );
-
-        selled.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "KODE BRG", "NAMA BRG", "HARGA SATUAN", "JUMLAH BRG"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Integer.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        selled.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(selled);
-        selled.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        l.setText("LANJUT");
+        l.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(barange, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(l, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(bayar, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+                            .addComponent(total)
+                            .addComponent(kembali))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(barange, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(bayar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(kembali, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(l)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -153,17 +144,16 @@ private entity.Jual j;
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         this.setTitle("PENJUALAN FAKTUR "+j.getNota());
         muat();
+        total.setText(""+org.joda.money.Money.of(CurrencyUnit.of("IDR"), 0));
     }//GEN-LAST:event_formWindowOpened
 
-    private void brgItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_brgItemStateChanged
-    if(0<brg.getSelectedIndex())try {
-        entity.Barang b=new entity.Barang(brg.getItemAt(brg.getSelectedIndex()), d);
-        hrgBrg.setText("Harga Satuan : "+b.getHrg());
-        nmBrg.setText("Nama BRG : "+b.getNm());
-    } catch (SQLException ex) {
-        util.Db.hindar(ex);
-    }
-    }//GEN-LAST:event_brgItemStateChanged
+    private void bayarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bayarKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bayarKeyReleased
+
+    private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
+        refreshTotal();
+    }//GEN-LAST:event_formMouseMoved
 
     private void hapus() {
     try {
@@ -176,30 +166,34 @@ private entity.Jual j;
     }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JInternalFrame barange;
-    private javax.swing.JComboBox<String> brg;
-    private javax.swing.JLabel hrgBrg;
+    private javax.swing.JFormattedTextField bayar;
+    private javax.swing.JDesktopPane item;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSpinner jum;
-    private javax.swing.JLabel nmBrg;
-    private javax.swing.JTable selled;
+    private javax.swing.JTextField kembali;
+    private javax.swing.JButton l;
+    private javax.swing.JTextField total;
     // End of variables declaration//GEN-END:variables
 
     private void muat() {
     try {
-        java.sql.ResultSet rs=d.keluar("select kode from barang where not deleted and stok>0 and kode not in("+terdapat()+")");
-        while(rs.next())brg.addItem(rs.getString("kode"));
+        java.sql.ResultSet rs=d.keluar("select kode from barang where not deleted and stok>0");
+        while(rs.next())item.add(new BrgItem(new entity.Barang(rs.getString("kode"), d),j.getNota()));
         rs.close();
     } catch (SQLException ex) {
         util.Db.hindar(ex);
     }
     }
 
-    private String terdapat() {
-        String s="''";
-        for(int x=0;x<selled.getRowCount();x++){
-            if(x<selled.getRowCount()-1)s+=",";
-            s+="'"+selled.getValueAt(x, 0)+"'";
-        }return s;
+    private void refreshTotal() {
+        org.joda.money.Money tot=org.joda.money.Money.of(CurrencyUnit.of("IDR"), 0);
+        for(javax.swing.JInternalFrame j:item.getAllFrames()){
+            ui.dial.jual.BrgItem brg=(ui.dial.jual.BrgItem) j;
+            entity.DetJual dj=brg.getDJ();
+            if(null==dj)continue;
+            tot=tot.plus(dj.getByr());
+        }total.setText(""+tot);
     }
 }

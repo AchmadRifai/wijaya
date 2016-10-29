@@ -11,10 +11,10 @@ package entity;
  */
 public class DetJual {
     private String nota,brg;
-    private int jum;
+    private float jum;
     private org.joda.money.Money byr;
 
-    public DetJual(String nota, String brg, int jum,org.joda.money.Money byr) {
+    public DetJual(String nota, String brg, float jum,org.joda.money.Money byr) {
         this.nota = nota;
         this.brg = brg;
         this.jum = jum;
@@ -37,11 +37,11 @@ public class DetJual {
         this.brg = brg;
     }
 
-    public int getJum() {
+    public float getJum() {
         return jum;
     }
 
-    public void setJum(int jum) {
+    public void setJum(float jum) {
         this.jum = jum;
     }
 
