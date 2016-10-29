@@ -5,6 +5,9 @@
  */
 package entity;
 
+import java.sql.SQLException;
+import org.joda.money.CurrencyUnit;
+
 /**
  *
  * @author ai
@@ -13,6 +16,20 @@ public class DetJual {
     private String nota,brg;
     private float jum;
     private org.joda.money.Money byr;
+
+    public DetJual(String nota, String brg,util.Db d) throws SQLException {
+        this.nota = nota;
+        this.brg = brg;
+        java.sql.PreparedStatement ps=d.getPS("select*from detjual where nota=? and brg=?");
+        ps.setString(1, nota);
+        ps.setString(2, brg);
+        java.sql.ResultSet rs=ps.executeQuery();
+        if(rs.next()){
+            jum=rs.getFloat("jum");
+            byr=org.joda.money.Money.of(CurrencyUnit.of("IDR"), rs.getLong("byr"));
+        }rs.close();
+        ps.close();
+    }
 
     public DetJual(String nota, String brg, float jum,org.joda.money.Money byr) {
         this.nota = nota;
