@@ -8,6 +8,7 @@ package ui.dial.jual;
 import java.math.RoundingMode;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import org.joda.money.CurrencyUnit;
 
 /**
  *
@@ -240,12 +241,14 @@ private entity.Jual j;
         entity.DetJual a=new entity.DetJual(j.getNota(), brg.getItemAt(brg.getSelectedIndex()), d);
         if(null==a.getByr()){
             entity.Barang bar=new entity.Barang(brg.getItemAt(brg.getSelectedIndex()), d);
-            org.joda.money.Money m=bar.getHrg().multipliedBy(Float.parseFloat(jum.getValue().toString()), RoundingMode.CEILING);
-            new entity.dao.DADetJual(d).insert(new entity.DetJual(j.getNota(), brg.getItemAt(brg.getSelectedIndex()), Float.parseFloat(jum.getValue().toString()), m));
+            double byrd=bar.getHrg().getAmount().doubleValue()*Float.parseFloat(jum.getValue().toString());
+            org.joda.money.Money m=org.joda.money.Money.of(CurrencyUnit.of("IDR"), Math.round(byrd));
+            new entity.dao.DADetJual(d).insert(new entity.DetJual(j.getNota(), bar.getKode(), Float.parseFloat(jum.getValue().toString()), m));
         }else{
             entity.Barang bar=new entity.Barang(brg.getItemAt(brg.getSelectedIndex()), d);
-            org.joda.money.Money m=bar.getHrg().multipliedBy(Float.parseFloat(jum.getValue().toString()), RoundingMode.CEILING);
-            entity.DetJual b=new entity.DetJual(j.getNota(), brg.getItemAt(brg.getSelectedIndex()), Float.parseFloat(jum.getValue().toString()), m);
+            double byrd=bar.getHrg().getAmount().doubleValue()*Float.parseFloat(jum.getValue().toString());
+            org.joda.money.Money m=org.joda.money.Money.of(CurrencyUnit.of("IDR"), Math.round(byrd));
+            entity.DetJual b=new entity.DetJual(a.getNota(), a.getNota(), Float.parseFloat(jum.getValue().toString()),m);
             new entity.dao.DADetJual(d).update(a, b);
         }refresh();
     } catch (SQLException ex) {

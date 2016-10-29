@@ -8,7 +8,6 @@ package entity.dao;
 import entity.DetJual;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import org.joda.money.CurrencyUnit;
 
 /**
  *
@@ -46,26 +45,20 @@ public class DADetJual implements DAO<DetJual>{
 
     @Override
     public void delete(DetJual w) throws SQLException {
-        java.sql.PreparedStatement ps=d.getPS("delete from detjual where nota=? and brg=? and jum=? and byr=?");
+        java.sql.PreparedStatement ps=d.getPS("delete from detjual where nota=? and brg=?");
         ps.setString(1, w.getNota());
         ps.setString(2, w.getBrg());
-        ps.setFloat(3, w.getJum());
-        ps.setLong(4, w.getByr().getAmount().longValue());
         ps.execute();
         ps.close();
     }
 
     @Override
     public void update(DetJual a, DetJual b) throws SQLException {
-        java.sql.PreparedStatement ps=d.getPS("update detjual set nota=?,pel=?,brg=?,byr=? where nota=? and brg=? and jum=? and byr=?");
-        ps.setString(1, b.getNota());
-        ps.setString(2, b.getBrg());
-        ps.setFloat(3, b.getJum());
-        ps.setLong(4, b.getByr().getAmount().longValue());
-        ps.setString(5, a.getNota());
-        ps.setString(6, a.getBrg());
-        ps.setFloat(7, a.getJum());
-        ps.setLong(8, a.getByr().getAmount().longValue());
+        java.sql.PreparedStatement ps=d.getPS("update detjual set jum=?,byr=? where nota=? and brg=?");
+        ps.setFloat(1, b.getJum());
+        ps.setLong(2, b.getByr().getAmount().longValue());
+        ps.setString(3, a.getNota());
+        ps.setString(4, a.getBrg());
         ps.execute();
         ps.close();
     }
@@ -74,8 +67,7 @@ public class DADetJual implements DAO<DetJual>{
     public ArrayList<DetJual> getDatae() throws SQLException {
         ArrayList<DetJual>a=new ArrayList<DetJual>();
         java.sql.ResultSet rs=d.keluar("select*from detjual");
-        while(rs.next())a.add(new entity.DetJual(rs.getString("nota"), rs.getString("brg"), rs.getInt("jum")
-        ,org.joda.money.Money.of(CurrencyUnit.getInstance("IDR"), rs.getLong("byr"))));
+        while(rs.next())a.add(new entity.DetJual(rs.getString("nota"), rs.getString("brg"), d));
         rs.close();
         return a;
     }
