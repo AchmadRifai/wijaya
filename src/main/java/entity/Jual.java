@@ -18,6 +18,7 @@ public class Jual {
     private java.sql.Date tgl;
     private org.joda.money.Money total;
     private boolean deleted;
+    private java.util.List<DetJual>det;
 
     public Jual(String nota,util.Db d) throws SQLException {
         this.nota = nota;
@@ -31,6 +32,7 @@ public class Jual {
             deleted=rs.getBoolean("deleted");
         }rs.close();
         ps.close();
+        detaile(d);
     }
 
     public Jual(String pel,int i) {
@@ -79,5 +81,23 @@ public class Jual {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+    private void detaile(util.Db d) throws SQLException {
+        det=new java.util.LinkedList<DetJual>();
+        java.sql.PreparedStatement ps=d.getPS("select brg from detjual where nota=?");
+        ps.setString(1, nota);
+        java.sql.ResultSet rs=ps.executeQuery();
+        while(rs.next())det.add(new entity.DetJual(nota, rs.getString("brg"), d));
+        rs.close();
+        ps.close();
+    }
+
+    public java.util.List<DetJual> getDet() {
+        return det;
+    }
+
+    public void setDet(java.util.List<DetJual> det) {
+        this.det = det;
     }
 }

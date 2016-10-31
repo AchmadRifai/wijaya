@@ -5,7 +5,7 @@
  */
 package ui.dial.jual;
 
-import java.math.RoundingMode;
+import java.awt.Color;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import org.joda.money.CurrencyUnit;
@@ -44,6 +44,13 @@ private entity.Jual j;
         satuan = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         item = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        totalBYR = new javax.swing.JTextField();
+        byr = new javax.swing.JFormattedTextField();
+        kembali = new javax.swing.JTextField();
+        cs = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -142,6 +149,35 @@ private entity.Jual j;
         });
         jScrollPane1.setViewportView(item);
 
+        jLabel1.setText("TOTAL PEMBAYARAN :");
+
+        jLabel2.setText("DIBAYAR :");
+
+        jLabel3.setText("KEMBALIAN :");
+
+        totalBYR.setEditable(false);
+        totalBYR.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+
+        byr.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        byr.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        byr.setText("0");
+        byr.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                byrKeyReleased(evt);
+            }
+        });
+
+        kembali.setEditable(false);
+        kembali.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+
+        cs.setText("LANJUTKAN");
+        cs.setEnabled(false);
+        cs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                csActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -150,7 +186,22 @@ private entity.Jual j;
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(totalBYR, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(byr, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+                            .addComponent(kembali)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cs)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -160,7 +211,21 @@ private entity.Jual j;
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(140, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(totalBYR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(byr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(kembali, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(cs)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -207,6 +272,25 @@ private entity.Jual j;
         else tokno();
     }//GEN-LAST:event_jumStateChanged
 
+@SuppressWarnings("UnusedAssignment")
+    private void byrKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_byrKeyReleased
+        if(byr.isValid()&&!byr.getText().isEmpty()){
+            long l=Long.parseLong(byr.getText());
+            try {
+                l-=getTotale();
+            } catch (SQLException ex) {
+                util.Db.hindar(ex);
+            }kembali.setText(org.joda.money.Money.of(CurrencyUnit.of("IDR"), l).toString());
+        }validasine();
+    }//GEN-LAST:event_byrKeyReleased
+
+    private void csActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_csActionPerformed
+        selesai();
+        int x=JOptionPane.showConfirmDialog(rootPane, "Apa orang ini butuh struk?", "BUTUH?", JOptionPane.YES_NO_OPTION);
+        if(x==JOptionPane.YES_OPTION)cetak();
+        this.setVisible(false);
+    }//GEN-LAST:event_csActionPerformed
+
     private void hapus() {
     try {
         java.sql.PreparedStatement ps=d.getPS("delete from jual where nota=?");
@@ -227,13 +311,20 @@ private entity.Jual j;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> brg;
+    private javax.swing.JFormattedTextField byr;
+    private javax.swing.JButton cs;
     private javax.swing.JLabel hrgBrg;
     private javax.swing.JTable item;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jum;
+    private javax.swing.JTextField kembali;
     private javax.swing.JLabel nmBrg;
     private javax.swing.JLabel satuan;
+    private javax.swing.JTextField totalBYR;
     // End of variables declaration//GEN-END:variables
 
     private void masuk() {
@@ -278,6 +369,50 @@ private entity.Jual j;
             m.addRow(new Object[]{b.getKode(),b.getNm(),b.getSatuan(),dj.getJum(),b.getHrg(),dj.getByr()});
         }rs.close();
         ps.close();
+        totalan();
+    }
+
+    private void totalan() throws SQLException {
+        org.joda.money.Money m=org.joda.money.Money.of(CurrencyUnit.of("IDR"), getTotale());
+        totalBYR.setText(m.toString());
+        this.byrKeyReleased(null);
+    }
+
+    private void validasine() {
+        org.joda.money.Money m=org.joda.money.Money.parse(kembali.getText());
+        if(0<=m.getAmount().longValue())kembali.setForeground(Color.BLACK);
+        else kembali.setForeground(Color.red);
+        cs.setEnabled(Color.BLACK==kembali.getForeground());
+    }
+
+    private long getTotale() throws SQLException {
+        long l=0;
+        java.sql.PreparedStatement ps=d.getPS("select byr from detjual where nota=?");
+        ps.setString(1, j.getNota());
+        java.sql.ResultSet rs=ps.executeQuery();
+        while(rs.next())l+=rs.getLong("byr");
+        rs.close();
+        ps.close();
+        return l;
+    }
+
+    private void selesai() {
+    try {
+        entity.Jual b=new entity.Jual(j.getNota(), d);
+        b.setTotal(org.joda.money.Money.parse(totalBYR.getText()));
+        new entity.dao.DAOJual(d).update(j, b);
+        for(entity.DetJual dj:b.getDet()){
+            entity.Barang b1=new entity.Barang(dj.getBrg(), d),b2=new entity.Barang(dj.getBrg(), d);
+            b2.setStok(b1.getStok()-dj.getJum());
+            new entity.dao.DAOBarang(d).update(b1, b2);
+        }
+    } catch (SQLException ex) {
+        util.Db.hindar(ex);
+    }
+    }
+
+    private void cetak() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
