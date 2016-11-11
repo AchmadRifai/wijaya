@@ -6,6 +6,7 @@
 package util;
 
 import java.awt.AWTException;
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.sql.SQLException;
@@ -99,10 +100,13 @@ public class Work {
     }
 
     private static java.awt.Image getIcon() {
-        return new javax.swing.ImageIcon(Work.class.getResource("/wijaya/ikonwin.png")).getImage();
+        return new javax.swing.ImageIcon(Work.class.getResource("/wijaya/ikonwin.gif")).getImage();
     }
 
     private static void fillPopup(java.awt.PopupMenu p) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        java.awt.MenuItem exit=new java.awt.MenuItem("EXIT");
+        exit.addActionListener((ActionEvent e) -> {
+            System.exit(0);
+        });p.add(exit);
     }
 }
