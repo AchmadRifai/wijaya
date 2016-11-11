@@ -65,6 +65,7 @@ private entity.Jual sj;
         jToolBar1 = new javax.swing.JToolBar();
         jButton1 = new javax.swing.JButton();
         pb2 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         jToolBar2 = new javax.swing.JToolBar();
         jButton3 = new javax.swing.JButton();
         btnMemasok = new javax.swing.JButton();
@@ -93,14 +94,11 @@ private entity.Jual sj;
         jScrollPane5 = new javax.swing.JScrollPane();
         tblMemasok = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
         setIconImage(new javax.swing.ImageIcon(getClass().getResource("/wijaya/ikonwin.png")).getImage());
         setIconImages(getIconImages());
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
@@ -131,6 +129,17 @@ private entity.Jual sj;
             }
         });
         jToolBar1.add(pb2);
+
+        jButton4.setText("STATISTIK PENJUALAN HARI INI");
+        jButton4.setFocusable(false);
+        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButton4);
 
         jTabbedPane1.addTab("HOME", new javax.swing.ImageIcon(getClass().getResource("/wijaya/ikon-home-tab.png")), jToolBar1);
 
@@ -476,18 +485,14 @@ private entity.Jual sj;
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-    try {
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
         d.close();
         System.exit(0);
     } catch (SQLException ex) {
         util.Db.hindar(ex);
         System.exit(0);
     }
-    }//GEN-LAST:event_formWindowClosing
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.formWindowClosing(null);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void tblBarangMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBarangMouseEntered
@@ -644,12 +649,17 @@ private entity.Jual sj;
         }
     }//GEN-LAST:event_tglMemasokItemStateChanged
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMemasok;
     private javax.swing.JButton hs;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

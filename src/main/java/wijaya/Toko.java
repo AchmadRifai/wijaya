@@ -5,6 +5,7 @@
  */
 package wijaya;
 
+import java.awt.AWTException;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.sql.SQLException;
@@ -31,8 +32,10 @@ public class Toko {
                 java.io.File f=new java.io.File(System.getProperty("user.home")+"/.wijaya/conn/");
                 if(!f.exists())new ui.Start().setVisible(true);
                 else try {
-                    new ui.Dash(util.Work.currentDB()).setVisible(true);
-                } catch (GeneralSecurityException | IOException | ClassNotFoundException | SQLException ex) {
+                    ui.Dash d=new ui.Dash(util.Work.currentDB());
+                    d.setVisible(true);
+                    util.Work.startTray();
+                } catch (GeneralSecurityException | IOException | ClassNotFoundException | SQLException | AWTException ex) {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                     util.Db.hindar(ex);
                 }

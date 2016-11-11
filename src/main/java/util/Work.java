@@ -5,6 +5,7 @@
  */
 package util;
 
+import java.awt.AWTException;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.sql.SQLException;
@@ -85,5 +86,23 @@ public class Work {
             if(f.isDirectory())dleDir(f.getAbsolutePath());
             else f.delete();
         }d.delete();
+    }
+
+    public static void startTray() throws AWTException {
+        if(java.awt.SystemTray.isSupported()){
+            java.awt.TrayIcon t=new java.awt.TrayIcon(getIcon());
+            java.awt.SystemTray.getSystemTray().add(t);
+            java.awt.PopupMenu p=new java.awt.PopupMenu("Wijaya");
+            t.setPopupMenu(p);
+            fillPopup(p);
+        }else javax.swing.JOptionPane.showMessageDialog(null, "Sistem Tray tidak didukung!");
+    }
+
+    private static java.awt.Image getIcon() {
+        return new javax.swing.ImageIcon(Work.class.getResource("/wijaya/ikonwin.png")).getImage();
+    }
+
+    private static void fillPopup(java.awt.PopupMenu p) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
