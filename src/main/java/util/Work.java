@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 /**
  *
@@ -89,7 +90,7 @@ public class Work {
         }d.delete();
     }
 
-    public static void startTray() throws AWTException {
+    public static void startTray() throws AWTException, GeneralSecurityException, IOException, ClassNotFoundException, SQLException {
         if(java.awt.SystemTray.isSupported()){
             java.awt.TrayIcon t=new java.awt.TrayIcon(getIcon());
             java.awt.SystemTray.getSystemTray().add(t);
@@ -103,10 +104,64 @@ public class Work {
         return new javax.swing.ImageIcon(Work.class.getResource("/wijaya/ikonwin.gif")).getImage();
     }
 
-    private static void fillPopup(java.awt.PopupMenu p) {
-        java.awt.MenuItem exit=new java.awt.MenuItem("EXIT");
+    private static void fillPopup(java.awt.PopupMenu p) throws GeneralSecurityException, IOException, ClassNotFoundException, SQLException {
+        java.awt.MenuItem exit=new java.awt.MenuItem("EXIT"),show=new java.awt.MenuItem("Tayangkan Dashboard");
+        show.addActionListener((ActionEvent e)->{
+            try {
+                new ui.Dash(currentDB()).setVisible(true);
+            } catch (GeneralSecurityException | IOException | ClassNotFoundException | SQLException ex) {
+                java.awt.TrayIcon t=(java.awt.TrayIcon) p.getParent();
+                    t.displayMessage("SQL Error", ex.getMessage(), java.awt.TrayIcon.MessageType.ERROR);
+                    util.Db.hindar(ex);
+            }
+        });p.add(show);
+        java.awt.Menu trans=new java.awt.Menu("Transaksi Baru");
+        initTrans(trans);
+        p.add(trans);
+        p.addSeparator();
         exit.addActionListener((ActionEvent e) -> {
             System.exit(0);
         });p.add(exit);
+    }
+
+    private static void newTrans(String p) throws GeneralSecurityException, IOException, ClassNotFoundException, SQLException {
+        Db d=Work.currentDB();
+        int i=getTransNow(d);
+        entity.Jual j=new entity.Jual(p, i);
+        new entity.dao.DAOJual(d).insert(j);
+        ui.dial.jual.Add a=new ui.dial.jual.Add(null, true, d, j);
+        a.setVisible(true);
+        while(a.isVisible()){}
+        d.close();
+    }
+
+    private static void initTrans(java.awt.Menu trans) throws GeneralSecurityException, IOException, ClassNotFoundException, SQLException {
+        Db d=currentDB();
+        for(entity.Pelanggan p:new entity.dao.DAOPelanggan(d).getDatae()){
+            java.awt.MenuItem i=new java.awt.MenuItem(p.getKode());
+            i.addActionListener((ActionEvent e)->{
+                try {
+                    i.setEnabled(false);
+                    newTrans(i.getLabel());
+                    i.setEnabled(true);
+                } catch (GeneralSecurityException | IOException | ClassNotFoundException | SQLException ex) {
+                    java.awt.PopupMenu po=(java.awt.PopupMenu) trans.getParent();
+                    java.awt.TrayIcon t=(java.awt.TrayIcon) po.getParent();
+                    t.displayMessage("SQL Error", ex.getMessage(), java.awt.TrayIcon.MessageType.ERROR);
+                    util.Db.hindar(ex);
+                }
+            });trans.add(i);
+        }d.close();
+    }
+
+    private static int getTransNow(Db d) throws SQLException {
+        int i=0;
+        java.sql.PreparedStatement ps=d.getPS("select count(nota)as jum from jual where tgl=?");
+        ps.setDate(1, java.sql.Date.valueOf(LocalDate.now()));
+        java.sql.ResultSet rs=ps.executeQuery();
+        if(rs.next())i=1+rs.getInt("jum");
+        rs.close();
+        ps.close();
+        return i;
     }
 }
