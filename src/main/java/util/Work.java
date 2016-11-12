@@ -116,7 +116,17 @@ public class Work {
             }
         });p.add(show);
         java.awt.Menu trans=new java.awt.Menu("Transaksi Baru");
-        initTrans(trans);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(true)try {
+                    initTrans(trans);
+                    Thread.sleep(5000);
+                } catch (GeneralSecurityException | IOException | ClassNotFoundException | SQLException | InterruptedException ex) {
+                    util.Db.hindar(ex);
+                }
+            }
+        }).start();
         p.add(trans);
         p.addSeparator();
         exit.addActionListener((ActionEvent e) -> {
@@ -127,16 +137,18 @@ public class Work {
     private static void newTrans(String p) throws GeneralSecurityException, IOException, ClassNotFoundException, SQLException {
         Db d=Work.currentDB();
         int i=getTransNow(d);
+        ui.Dash dai=new ui.Dash(d);
         entity.Jual j=new entity.Jual(p, i);
         new entity.dao.DAOJual(d).insert(j);
-        ui.dial.jual.Add a=new ui.dial.jual.Add(null, true, d, j);
+        ui.dial.jual.Add a=new ui.dial.jual.Add(dai, true, d, j);
         a.setVisible(true);
         while(a.isVisible()){}
         d.close();
     }
 
-    private static void initTrans(java.awt.Menu trans) throws GeneralSecurityException, IOException, ClassNotFoundException, SQLException {
+    private static void initTrans(java.awt.Menu trans) throws GeneralSecurityException, IOException, ClassNotFoundException, SQLException, InterruptedException {
         Db d=currentDB();
+        trans.removeAll();
         for(entity.Pelanggan p:new entity.dao.DAOPelanggan(d).getDatae()){
             java.awt.MenuItem i=new java.awt.MenuItem(p.getKode());
             i.addActionListener((ActionEvent e)->{

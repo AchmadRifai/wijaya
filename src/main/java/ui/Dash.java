@@ -39,7 +39,7 @@ import org.joda.money.CurrencyUnit;
  * @author ai
  */
 public class Dash extends javax.swing.JFrame {
-private util.Db d;
+public util.Db d;
 private entity.Barang sb;
 private entity.Suplier ss;
 private entity.Pelanggan sp;
@@ -99,6 +99,9 @@ private entity.Jual sj;
         setIconImage(new javax.swing.ImageIcon(getClass().getResource("/wijaya/ikonwin.png")).getImage());
         setIconImages(getIconImages());
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
@@ -652,6 +655,14 @@ private entity.Jual sj;
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+    try {
+        d.close();
+    } catch (SQLException ex) {
+        util.Db.hindar(ex);
+    }
+    }//GEN-LAST:event_formWindowClosing
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMemasok;
