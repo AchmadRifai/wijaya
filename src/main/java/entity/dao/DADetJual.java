@@ -26,7 +26,7 @@ public class DADetJual implements DAO<DetJual>{
                 + "nota varchar(37)not null,"
                 + "brg varchar(25)not null,"
                 + "jum float not null,"
-                + "byr bigint not null"
+                + "byr text not null"
                 + ")");
         d.masuk("alter table detjual add foreign key(nota)references jual(nota)on update cascade on delete cascade");
         d.masuk("alter table detjual add foreign key(brg)references barang(kode)on update cascade on delete cascade");
@@ -38,7 +38,7 @@ public class DADetJual implements DAO<DetJual>{
         ps.setString(1, v.getNota());
         ps.setString(2, v.getBrg());
         ps.setFloat(3, v.getJum());
-        ps.setLong(4, v.getByr().getAmount().longValue());
+        ps.setString(4, v.getByr().toString());
         ps.execute();
         ps.close();
     }
@@ -56,7 +56,7 @@ public class DADetJual implements DAO<DetJual>{
     public void update(DetJual a, DetJual b) throws SQLException {
         java.sql.PreparedStatement ps=d.getPS("update detjual set jum=?,byr=? where nota=? and brg=?");
         ps.setFloat(1, b.getJum());
-        ps.setLong(2, b.getByr().getAmount().longValue());
+        ps.setString(2, b.getByr().toString());
         ps.setString(3, a.getNota());
         ps.setString(4, a.getBrg());
         ps.execute();

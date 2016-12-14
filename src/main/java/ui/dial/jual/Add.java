@@ -412,7 +412,7 @@ private entity.Jual j;
     }
 
     private void cetak() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
 }

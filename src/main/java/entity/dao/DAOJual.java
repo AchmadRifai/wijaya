@@ -26,7 +26,7 @@ public class DAOJual implements DAO<entity.Jual>{
                 + "nota varchar(37)primary key,"
                 + "pel varchar(25)not null,"
                 + "tgl date not null,"
-                + "total bigint not null,"
+                + "total text not null,"
                 + "deleted boolean not null"
                 + ")");
         d.masuk("alter table jual add foreign key(pel)references pelanggan(kode)on update cascade on delete cascade");
@@ -38,7 +38,7 @@ public class DAOJual implements DAO<entity.Jual>{
         ps.setString(1, v.getNota());
         ps.setString(2, v.getPel());
         ps.setDate(3, v.getTgl());
-        ps.setLong(4, v.getTotal().getAmount().longValue());
+        ps.setString(4, v.getTotal().toString());
         ps.setBoolean(5, v.isDeleted());
         ps.execute();
         ps.close();
@@ -58,7 +58,7 @@ public class DAOJual implements DAO<entity.Jual>{
         java.sql.PreparedStatement ps=d.getPS("update jual set pel=?,tgl=?,total=? where nota=?");
         ps.setString(1, b.getPel());
         ps.setDate(2, b.getTgl());
-        ps.setLong(3, b.getTotal().getAmount().longValue());
+        ps.setString(3, b.getTotal().toString());
         ps.setString(4, a.getNota());
         ps.execute();
         ps.close();

@@ -29,8 +29,7 @@ public class DAOSuplier implements DAO<Suplier>{
                 + "jns varchar(10)not null,"
                 + "tlp char(15)not null,"
                 + "deleted boolean not null,"
-                + "blocked boolean not null,"
-                + "logon boolean not null"
+                + "blocked boolean not null"
                 + ")");
     }
 

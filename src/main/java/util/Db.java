@@ -6,6 +6,7 @@
 package util;
 
 import java.io.FileNotFoundException;
+import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
@@ -35,6 +36,10 @@ public class Db {
     public void close() throws SQLException{
         s.close();
         c.close();
+    }
+
+    public Connection getC() {
+        return c;
     }
 
     public void masuk(String sql) throws SQLException{

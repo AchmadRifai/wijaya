@@ -27,7 +27,8 @@ public class DetJual {
         if(rs.next()){
             jum=rs.getFloat("jum");
             byr=org.joda.money.Money.of(CurrencyUnit.of("IDR"), rs.getLong("byr"));
-        }rs.close();
+        }else jum=0;
+        rs.close();
         ps.close();
     }
 

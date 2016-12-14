@@ -6,6 +6,7 @@
 package ui.dial.barang;
 
 import java.awt.Color;
+import java.math.RoundingMode;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import org.joda.money.CurrencyUnit;
@@ -16,11 +17,13 @@ import org.joda.money.CurrencyUnit;
  */
 public class Suplied extends javax.swing.JDialog {
 private util.Db d;
+private java.awt.Frame f;
     /**
      * Creates new form Suplied
      */
     public Suplied(java.awt.Frame parent, boolean modal,util.Db db) {
         super(parent, modal);
+        f=parent;
         d=db;
         initComponents();
     }
@@ -213,11 +216,16 @@ private util.Db d;
     }//GEN-LAST:event_jumKeyReleased
 
     private void sActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sActionPerformed
-        long l=getSatuan();
     try {
-        new entity.dao.DAOMemasok(d).insert(new entity.Memasok(brg.getItemAt(brg.getSelectedIndex()), sup.getItemAt(sup.getSelectedIndex()),
-                org.joda.money.Money.of(CurrencyUnit.of("IDR"), l), Float.parseFloat(jum.getText())));
-        normalkan();
+        entity.Memasok m=new entity.Memasok(brg.getItemAt(brg.getSelectedIndex()), sup.getItemAt(sup.getSelectedIndex()), 
+                org.joda.money.Money.of(CurrencyUnit.of("IDR"), Double.parseDouble(hrg.getText())), Float.parseFloat(jum.getText()));
+        new entity.dao.DAOMemasok(d).insert(m);
+        entity.Barang b=new entity.Barang(brg.getItemAt(brg.getSelectedIndex()), d);
+        org.joda.money.Money du=m.getSat().dividedBy(m.getJum(), RoundingMode.FLOOR);
+        if(du.isGreaterThan(b.getHrg())){
+            JOptionPane.showMessageDialog(rootPane, "Harga beli ini telah melampaui harga jual anda!");
+            new ui.dial.barang.Edit(f, true, b, d).setVisible(true);
+        }normalkan();
     } catch (SQLException ex) {
         util.Db.hindar(ex);
     }this.setVisible(false);
@@ -241,7 +249,7 @@ private util.Db d;
     }
 
     private long getSatuan() {
-        return (long) (Long.parseLong(hrg.getText())/Float.parseFloat(jum.getText()));
+        return (long) (Long.parseLong(hrg.getText())/Integer.parseInt(jum.getText()));
     }
 
     private void normalkan() throws SQLException {
