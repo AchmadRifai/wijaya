@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f19a424e-c6c6-4556-a27e-814709351c73">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     jual.`nota` AS jual_nota,
+     jual.`tgl` AS jual_tgl,
+     jual.`total` AS jual_total,
+     detjual.`nota` AS detjual_nota,
+     detjual.`brg` AS detjual_brg,
+     detjual.`jum` AS detjual_jum,
+     detjual.`byr` AS detjual_byr
+FROM
+     `jual` jual INNER JOIN `detjual` detjual ON jual.`nota` = detjual.`nota`
+GROUP BY
+     jual_nota
+ORDER BY
+     jual.`tgl` ASC]]>
+	</queryString>
+	<field name="jual_nota" class="java.lang.String"/>
+	<field name="jual_tgl" class="java.sql.Date"/>
+	<field name="jual_total" class="java.lang.String"/>
+	<field name="detjual_nota" class="java.lang.String"/>
+	<field name="detjual_brg" class="java.lang.String"/>
+	<field name="detjual_jum" class="java.lang.Float"/>
+	<field name="detjual_byr" class="java.lang.String"/>
+	<group name="jual_nota">
+		<groupExpression><![CDATA[$F{jual_nota}]]></groupExpression>
+		<groupHeader>
+			<band height="40">
+				<textField>
+					<reportElement style="SubTitle" x="47" y="13" width="506" height="24" forecolor="#000000" uuid="3256b235-191e-4ed4-885e-946a57ac72f7"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{jual_nota}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement mode="Opaque" x="0" y="13" width="36" height="24" forecolor="#CCCCCC" backcolor="#CCCCCC" uuid="eea225e9-29a9-4355-ac63-45636e86f7ea"/>
+				</rectangle>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="6"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="0" y="13" width="263" height="33" uuid="a680b902-a3d4-443f-aced-6e3266a9fa06"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[TOKO WIJAYA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="117" y="46" width="300" height="22" uuid="47142eb1-00cc-4e4d-b636-32c0ac245068"/>
+				<text><![CDATA[Toko Bahan Bangunan]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="074bf259-14d1-4429-a879-c81e11ef8b4f"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="20" width="166" height="15" uuid="b744ff65-0a21-4921-8e8f-88ce3e9655be"/>
+				<text><![CDATA[KODE BARANG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="166" y="21" width="92" height="15" uuid="d7a4518e-1e8f-4f04-84de-903f1465abf4"/>
+				<text><![CDATA[Qty]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="258" y="20" width="297" height="15" uuid="8d8546dc-85fb-4db7-9a42-91a8f98f5c26"/>
+				<text><![CDATA[BAYAR]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="913d2c7e-2c86-4acf-b2b2-28aa8b056343"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="0" y="1" width="166" height="15" uuid="a2bd4ecb-7c8a-4821-973a-d0833512daa3"/>
+				<textFieldExpression><![CDATA[$F{detjual_brg}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="166" y="1" width="92" height="15" uuid="d2f4ebf5-c4af-40df-badd-b867204bd454"/>
+				<textFieldExpression><![CDATA[$F{detjual_jum}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="263" y="0" width="289" height="15" uuid="7c8cba11-78eb-46ff-9dcd-bc217473743d"/>
+				<textFieldExpression><![CDATA[$F{detjual_byr}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="f8a283ff-3c6b-40ac-a19f-44d9dfd5ae46"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="258" y="4" width="294" height="15" uuid="390c7f10-da76-49b0-a4b2-5c21113bf235"/>
+				<textFieldExpression><![CDATA[$F{jual_total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="58c5f4ea-4c84-4c3b-bd7f-67760ca9947b"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="91bca67a-48eb-4fcf-9d63-e52e21e1f7b5"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="5b75d2a1-7241-4d97-a9fe-3eaa2cb4625a"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jual_tgl}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

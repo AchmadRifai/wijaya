@@ -32,6 +32,9 @@ package ui;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
 import org.joda.money.CurrencyUnit;
 
 /**
@@ -66,9 +69,12 @@ private entity.Jual sj;
         jButton1 = new javax.swing.JButton();
         pb2 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
         jToolBar2 = new javax.swing.JToolBar();
         jButton3 = new javax.swing.JButton();
         btnMemasok = new javax.swing.JButton();
+        hb = new javax.swing.JButton();
+        eb = new javax.swing.JButton();
         jToolBar3 = new javax.swing.JToolBar();
         jButton2 = new javax.swing.JButton();
         hs = new javax.swing.JButton();
@@ -76,6 +82,11 @@ private entity.Jual sj;
         jToolBar4 = new javax.swing.JToolBar();
         pb1 = new javax.swing.JButton();
         ldPenj = new javax.swing.JButton();
+        hp = new javax.swing.JButton();
+        jToolBar5 = new javax.swing.JToolBar();
+        jButton6 = new javax.swing.JButton();
+        rp = new javax.swing.JButton();
+        up = new javax.swing.JButton();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblBarang = new javax.swing.JTable();
@@ -133,7 +144,7 @@ private entity.Jual sj;
         });
         jToolBar1.add(pb2);
 
-        jButton4.setText("STATISTIK PENJUALAN HARI INI");
+        jButton4.setText("STATISTIK PENJUALAN");
         jButton4.setFocusable(false);
         jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -143,6 +154,17 @@ private entity.Jual sj;
             }
         });
         jToolBar1.add(jButton4);
+
+        jButton5.setText("Tempat Sampah");
+        jButton5.setFocusable(false);
+        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButton5);
 
         jTabbedPane1.addTab("HOME", new javax.swing.ImageIcon(getClass().getResource("/wijaya/ikon-home-tab.png")), jToolBar1);
 
@@ -171,6 +193,31 @@ private entity.Jual sj;
             }
         });
         jToolBar2.add(btnMemasok);
+
+        hb.setIcon(new javax.swing.ImageIcon(getClass().getResource("/wijaya/sampah.png"))); // NOI18N
+        hb.setToolTipText("Hapus Data Barang Ini");
+        hb.setEnabled(false);
+        hb.setFocusable(false);
+        hb.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        hb.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        hb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hbActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(hb);
+
+        eb.setText("Edit Barang");
+        eb.setEnabled(false);
+        eb.setFocusable(false);
+        eb.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        eb.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        eb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ebActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(eb);
 
         jTabbedPane1.addTab("BARANG", new javax.swing.ImageIcon(getClass().getResource("/wijaya/ikon-barang-tab.png")), jToolBar2); // NOI18N
 
@@ -242,7 +289,55 @@ private entity.Jual sj;
         });
         jToolBar4.add(ldPenj);
 
+        hp.setText("Hapus Penjualan");
+        hp.setEnabled(false);
+        hp.setFocusable(false);
+        hp.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        hp.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar4.add(hp);
+
         jTabbedPane1.addTab("PENJUALAN", new javax.swing.ImageIcon(getClass().getResource("/wijaya/ikon-penjualan-tab.png")), jToolBar4); // NOI18N
+
+        jToolBar5.setRollover(true);
+
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/wijaya/add-user-button_1.png"))); // NOI18N
+        jButton6.setToolTipText("Tambah Pelanggan");
+        jButton6.setFocusable(false);
+        jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jToolBar5.add(jButton6);
+
+        rp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/wijaya/cancel-button.png"))); // NOI18N
+        rp.setToolTipText("Hapus Pelanggan");
+        rp.setEnabled(false);
+        rp.setFocusable(false);
+        rp.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        rp.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        rp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rpActionPerformed(evt);
+            }
+        });
+        jToolBar5.add(rp);
+
+        up.setText("Ubah Data Pelanggan");
+        up.setEnabled(false);
+        up.setFocusable(false);
+        up.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        up.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        up.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                upActionPerformed(evt);
+            }
+        });
+        jToolBar5.add(up);
+
+        jTabbedPane1.addTab("PELANGGAN", new javax.swing.ImageIcon(getClass().getResource("/wijaya/pelanggan.png")), jToolBar5); // NOI18N
 
         tblBarang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -527,6 +622,8 @@ private entity.Jual sj;
         boolean b=tblBarang.isRowSelected(s);
         if(b)try {
             sb=new entity.Barang(""+tblBarang.getValueAt(s, 0), d);
+            hb.setEnabled(b);
+            eb.setEnabled(b);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage());
             util.Db.hindar(ex);
@@ -548,6 +645,7 @@ private entity.Jual sj;
         if(b)try {
             sj=new entity.Jual(""+tblJual.getValueAt(s, 0), d);
             ldPenj.setEnabled(b);
+            hp.setEnabled(b);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage());
             util.Db.hindar(ex);
@@ -557,7 +655,11 @@ private entity.Jual sj;
     private void pb2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pb2ActionPerformed
     try {
         int i=getTransNow();
-        entity.Jual j=new entity.Jual(sp.getKode(), i);
+        if(sp.isBlocked()){
+            int c=javax.swing.JOptionPane.YES_NO_OPTION;
+            int x=javax.swing.JOptionPane.showConfirmDialog(rootPane, "Pelanggan ini dicekal. Ingin lanjut?", "LANJUT", c);
+            if(x==javax.swing.JOptionPane.NO_OPTION)return;
+        }entity.Jual j=new entity.Jual(sp.getKode(), i);
         new entity.dao.DAOJual(d).insert(j);
         new ui.dial.jual.Add(this, rootPaneCheckingEnabled, d, j).setVisible(true);
         jual();
@@ -578,6 +680,8 @@ private entity.Jual sj;
             sp=new entity.Pelanggan(""+tblPelanggan.getValueAt(s, 0), d);
             pb1.setEnabled(b);
             pb2.setEnabled(b);
+            rp.setEnabled(b);
+            up.setEnabled(b);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage());
             util.Db.hindar(ex);
@@ -601,7 +705,15 @@ private entity.Jual sj;
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void ldPenjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ldPenjActionPerformed
-        //
+    try {
+        java.util.Map<String,Object>m=new java.util.HashMap<String,Object>();
+        m.put("nota", sj.getNota());
+        new util.Laporan(this, true, JasperFillManager.fillReport(JasperCompileManager.compileReport(util.Struk.f.getAbsolutePath()),
+                m, d.getC())).setVisible(true);
+        ldPenj.setEnabled(false);
+    } catch (JRException ex) {
+        util.Db.hindar(ex);
+    }
     }//GEN-LAST:event_ldPenjActionPerformed
 
     private void tblSuplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSuplierMouseClicked
@@ -664,13 +776,68 @@ private entity.Jual sj;
     }
     }//GEN-LAST:event_formWindowClosing
 
+    private void hbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hbActionPerformed
+        int c=javax.swing.JOptionPane.YES_NO_OPTION;
+        int x=javax.swing.JOptionPane.showConfirmDialog(rootPane, "Apa anda ingin menghapus barang ini?", "Hapus?", c);
+        if(x==javax.swing.JOptionPane.YES_OPTION)try {
+            new entity.dao.DAOBarang(d).delete(sb);
+            barang();
+        } catch (SQLException ex) {
+            util.Db.hindar(ex);
+        }
+    }//GEN-LAST:event_hbActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        new ui.Trash(this, true, d).setVisible(true);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        new ui.dial.pelanggan.Add(this, true, d).setVisible(true);try {
+        pelanggan();
+    } catch (SQLException ex) {
+        util.Db.hindar(ex);
+    }
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void rpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rpActionPerformed
+        int c=javax.swing.JOptionPane.YES_NO_OPTION;
+        int s=javax.swing.JOptionPane.showConfirmDialog(rootPane, "Apa anda ingin menghapus akun ini?", "HAPUS?", c);
+        if(s==javax.swing.JOptionPane.YES_OPTION)try {
+            new entity.dao.DAOPelanggan(d).delete(sp);
+            pelanggan();
+        } catch (SQLException ex) {
+            util.Db.hindar(ex);
+        }
+    }//GEN-LAST:event_rpActionPerformed
+
+    private void upActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upActionPerformed
+    new ui.dial.pelanggan.Edit(this, true, d, sp).setVisible(true);try {
+        pelanggan();
+    } catch (SQLException ex) {
+        util.Db.hindar(ex);
+    }
+    }//GEN-LAST:event_upActionPerformed
+
+    private void ebActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ebActionPerformed
+        new ui.dial.barang.Edit(this, true, sb, d).setVisible(true);try {
+        barang();
+    } catch (SQLException ex) {
+        util.Db.hindar(ex);
+    }
+    }//GEN-LAST:event_ebActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMemasok;
+    private javax.swing.JButton eb;
+    private javax.swing.JButton hb;
+    private javax.swing.JButton hp;
     private javax.swing.JButton hs;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -686,10 +853,12 @@ private entity.Jual sj;
     private javax.swing.JToolBar jToolBar2;
     private javax.swing.JToolBar jToolBar3;
     private javax.swing.JToolBar jToolBar4;
+    private javax.swing.JToolBar jToolBar5;
     private javax.swing.JButton ldPenj;
     private javax.swing.JButton pb1;
     private javax.swing.JButton pb2;
     private javax.swing.JButton rds;
+    private javax.swing.JButton rp;
     private javax.swing.JTable tblBarang;
     private javax.swing.JTable tblJual;
     private javax.swing.JTable tblMemasok;
@@ -697,6 +866,7 @@ private entity.Jual sj;
     private javax.swing.JTable tblSuplier;
     private javax.swing.JComboBox<String> tglJual;
     private javax.swing.JComboBox<java.sql.Date> tglMemasok;
+    private javax.swing.JButton up;
     // End of variables declaration//GEN-END:variables
 
     private void refresh() throws InterruptedException, SQLException {
@@ -707,7 +877,7 @@ private entity.Jual sj;
         pelanggan();
         initMemasok();
         if(null!=tglMemasok.getSelectedItem())memasok();
-        Thread.sleep(5000);
+        Thread.sleep(10000);
     }
 
     private void barang() throws SQLException {
@@ -741,7 +911,7 @@ private entity.Jual sj;
         java.sql.ResultSet rs=ps.executeQuery();
         while(rs.next()){
             entity.Pelanggan p=new entity.Pelanggan(rs.getString("pel"), d);
-            m.addRow(new Object[]{rs.getString("nota"),org.joda.money.Money.of(CurrencyUnit.getInstance("IDR"), rs.getLong("total")),p.getNm()});
+            m.addRow(new Object[]{rs.getString("nota"),rs.getString("total"),p.getNm()});
         }rs.close();
         ps.close();
     }

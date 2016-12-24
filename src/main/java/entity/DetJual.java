@@ -6,7 +6,6 @@
 package entity;
 
 import java.sql.SQLException;
-import org.joda.money.CurrencyUnit;
 
 /**
  *
@@ -26,7 +25,7 @@ public class DetJual {
         java.sql.ResultSet rs=ps.executeQuery();
         if(rs.next()){
             jum=rs.getFloat("jum");
-            byr=org.joda.money.Money.of(CurrencyUnit.of("IDR"), rs.getLong("byr"));
+            byr=org.joda.money.Money.parse(rs.getString("byr"));
         }else jum=0;
         rs.close();
         ps.close();

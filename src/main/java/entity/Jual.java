@@ -28,7 +28,7 @@ public class Jual {
         if(rs.next()){
             pel=rs.getString("pel");
             tgl=rs.getDate("tgl");
-            total=org.joda.money.Money.of(CurrencyUnit.getInstance("IDR"), rs.getBigDecimal("total"));
+            total=org.joda.money.Money.parse(rs.getString("total"));
             deleted=rs.getBoolean("deleted");
         }rs.close();
         ps.close();

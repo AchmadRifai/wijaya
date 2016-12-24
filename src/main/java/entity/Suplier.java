@@ -13,7 +13,7 @@ import java.sql.SQLException;
  */
 public class Suplier {
     private String id,nm,almt,jns,tlp;
-    private boolean deleted,blocked,logon;
+    private boolean deleted,blocked;
 
     public Suplier(String id,util.Db d) throws SQLException {
         this.id = id;

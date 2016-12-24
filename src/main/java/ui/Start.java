@@ -5,6 +5,7 @@
  */
 package ui;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.sql.SQLException;
@@ -176,8 +177,10 @@ public class Start extends javax.swing.JFrame {
     }//GEN-LAST:event_passKeyReleased
 
     private void sActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sActionPerformed
+        this.setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
         buatDB();
         buatKunci();
+        buattemplate();
         disableAll();
     }//GEN-LAST:event_sActionPerformed
 
@@ -201,14 +204,11 @@ public class Start extends javax.swing.JFrame {
             public void run() {
                 try {
                     util.Work.createDB(host.getText(),Integer.parseInt(""+port.getValue()),name.getText(),user.getText(),pass.getText());
+                    setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
                     JOptionPane.showMessageDialog(rootPane, "Database created!");
                     new ui.Dash(util.Work.currentDB()).setVisible(true);
                     setVisible(false);
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-                    util.Db.hindar(ex);
-                    ennableAll();
-                } catch (GeneralSecurityException | IOException | ClassNotFoundException ex) {
+                } catch (GeneralSecurityException | IOException | ClassNotFoundException |SQLException ex) {
                     JOptionPane.showMessageDialog(rootPane, ex.getMessage());
                     util.Db.hindar(ex);
                     ennableAll();
@@ -247,5 +247,18 @@ public class Start extends javax.swing.JFrame {
         host.setEnabled(true);
         port.setEnabled(true);
         util.Work.hapusKey();
+    }
+
+    private void buattemplate() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    util.Struk.init();
+                } catch (FileNotFoundException ex) {
+                    util.Db.hindar(ex);
+                }
+            }
+        }).start();
     }
 }

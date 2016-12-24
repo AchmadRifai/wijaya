@@ -48,7 +48,8 @@ private net.sf.jasperreports.view.JasperViewer v;
     }//GEN-LAST:event_formWindowOpened
 
     private void init() {
-        this.add(v);
+        this.setContentPane(v.getContentPane());
+        this.setSize(v.getPreferredSize());
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

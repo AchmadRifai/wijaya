@@ -5,10 +5,13 @@
  */
 package ui;
 
+import java.awt.Component;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.plot.PlotOrientation;
+import org.joda.money.CurrencyUnit;
 
 /**
  *
@@ -35,6 +38,8 @@ private util.Db d;
     private void initComponents() {
 
         tab = new javax.swing.JTabbedPane();
+        permintaan = new javax.swing.JTabbedPane();
+        keuangan = new javax.swing.JTabbedPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setType(java.awt.Window.Type.UTILITY);
@@ -43,6 +48,9 @@ private util.Db d;
                 formWindowOpened(evt);
             }
         });
+
+        tab.addTab("PERMINTAAN", permintaan);
+        tab.addTab("UNTUNG RUGI", keuangan);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -66,75 +74,99 @@ private util.Db d;
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-    try {
-        permintaan();
-        keuangan();
-    } catch (SQLException ex) {
-        util.Db.hindar(ex);
-    }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                load();
+            }
+        }).start();
     }//GEN-LAST:event_formWindowOpened
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTabbedPane keuangan;
+    private javax.swing.JTabbedPane permintaan;
     private javax.swing.JTabbedPane tab;
     // End of variables declaration//GEN-END:variables
 
     private void permintaan() throws SQLException {
-        org.jfree.data.general.DefaultPieDataset data=new org.jfree.data.general.DefaultPieDataset();
-        for(entity.Barang b:new entity.dao.DAOBarang(d).getDatae())
-            data.setValue(b.getNm(), getPermintaan(b.getKode()));
-        org.jfree.chart.ChartPanel c=new org.jfree.chart.ChartPanel(ChartFactory.createPieChart("Permintaan Hari Ini", data));
-        c.setAutoscrolls(true);
-        tab.add("PERMINTAAN", c);
-    }
-
-    private double getPermintaan(String kode) throws SQLException {
-        double l=0;
-        java.sql.PreparedStatement p=d.getPS("select nota from jual where tgl=?");
-        p.setDate(1, java.sql.Date.valueOf(LocalDate.now()));
-        java.sql.ResultSet r=p.executeQuery();
-        while(r.next()){
-            entity.DetJual det=new entity.DetJual(r.getString("nota"), kode, d);
-            l+=det.getJum();
-        }r.close();
-        p.close();
-        return l;
+        Date max=tglMax(),min=tglMin();
+        for(LocalDate l=max.toLocalDate();l.isAfter(min.toLocalDate())||l.equals(max.toLocalDate());l=l.minusMonths(1))
+            permintaan.add(""+l+" s/d "+l.plusMonths(1), buatPermintaan(l));
     }
 
     private void keuangan() throws SQLException {
+        Date max=tglMax(),min=tglMin();
+        for(LocalDate l=max.toLocalDate();l.isAfter(min.toLocalDate())||l.equals(max.toLocalDate());l=l.minusWeeks(1))
+            keuangan.add(""+l+" s/d "+l.plusMonths(1), buatKeuangan(l));
+    }
+
+    private void load() {
+        try {
+        this.setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
+        permintaan();
+        keuangan();
+    } catch (SQLException ex) {
+        util.Db.hindar(ex);
+    }this.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+    }
+
+    private Date tglMax() throws SQLException {
+        Date tgl=null;
+        java.sql.ResultSet r=d.keluar("select max(tgl)as intok from jual");
+        if(r.next())tgl=r.getDate("intok");
+        r.close();
+        return tgl;
+    }
+
+    private Date tglMin() throws SQLException {
+        Date tgl=null;
+        java.sql.ResultSet r=d.keluar("select min(tgl)as intok from jual");
+        if(r.next())tgl=r.getDate("intok");
+        r.close();
+        tgl.setDate(1);
+        return tgl;
+    }
+
+    private Component buatPermintaan(LocalDate l) throws SQLException {
+        org.jfree.data.general.DefaultPieDataset data=new org.jfree.data.general.DefaultPieDataset();
+        java.sql.PreparedStatement p=d.getPS("select detjual.brg,sum(detjual.jum)as qty from jual inner join detjual where jual.tgl>=? and "
+                + "jual.tgl<? group by detjual.brg");
+        p.setDate(1, Date.valueOf(l));
+        p.setDate(2, Date.valueOf(l.plusMonths(1)));
+        java.sql.ResultSet r=p.executeQuery();
+        while(r.next())data.setValue(r.getString("brg"), r.getDouble("qty"));
+        r.close();
+        p.close();
+        return new org.jfree.chart.ChartPanel(ChartFactory.createPieChart("PERMINTAAN", data,true,true,false));
+    }
+
+    private Component buatKeuangan(LocalDate l) throws SQLException {
         org.jfree.data.category.DefaultCategoryDataset data=new org.jfree.data.category.DefaultCategoryDataset();
-        LocalDate l=LocalDate.of(2012, java.time.Month.JANUARY, 1);
-        while(l.isBefore(LocalDate.now())){
-            data.addValue(getIncome(l), "INCOME", ""+l.getMonth()+" "+l.getYear());
-            data.addValue(getExpenses(l), "EXPENSES", ""+l.getMonth()+" "+l.getYear());
-            l=l.plusMonths(1);
-        }org.jfree.chart.ChartPanel c=new org.jfree.chart.ChartPanel(ChartFactory.createLineChart("KEUANGAN", "BULAN", "JUMLAH", data, 
-                PlotOrientation.VERTICAL,true, true, false));
-        c.setAutoscrolls(true);
-        tab.add("KEUANGAN", c);
+        for(LocalDate l2=l;l2.isBefore(l.plusWeeks(1));l2=l2.plusDays(1)){
+            data.addValue(getUntung(l2), "Untung", l2);
+            data.addValue(getRugi(l2), "Rugi", l2);
+        }return new org.jfree.chart.ChartPanel(ChartFactory.createBarChart("Untung Rugi", "Periode", "Nilai", data,PlotOrientation.VERTICAL,true,true
+        ,false));
     }
 
-    private long getIncome(LocalDate date) throws SQLException {
-        long l=0;
-        java.sql.PreparedStatement p=d.getPS("select total from jual where tgl>=? and tgl<=?");
-        p.setDate(1, java.sql.Date.valueOf(date));
-        p.setDate(2, java.sql.Date.valueOf(date.plusMonths(1).minusDays(1)));
+    private Number getUntung(LocalDate l2) throws SQLException {
+        org.joda.money.Money m=org.joda.money.Money.zero(CurrencyUnit.of("IDR"));
+        java.sql.PreparedStatement p=d.getPS("select total from jual where tgl=?");
+        p.setDate(1, Date.valueOf(l2));
         java.sql.ResultSet r=p.executeQuery();
-        while(r.next()){
-            l+=r.getLong("total");
-        }r.close();
+        while(r.next())m=m.plus(org.joda.money.Money.parse(r.getString("total")));
+        r.close();
         p.close();
-        return l;
+        return m.getAmount().longValueExact();
     }
 
-    private long getExpenses(LocalDate date) throws SQLException {
-        long l=0;
-        java.sql.PreparedStatement p=d.getPS("select sat from memasok where tgl>=? and tgl<=?");
-        p.setDate(1, java.sql.Date.valueOf(date));
-        p.setDate(2, java.sql.Date.valueOf(date.plusMonths(1).minusDays(1)));
+    private Number getRugi(LocalDate l2) throws SQLException {
+        double dou=0;
+        java.sql.PreparedStatement p=d.getPS("select sum(sat*jum)as oke from memasok where tgl=?");
+        p.setDate(1, Date.valueOf(l2));
         java.sql.ResultSet r=p.executeQuery();
-        while(r.next()){
-            l+=r.getLong("sat");
-        }r.close();
+        if(r.next())dou=r.getDouble("oke");
+        r.close();
         p.close();
-        return l;
+        return dou;
     }
 }

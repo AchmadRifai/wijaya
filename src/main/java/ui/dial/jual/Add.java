@@ -8,6 +8,10 @@ package ui.dial.jual;
 import java.awt.Color;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrintManager;
 import org.joda.money.CurrencyUnit;
 
 /**
@@ -17,12 +21,14 @@ import org.joda.money.CurrencyUnit;
 public class Add extends javax.swing.JDialog {
 private util.Db d;
 private entity.Jual j;
+private java.awt.Frame p;
     /**
      * Creates new form Add
      */
     public Add(java.awt.Frame parent, boolean modal,util.Db db,entity.Jual ju) {
         super(parent, modal);
         d=db;
+        p=parent;
         j=ju;
         initComponents();
     }
@@ -386,14 +392,12 @@ private entity.Jual j;
     }
 
     private long getTotale() throws SQLException {
-        long l=0;
-        java.sql.PreparedStatement ps=d.getPS("select byr from detjual where nota=?");
-        ps.setString(1, j.getNota());
-        java.sql.ResultSet rs=ps.executeQuery();
-        while(rs.next())l+=rs.getLong("byr");
-        rs.close();
-        ps.close();
-        return l;
+        org.joda.money.Money m=org.joda.money.Money.of(CurrencyUnit.of("IDR"), 0);
+        java.sql.PreparedStatement p=d.getPS("select byr from detjual where nota=?");
+        p.setString(1, j.getNota());
+        java.sql.ResultSet r=p.executeQuery();
+        while(r.next())m=m.plus(org.joda.money.Money.parse(r.getString("byr")));
+        return m.getAmount().longValueExact();
     }
 
     private void selesai() {
@@ -412,7 +416,14 @@ private entity.Jual j;
     }
 
     private void cetak() {
-        
+    try {
+        java.util.Map<String,Object>m=new java.util.HashMap<String,Object>();
+        m.put("nota", j.getNota());
+        JasperPrintManager.printReport(JasperFillManager.fillReport(JasperCompileManager.compileReport(util.Struk.f.getAbsolutePath()), 
+                m,d.getC()), false);
+    } catch (JRException ex) {
+        util.Db.hindar(ex);
+    }
     }
 
 }
