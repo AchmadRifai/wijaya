@@ -9,20 +9,15 @@
 	<style name="Detail" fontName="Arial" fontSize="9"/>
 	<parameter name="nota" class="java.lang.String"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT
-     jual.`nota` AS jual_nota,
-     jual.`total` AS jual_total,
-     jual.`tgl` AS jual_tgl,
-     detjual.`brg` AS detjual_brg,
-     detjual.`jum` AS detjual_jum,
-     detjual.`byr` AS detjual_byr
-FROM
-     `jual` jual INNER JOIN `detjual` detjual ON jual.`nota` = detjual.`nota`
-WHERE
-     jual.nota = $P{nota}]]>
+		<![CDATA[SELECT jual.`nota` AS jual_nota,
+jual.kembali as jual_kembali
+,jual.`total` AS jual_total,jual.`tgl` AS jual_tgl,detjual.`brg` AS detjual_brg,detjual.`jum` AS detjual_jum,detjual.`byr` AS detjual_byr,jual.byr as jual_byr
+FROM`jual` jual INNER JOIN `detjual` detjual ON jual.`nota` = detjual.`nota` WHERE jual.nota = $P{nota}]]>
 	</queryString>
 	<field name="jual_nota" class="java.lang.String"/>
+    <field name="jual_byr" class="java.lang.String"/>
 	<field name="jual_total" class="java.lang.String"/>
+	<field name="jual_kembali" class="java.lang.String"/>
 	<field name="jual_tgl" class="java.sql.Date"/>
 	<field name="detjual_brg" class="java.lang.String"/>
 	<field name="detjual_jum" class="java.lang.Float"/>
@@ -50,16 +45,16 @@ WHERE
 		<band height="15" splitType="Stretch">
 			<staticText>
 				<reportElement style="Column header" x="0" y="0" width="108" height="15" uuid="516ca095-2621-41cd-8742-9f37825bc0c5"/>
-				<text><![CDATA[detjual_brg]]></text>
+				<text><![CDATA[KODE BARANG]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="108" y="0" width="92" height="15" uuid="51484d33-ebd1-48f9-9a3e-cb4de9b1212c"/>
-				<text><![CDATA[detjual_jum]]></text>
+				<text><![CDATA[Qty]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="200" y="0" width="185" height="15" uuid="880e77ad-714f-4ce4-8098-f4385eaac021"/>
 				<textElement textAlignment="Right"/>
-				<text><![CDATA[detjual_byr]]></text>
+				<text><![CDATA[Sub Total]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -95,9 +90,19 @@ WHERE
 				</graphicElement>
 			</line>
 			<textField>
-				<reportElement style="Detail" x="200" y="33" width="185" height="12" uuid="eb58a5b4-7fe7-42ff-a608-a71e86e1d03e"/>
+				<reportElement style="Detail" x="200" y="4" width="185" height="12" uuid="eb58a5b4-7fe7-42ff-a608-a71e86e1d03e"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{jual_total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="200" y="16" width="185" height="15" uuid="2ff06299-a6d2-4ec0-abe1-81679dc2b2a4"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{jual_kembali}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="200" y="31" width="185" height="14" uuid="48648ec7-8440-47b0-be43-847bce60a359"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{jual_byr}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnFooter>

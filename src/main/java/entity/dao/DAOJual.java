@@ -27,6 +27,8 @@ public class DAOJual implements DAO<entity.Jual>{
                 + "pel varchar(25)not null,"
                 + "tgl date not null,"
                 + "total text not null,"
+                + "kembali text not null,"
+                + "byr text not null,"
                 + "deleted boolean not null"
                 + ")");
         d.masuk("alter table jual add foreign key(pel)references pelanggan(kode)on update cascade on delete cascade");
@@ -34,12 +36,14 @@ public class DAOJual implements DAO<entity.Jual>{
 
     @Override
     public void insert(Jual v) throws SQLException {
-        java.sql.PreparedStatement ps=d.getPS("insert into jual values(?,?,?,?,?)");
+        java.sql.PreparedStatement ps=d.getPS("insert into jual values(?,?,?,?,?,?,?)");
         ps.setString(1, v.getNota());
         ps.setString(2, v.getPel());
         ps.setDate(3, v.getTgl());
         ps.setString(4, v.getTotal().toString());
-        ps.setBoolean(5, v.isDeleted());
+        ps.setString(5, v.getKembali().toString());
+        ps.setString(6, v.getByr().toString());
+        ps.setBoolean(7, v.isDeleted());
         ps.execute();
         ps.close();
     }
@@ -55,11 +59,13 @@ public class DAOJual implements DAO<entity.Jual>{
 
     @Override
     public void update(Jual a, Jual b) throws SQLException {
-        java.sql.PreparedStatement ps=d.getPS("update jual set pel=?,tgl=?,total=? where nota=?");
+        java.sql.PreparedStatement ps=d.getPS("update jual set pel=?,tgl=?,total=?,kembali=?,byr=? where nota=?");
         ps.setString(1, b.getPel());
         ps.setDate(2, b.getTgl());
         ps.setString(3, b.getTotal().toString());
-        ps.setString(4, a.getNota());
+        ps.setString(4, b.getKembali().toString());
+        ps.setString(5, b.getByr().toString());
+        ps.setString(6, a.getNota());
         ps.execute();
         ps.close();
     }

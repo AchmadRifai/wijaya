@@ -16,7 +16,7 @@ import org.joda.money.CurrencyUnit;
 public class Jual {
     private String nota,pel;
     private java.sql.Date tgl;
-    private org.joda.money.Money total;
+    private org.joda.money.Money total,kembali,byr;
     private boolean deleted;
     private java.util.List<DetJual>det;
 
@@ -30,6 +30,8 @@ public class Jual {
             tgl=rs.getDate("tgl");
             total=org.joda.money.Money.parse(rs.getString("total"));
             deleted=rs.getBoolean("deleted");
+            kembali=org.joda.money.Money.parse(rs.getString("kembali"));
+            byr=org.joda.money.Money.parse(rs.getString("byr"));
         }rs.close();
         ps.close();
         detaile(d);
@@ -39,6 +41,8 @@ public class Jual {
         this.pel = pel;
         tgl=java.sql.Date.valueOf(LocalDate.now());
         total=org.joda.money.Money.of(CurrencyUnit.getInstance("IDR"), 0);
+        kembali=org.joda.money.Money.of(CurrencyUnit.getInstance("IDR"), 0);
+        byr=org.joda.money.Money.of(CurrencyUnit.getInstance("IDR"), 0);
         nota="wijaya"+tgl.getYear()+tgl.getMonth()+tgl.getDate()+i+pel;
         deleted=false;
     }
@@ -99,5 +103,21 @@ public class Jual {
 
     public void setDet(java.util.List<DetJual> det) {
         this.det = det;
+    }
+
+    public org.joda.money.Money getKembali() {
+        return kembali;
+    }
+
+    public void setKembali(org.joda.money.Money kembali) {
+        this.kembali = kembali;
+    }
+
+    public org.joda.money.Money getByr() {
+        return byr;
+    }
+
+    public void setByr(org.joda.money.Money byr) {
+        this.byr = byr;
     }
 }

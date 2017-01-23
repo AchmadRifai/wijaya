@@ -5,6 +5,7 @@
  */
 package ui;
 
+import java.awt.AWTException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -207,8 +208,9 @@ public class Start extends javax.swing.JFrame {
                     setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
                     JOptionPane.showMessageDialog(rootPane, "Database created!");
                     new ui.Dash(util.Work.currentDB()).setVisible(true);
+                    util.Work.startTray();
                     setVisible(false);
-                } catch (GeneralSecurityException | IOException | ClassNotFoundException |SQLException ex) {
+                } catch (GeneralSecurityException | IOException | ClassNotFoundException |SQLException | AWTException ex) {
                     JOptionPane.showMessageDialog(rootPane, ex.getMessage());
                     util.Db.hindar(ex);
                     ennableAll();

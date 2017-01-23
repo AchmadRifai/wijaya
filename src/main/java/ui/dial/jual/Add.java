@@ -404,6 +404,8 @@ private java.awt.Frame p;
     try {
         entity.Jual b=new entity.Jual(j.getNota(), d);
         b.setTotal(org.joda.money.Money.parse(totalBYR.getText()));
+        b.setKembali(org.joda.money.Money.parse(kembali.getText()));
+        b.setByr(org.joda.money.Money.of(CurrencyUnit.of("IDR"), Long.parseLong(byr.getText())));
         new entity.dao.DAOJual(d).update(j, b);
         for(entity.DetJual dj:b.getDet()){
             entity.Barang b1=new entity.Barang(dj.getBrg(), d),b2=new entity.Barang(dj.getBrg(), d);
