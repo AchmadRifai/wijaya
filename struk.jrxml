@@ -15,7 +15,7 @@ jual.kembali as jual_kembali
 FROM`jual` jual INNER JOIN `detjual` detjual ON jual.`nota` = detjual.`nota` WHERE jual.nota = $P{nota}]]>
 	</queryString>
 	<field name="jual_nota" class="java.lang.String"/>
-    <field name="jual_byr" class="java.lang.String"/>
+	<field name="jual_byr" class="java.lang.String"/>
 	<field name="jual_total" class="java.lang.String"/>
 	<field name="jual_kembali" class="java.lang.String"/>
 	<field name="jual_tgl" class="java.sql.Date"/>
@@ -95,15 +95,27 @@ FROM`jual` jual INNER JOIN `detjual` detjual ON jual.`nota` = detjual.`nota` WHE
 				<textFieldExpression><![CDATA[$F{jual_total}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="200" y="16" width="185" height="15" uuid="2ff06299-a6d2-4ec0-abe1-81679dc2b2a4"/>
+				<reportElement style="Detail" x="200" y="30" width="185" height="15" uuid="2ff06299-a6d2-4ec0-abe1-81679dc2b2a4"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{jual_kembali}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="200" y="31" width="185" height="14" uuid="48648ec7-8440-47b0-be43-847bce60a359"/>
+				<reportElement style="Detail" x="200" y="16" width="185" height="14" uuid="48648ec7-8440-47b0-be43-847bce60a359"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{jual_byr}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement style="Column header" x="0" y="4" width="100" height="12" uuid="93306a98-a346-4333-9e43-9ab55adc64d8"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="18" width="100" height="12" uuid="ba32a78b-a1b9-4575-a2ba-9b0b82db51fb"/>
+				<text><![CDATA[Pembayaran]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="33" width="100" height="12" uuid="bd9439f5-ccd3-4608-94ed-6fb6861f5db4"/>
+				<text><![CDATA[Kembalian]]></text>
+			</staticText>
 		</band>
 	</columnFooter>
 	<pageFooter>

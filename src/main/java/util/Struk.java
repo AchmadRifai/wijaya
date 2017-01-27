@@ -185,6 +185,7 @@ public class Struk {
         o.print("<textElement textAlignment=\"Right\"/>");
         o.print("<textFieldExpression><![CDATA[$F{jual_byr}]]></textFieldExpression>");
         o.print("</textField>");
+        keterangane(o);
     }
 
     private static void footer2(PrintWriter o) {
@@ -217,5 +218,21 @@ public class Struk {
         o.print("</textElement>");
         o.print("<textFieldExpression><![CDATA[$F{jual_tgl}]]></textFieldExpression>");
         o.print("</textField>");
+    }
+
+    private static void keterangane(PrintWriter o) {
+        o.print("<staticText>");
+        o.print("<reportElement style=\"Column header\" x=\"0\" y=\"4\" width=\"100\" height=\"12\" uuid=\""
+                + "93306a98-a346-4333-9e43-9ab55adc64d8\"/>");
+        o.print("<text><![CDATA[Total]]></text>");
+        o.print("</staticText><staticText>");
+        o.print("<reportElement style=\"Column header\" x=\"0\" y=\"18\" width=\"100\" height=\"12\" uuid=\""
+                + "ba32a78b-a1b9-4575-a2ba-9b0b82db51fb\"/>");
+        o.print("<text><![CDATA[Pembayaran]]></text>");
+        o.print("</staticText><staticText>");
+        o.print("<reportElement style=\"Column header\" x=\"0\" y=\"33\" width=\"100\" height=\"12\" uuid=\""
+                + "bd9439f5-ccd3-4608-94ed-6fb6861f5db4\"/>");
+        o.print("<text><![CDATA[Kembalian]]></text>");
+        o.print("</staticText>");
     }
 }
