@@ -104,6 +104,11 @@ private entity.Jual sj;
         tglMemasok = new javax.swing.JComboBox<>();
         jScrollPane5 = new javax.swing.JScrollPane();
         tblMemasok = new javax.swing.JTable();
+        jTabbedPane3 = new javax.swing.JTabbedPane();
+        srcBarang = new javax.swing.JTextField();
+        srcSuplier = new javax.swing.JTextField();
+        srcJual = new javax.swing.JTextField();
+        srcPelanggan = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
@@ -464,7 +469,7 @@ private entity.Jual sj;
                     .addComponent(jLabel1)
                     .addComponent(tglJual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("PENJUALAN", new javax.swing.ImageIcon(getClass().getResource("/wijaya/ikon-penjualan-tab.png")), jPanel1);
@@ -554,20 +559,53 @@ private entity.Jual sj;
                     .addComponent(jLabel2)
                     .addComponent(tglMemasok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("PASOKAN BARANG", new javax.swing.ImageIcon(getClass().getResource("/wijaya/list.png")), jPanel2); // NOI18N
+
+        srcBarang.setToolTipText("Cari Barang");
+        srcBarang.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                srcBarangKeyReleased(evt);
+            }
+        });
+        jTabbedPane3.addTab("Pencarian Barang", srcBarang);
+
+        srcSuplier.setToolTipText("Cari Suplier");
+        srcSuplier.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                srcSuplierKeyReleased(evt);
+            }
+        });
+        jTabbedPane3.addTab("Pencarian Suplier", srcSuplier);
+
+        srcJual.setToolTipText("Cari Penjualan");
+        srcJual.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                srcJualKeyReleased(evt);
+            }
+        });
+        jTabbedPane3.addTab("Pencarian Penjualan", srcJual);
+
+        srcPelanggan.setToolTipText("Cari Pelanggan");
+        srcPelanggan.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                srcPelangganKeyReleased(evt);
+            }
+        });
+        jTabbedPane3.addTab("Pencarian Pelanggan", srcPelanggan);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTabbedPane2)
-                    .addComponent(jTabbedPane1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTabbedPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTabbedPane3))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -576,7 +614,9 @@ private entity.Jual sj;
                 .addContainerGap()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane2))
+                .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -609,8 +649,10 @@ private entity.Jual sj;
             public void run() {
                 while(isVisible())try {
                     refresh();
-                    } catch (InterruptedException | SQLException ex) {
+                    } catch (SQLException ex) {
                         JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+                        util.Db.hindar(ex);
+                    } catch (InterruptedException ex) {
                         util.Db.hindar(ex);
                     }
             }
@@ -826,6 +868,42 @@ private entity.Jual sj;
     }
     }//GEN-LAST:event_ebActionPerformed
 
+    private void srcBarangKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_srcBarangKeyReleased
+        try {
+            if(!srcBarang.getText().isEmpty())barang(srcBarang.getText());
+            else barang();
+        } catch (SQLException ex) {
+            util.Db.hindar(ex);
+        }
+    }//GEN-LAST:event_srcBarangKeyReleased
+
+    private void srcSuplierKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_srcSuplierKeyReleased
+        try {
+            if(!srcSuplier.getText().isEmpty())suplier(srcSuplier.getText());
+            else suplier();
+        } catch (SQLException ex) {
+            util.Db.hindar(ex);
+        }
+    }//GEN-LAST:event_srcSuplierKeyReleased
+
+    private void srcJualKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_srcJualKeyReleased
+        if(null!=tglJual.getItemAt(tglJual.getSelectedIndex()))try {
+            if(!srcJual.getText().isEmpty())jualTbl(srcJual.getText());
+            else jualTbl();
+        } catch (SQLException ex) {
+            util.Db.hindar(ex);
+        }
+    }//GEN-LAST:event_srcJualKeyReleased
+
+    private void srcPelangganKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_srcPelangganKeyReleased
+        try {
+            if(!srcPelanggan.getText().isEmpty())pelanggan(srcPelanggan.getText());
+            else pelanggan();
+        } catch (SQLException ex) {
+            util.Db.hindar(ex);
+        }
+    }//GEN-LAST:event_srcPelangganKeyReleased
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMemasok;
     private javax.swing.JButton eb;
@@ -849,6 +927,7 @@ private entity.Jual sj;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToolBar jToolBar2;
     private javax.swing.JToolBar jToolBar3;
@@ -859,6 +938,10 @@ private entity.Jual sj;
     private javax.swing.JButton pb2;
     private javax.swing.JButton rds;
     private javax.swing.JButton rp;
+    private javax.swing.JTextField srcBarang;
+    private javax.swing.JTextField srcJual;
+    private javax.swing.JTextField srcPelanggan;
+    private javax.swing.JTextField srcSuplier;
     private javax.swing.JTable tblBarang;
     private javax.swing.JTable tblJual;
     private javax.swing.JTable tblMemasok;
@@ -870,11 +953,15 @@ private entity.Jual sj;
     // End of variables declaration//GEN-END:variables
 
     private void refresh() throws InterruptedException, SQLException {
-        barang();
-        suplier();
+        if(!srcBarang.getText().isEmpty())barang(srcBarang.getText());
+        else barang();
+        if(!srcSuplier.getText().isEmpty())suplier(srcSuplier.getText());
+        else suplier();
         jual();
-        if(null!=tglJual.getItemAt(tglJual.getSelectedIndex()))jualTbl();
-        pelanggan();
+        if(null!=tglJual.getItemAt(tglJual.getSelectedIndex())){
+            if(!srcJual.getText().isEmpty())jualTbl(srcJual.getText());
+            else jualTbl();
+        }pelanggan();
         initMemasok();
         if(null!=tglMemasok.getSelectedItem())memasok();
         Thread.sleep(10000);
@@ -906,7 +993,7 @@ private entity.Jual sj;
     private void jualTbl() throws SQLException {
         javax.swing.table.DefaultTableModel m=(javax.swing.table.DefaultTableModel) tblJual.getModel();
         for(int x=m.getRowCount()-1;x>=0;x--)m.removeRow(x);
-        java.sql.PreparedStatement ps=d.getPS("select nota,total,pel from jual where tgl=?");
+        java.sql.PreparedStatement ps=d.getPS("select nota,total,pel from jual where tgl=? and not deleted");
         ps.setDate(1, java.sql.Date.valueOf(tglJual.getItemAt(tglJual.getSelectedIndex())));
         java.sql.ResultSet rs=ps.executeQuery();
         while(rs.next()){
@@ -952,5 +1039,56 @@ private entity.Jual sj;
         java.sql.ResultSet rs=d.keluar("select distinct tgl from memasok");
         while(rs.next())tglMemasok.addItem(rs.getDate("tgl"));
         rs.close();
+    }
+
+    private void barang(String src) throws SQLException {
+        java.sql.PreparedStatement p=d.getPS("select kode,nm,hrg,stok from barang where nm like ? and not deleted");
+        p.setString(1, "%"+src+"%");
+        java.sql.ResultSet r=p.executeQuery();
+        javax.swing.table.DefaultTableModel m=(javax.swing.table.DefaultTableModel) tblBarang.getModel();
+        for(int x=m.getRowCount()-1;x>=0;x--)m.removeRow(x);
+        while(r.next())
+            m.addRow(new Object[]{r.getString("kode"),r.getString("nm"),org.joda.money.Money.of(CurrencyUnit.of("IDR"), 
+                    r.getLong("hrg")),r.getFloat("stok")});
+        r.close();
+        p.close();
+    }
+
+    private void suplier(String src) throws SQLException {
+        java.sql.PreparedStatement p=d.getPS("select id,nm,almt,jns,blocked from suplier where nm like ? and not deleted");
+        p.setString(1, "%"+src+"%");
+        java.sql.ResultSet r=p.executeQuery();
+        javax.swing.table.DefaultTableModel m=(javax.swing.table.DefaultTableModel) tblSuplier.getModel();
+        for(int x=m.getRowCount()-1;x>=0;x--)m.removeRow(x);
+        while(r.next())
+            m.addRow(new Object[]{r.getShort("id"),r.getString("nm"),r.getString("almt"),r.getString("jns"),
+                r.getBoolean("blocked")});
+        r.close();
+        p.close();
+    }
+
+    private void jualTbl(String src) throws SQLException {
+        javax.swing.table.DefaultTableModel m=(javax.swing.table.DefaultTableModel) tblJual.getModel();
+        for(int x=m.getRowCount()-1;x>=0;x--)m.removeRow(x);
+        java.sql.PreparedStatement ps=d.getPS("select nota,total,pel from jual where tgl=? and nota like ? and not deleted");
+        ps.setDate(1, java.sql.Date.valueOf(tglJual.getItemAt(tglJual.getSelectedIndex())));
+        ps.setString(2, "%"+src+"%");
+        java.sql.ResultSet r=ps.executeQuery();
+        while(r.next())m.addRow(new Object[]{r.getString("nota"),r.getString("total"),r.getString("pel")});
+        r.close();
+        ps.close();
+    }
+
+    private void pelanggan(String src) throws SQLException {
+        javax.swing.table.DefaultTableModel m=(javax.swing.table.DefaultTableModel) tblPelanggan.getModel();
+        for(int x=m.getRowCount()-1;x>=0;x--)m.removeRow(x);
+        java.sql.PreparedStatement p=d.getPS("select kode,nm,almt,tlp,blocked from pelanggan where not deleted and "
+                + "nm like ?");
+        p.setString(1, "%"+src+"%");
+        java.sql.ResultSet r=p.executeQuery();
+        while(r.next())m.addRow(new Object[]{r.getString("kode"),r.getString("nm"),r.getString("almt"),r.getString("tlp"),
+        r.getBoolean("blocked")});
+        r.close();
+        p.close();
     }
 }
