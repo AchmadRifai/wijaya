@@ -469,7 +469,7 @@ private entity.Jual sj;
                     .addComponent(jLabel1)
                     .addComponent(tglJual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("PENJUALAN", new javax.swing.ImageIcon(getClass().getResource("/wijaya/ikon-penjualan-tab.png")), jPanel1);
@@ -559,7 +559,7 @@ private entity.Jual sj;
                     .addComponent(jLabel2)
                     .addComponent(tglMemasok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("PASOKAN BARANG", new javax.swing.ImageIcon(getClass().getResource("/wijaya/list.png")), jPanel2); // NOI18N
@@ -616,7 +616,7 @@ private entity.Jual sj;
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -1061,7 +1061,7 @@ private entity.Jual sj;
         javax.swing.table.DefaultTableModel m=(javax.swing.table.DefaultTableModel) tblSuplier.getModel();
         for(int x=m.getRowCount()-1;x>=0;x--)m.removeRow(x);
         while(r.next())
-            m.addRow(new Object[]{r.getShort("id"),r.getString("nm"),r.getString("almt"),r.getString("jns"),
+            m.addRow(new Object[]{r.getString("id"),r.getString("nm"),r.getString("almt"),r.getString("jns"),
                 r.getBoolean("blocked")});
         r.close();
         p.close();
