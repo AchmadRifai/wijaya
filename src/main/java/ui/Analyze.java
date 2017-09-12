@@ -40,6 +40,7 @@ private util.Db d;
         tab = new javax.swing.JTabbedPane();
         permintaan = new javax.swing.JTabbedPane();
         keuangan = new javax.swing.JTabbedPane();
+        laba = new javax.swing.JTabbedPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setType(java.awt.Window.Type.UTILITY);
@@ -51,6 +52,7 @@ private util.Db d;
 
         tab.addTab("PERMINTAAN", permintaan);
         tab.addTab("UNTUNG RUGI", keuangan);
+        tab.addTab("LABA", laba);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -83,6 +85,7 @@ private util.Db d;
     }//GEN-LAST:event_formWindowOpened
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane keuangan;
+    private javax.swing.JTabbedPane laba;
     private javax.swing.JTabbedPane permintaan;
     private javax.swing.JTabbedPane tab;
     // End of variables declaration//GEN-END:variables
@@ -95,8 +98,8 @@ private util.Db d;
 
     private void keuangan() throws SQLException {
         Date max=tglMax(),min=tglMin();
-        for(LocalDate l=max.toLocalDate();l.isAfter(min.toLocalDate())||l.equals(max.toLocalDate());l=l.minusWeeks(1))
-            keuangan.add(""+l+" s/d "+l.plusMonths(1), buatKeuangan(l));
+        for(LocalDate l=max.toLocalDate();l.isAfter(min.toLocalDate())||l.equals(min.toLocalDate());l=l.minusWeeks(1))
+            keuangan.add(""+l+" s/d "+l.plusWeeks(1), buatKeuangan(l));
     }
 
     private void load() {
@@ -104,6 +107,7 @@ private util.Db d;
         this.setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
         permintaan();
         keuangan();
+        laba();
     } catch (SQLException ex) {
         util.Db.hindar(ex);
     }this.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -122,7 +126,6 @@ private util.Db d;
         java.sql.ResultSet r=d.keluar("select min(tgl)as intok from jual");
         if(r.next())tgl=r.getDate("intok");
         r.close();
-        tgl.setDate(1);
         return tgl;
     }
 
@@ -133,10 +136,21 @@ private util.Db d;
         p.setDate(1, Date.valueOf(l));
         p.setDate(2, Date.valueOf(l.plusMonths(1)));
         java.sql.ResultSet r=p.executeQuery();
-        while(r.next())data.setValue(r.getString("brg"), r.getDouble("qty"));
+        while(r.next())data.setValue(getNamaBrg(r.getString("brg")), r.getDouble("qty"));
         r.close();
         p.close();
         return new org.jfree.chart.ChartPanel(ChartFactory.createPieChart("PERMINTAAN", data,true,true,false));
+    }
+
+    private String getNamaBrg(String kode)throws SQLException{
+        java.sql.PreparedStatement p=d.getPS("select nm from barang where kode=?");
+        p.setString(1, kode);
+        java.sql.ResultSet r=p.executeQuery();
+        String s="";
+        if(r.next())s=r.getString("nm");
+        r.close();
+        p.close();
+        return s;
     }
 
     private Component buatKeuangan(LocalDate l) throws SQLException {
@@ -144,7 +158,8 @@ private util.Db d;
         for(LocalDate l2=l;l2.isBefore(l.plusWeeks(1));l2=l2.plusDays(1)){
             data.addValue(getUntung(l2), "Untung", l2);
             data.addValue(getRugi(l2), "Rugi", l2);
-        }return new org.jfree.chart.ChartPanel(ChartFactory.createBarChart("Untung Rugi", "Periode", "Nilai", data,PlotOrientation.VERTICAL,true,true
+        }return new org.jfree.chart.ChartPanel(ChartFactory.createBarChart("Untung Rugi", "Periode", "Nilai", data,
+                PlotOrientation.VERTICAL,true,true
         ,false));
     }
 
@@ -168,5 +183,21 @@ private util.Db d;
         r.close();
         p.close();
         return dou;
+    }
+
+    private void laba() throws SQLException {
+        Date max=tglMax(),min=tglMin();
+        for(LocalDate l=max.toLocalDate();l.isAfter(min.toLocalDate())||l.equals(min.toLocalDate());l=l.minusWeeks(1))
+            laba.add(""+l.minusWeeks(1)+" s/d "+l, labane(l));
+    }
+
+    private Component labane(LocalDate l) throws SQLException {
+        org.jfree.data.category.DefaultCategoryDataset data=new org.jfree.data.category.DefaultCategoryDataset();
+        for(LocalDate l2=l;l2.isBefore(l.plusWeeks(1));l2=l2.plusDays(1)){
+            Number u=getUntung(l2),r=getRugi(l2);
+            data.addValue(u.longValue()-r.longValue(), "Laba", l2);
+        }return new org.jfree.chart.ChartPanel(ChartFactory.createLineChart("Laba Bersih", "Periode", "Nilai", data,
+                PlotOrientation.VERTICAL,true,true
+        ,false));
     }
 }
