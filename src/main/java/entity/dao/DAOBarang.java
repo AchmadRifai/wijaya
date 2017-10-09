@@ -24,7 +24,7 @@ public class DAOBarang implements DAO<Barang>{
     public void createTable() throws SQLException {
         d.masuk("create table barang("
                 + "kode varchar(25)primary key,"
-                + "nm varchar(20)not null,"
+                + "nm varchar(50)not null,"
                 + "satuan varchar(15)not null,"
                 + "hrg bigint not null,"
                 + "stok float not null,"
