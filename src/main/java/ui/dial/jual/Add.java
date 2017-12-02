@@ -54,6 +54,7 @@ private java.awt.Frame p;
         kabeh = new javax.swing.JDesktopPane();
         brgItem2 = new ui.dial.jual.BrgItem();
         brgItem3 = new ui.dial.jual.BrgItem();
+        brgItem4 = new ui.dial.jual.BrgItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -78,6 +79,7 @@ private java.awt.Frame p;
 
         totalBYR.setEditable(false);
         totalBYR.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        totalBYR.setText("IDR 0.00");
 
         byr.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         byr.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -110,6 +112,12 @@ private java.awt.Frame p;
         gridBagConstraints.gridy = 1;
         kabeh.add(brgItem3, gridBagConstraints);
 
+        brgItem4.setVisible(true);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        kabeh.add(brgItem4, gridBagConstraints);
+
         jScrollPane1.setViewportView(kabeh);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -127,7 +135,7 @@ private java.awt.Frame p;
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(380, 415, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(byr, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
                             .addComponent(kembali)))
@@ -141,7 +149,7 @@ private java.awt.Frame p;
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -208,15 +216,21 @@ private java.awt.Frame p;
     }
 
     private void muat() {
-        while(this.isVisible())try {
-            refresh();
-            } catch (SQLException | InterruptedException ex) {
-                util.Db.hindar(ex);
-            }
+    try {
+        /*while(this.isVisible())try {
+        refresh();
+        } catch (SQLException | InterruptedException ex) {
+        util.Db.hindar(ex);
+        }*/
+        refresh();
+    } catch (SQLException | InterruptedException ex) {
+        util.Db.hindar(ex);
+    }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private ui.dial.jual.BrgItem brgItem2;
     private ui.dial.jual.BrgItem brgItem3;
+    private ui.dial.jual.BrgItem brgItem4;
     private javax.swing.JFormattedTextField byr;
     private javax.swing.JButton cs;
     private javax.swing.JLabel jLabel1;
@@ -230,7 +244,7 @@ private java.awt.Frame p;
 
     private void refresh() throws SQLException, InterruptedException {
         muatBarang();
-        Thread.sleep(5000);
+        //Thread.sleep(5000);
     }
 
     private void validasine() {
@@ -279,9 +293,22 @@ private java.awt.Frame p;
     }
 
     private void muatBarang() throws SQLException {
+        if(kabeh.getAllFrames().length>0)kabeh.removeAll();
         java.sql.ResultSet r=d.keluar("select kode from barang where stok>0 and not deleted");
+        int y=0;
         while(r.next()){
-            
+            BrgItem b=new BrgItem();
+            if(y>0){
+                java.awt.GridBagConstraints gbc=new java.awt.GridBagConstraints();
+                gbc.gridy=y;
+                gbc.gridx=0;
+                kabeh.add(b, gbc);
+                if(y==1)y++;
+                else y=0;
+            }else{
+                kabeh.add(b, new java.awt.GridBagConstraints());
+                y++;
+            } b.setKode(r.getString("kode"), d, j, totalBYR, kabeh);
         }r.close();
     }
 

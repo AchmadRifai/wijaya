@@ -1,4 +1,4 @@
-/*
+/*I
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -6,7 +6,6 @@
 package ui;
 
 import java.awt.AWTException;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.sql.SQLException;
@@ -179,9 +178,8 @@ public class Start extends javax.swing.JFrame {
 
     private void sActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sActionPerformed
         this.setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
-        buatDB();
         buatKunci();
-        buattemplate();
+        buatDB();
         disableAll();
     }//GEN-LAST:event_sActionPerformed
 
@@ -249,18 +247,5 @@ public class Start extends javax.swing.JFrame {
         host.setEnabled(true);
         port.setEnabled(true);
         util.Work.hapusKey();
-    }
-
-    private void buattemplate() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    util.Struk.init();
-                } catch (FileNotFoundException ex) {
-                    util.Db.hindar(ex);
-                }
-            }
-        }).start();
     }
 }

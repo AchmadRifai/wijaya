@@ -38,6 +38,7 @@ public class Work {
         saveKey("name",name);
         saveKey("user",user);
         saveKey("pass",pass);
+        Struk.init();
     }
 
     private static void saveKey(String mode, String host) throws GeneralSecurityException, IOException, ClassNotFoundException {
