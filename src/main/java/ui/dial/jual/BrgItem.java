@@ -19,6 +19,7 @@ public class BrgItem extends javax.swing.JInternalFrame {
     private org.joda.money.Money m;
     private javax.swing.JTextField t;
     private javax.swing.JDesktopPane desk;
+    private String kode;
 
     public org.joda.money.Money getTotal(){
         org.joda.money.Money tot=m.multipliedBy(Float.parseFloat(""+jum.getValue()), RoundingMode.FLOOR);
@@ -27,6 +28,7 @@ public class BrgItem extends javax.swing.JInternalFrame {
 
 public void setKode(String kode,util.Db d,entity.Jual j,javax.swing.JTextField t,javax.swing.JDesktopPane jd) throws SQLException{
     this.t=t;
+    this.kode=kode;
     desk=jd;
     java.sql.PreparedStatement p=d.getPS("select nm,satuan,hrg,stok from barang where kode=?");
     p.setString(1, kode);
@@ -130,4 +132,14 @@ public void setKode(String kode,util.Db d,entity.Jual j,javax.swing.JTextField t
     private javax.swing.JLabel nm;
     private javax.swing.JLabel stok;
     // End of variables declaration//GEN-END:variables
+
+    public void simpenCok() throws SQLException{
+        java.sql.PreparedStatement p=d.getPS("insert into detjual values(?,?,?,?)");
+        p.setString(1, j.getNota());
+        p.setString(2, kode);
+        p.setFloat(3, Float.parseFloat(""+jum.getValue()));
+        p.setString(4, hrg.getText());
+        p.execute();
+        p.close();
+    }
 }

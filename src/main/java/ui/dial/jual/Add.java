@@ -189,15 +189,14 @@ private java.awt.Frame p;
     private void byrKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_byrKeyReleased
         if(byr.isValid()&&!byr.getText().isEmpty()){
             long l=Long.parseLong(byr.getText());
-            try {
-                l-=getTotale();
-            } catch (SQLException ex) {
-                util.Db.hindar(ex);
-            }kembali.setText(org.joda.money.Money.of(CurrencyUnit.of("IDR"), l).toString());
+            org.joda.money.Money m=org.joda.money.Money.parse(totalBYR.getText());
+            l-=m.getAmount().longValueExact();
+            kembali.setText(org.joda.money.Money.of(CurrencyUnit.of("IDR"), l).toString());
         }validasine();
     }//GEN-LAST:event_byrKeyReleased
 
     private void csActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_csActionPerformed
+        inputAll();
         selesai();
         int x=JOptionPane.showConfirmDialog(rootPane, "Apa orang ini butuh struk?", "BUTUH?", JOptionPane.YES_NO_OPTION);
         if(x==JOptionPane.YES_OPTION)cetak();
@@ -254,15 +253,6 @@ private java.awt.Frame p;
         cs.setEnabled(Color.BLACK==kembali.getForeground());
     }
 
-    private long getTotale() throws SQLException {
-        org.joda.money.Money m=org.joda.money.Money.of(CurrencyUnit.of("IDR"), 0);
-        java.sql.PreparedStatement p=d.getPS("select byr from detjual where nota=?");
-        p.setString(1, j.getNota());
-        java.sql.ResultSet r=p.executeQuery();
-        while(r.next())m=m.plus(org.joda.money.Money.parse(r.getString("byr")));
-        return m.getAmount().longValueExact();
-    }
-
     private void selesai() {
     try {
         entity.Jual b=new entity.Jual(j.getNota(), d);
@@ -312,4 +302,12 @@ private java.awt.Frame p;
         }r.close();
     }
 
+    private void inputAll() {
+        for(javax.swing.JInternalFrame i:kabeh.getAllFrames())try {
+                BrgItem bi=(BrgItem) i;
+                bi.simpenCok();
+            } catch (SQLException ex) {
+                util.Db.hindar(ex);
+            }
+    }
 }
