@@ -134,12 +134,15 @@ public void setKode(String kode,util.Db d,entity.Jual j,javax.swing.JTextField t
     // End of variables declaration//GEN-END:variables
 
     public void simpenCok() throws SQLException{
-        java.sql.PreparedStatement p=d.getPS("insert into detjual values(?,?,?,?)");
-        p.setString(1, j.getNota());
-        p.setString(2, kode);
-        p.setFloat(3, Float.parseFloat(""+jum.getValue()));
-        p.setString(4, hrg.getText());
-        p.execute();
-        p.close();
+        float f=Float.parseFloat(""+jum.getValue());
+        if(f>0.0){
+            java.sql.PreparedStatement p=d.getPS("insert into detjual values(?,?,?,?)");
+            p.setString(1, j.getNota());
+            p.setString(2, kode);
+            p.setFloat(3, Float.parseFloat(""+jum.getValue()));
+            p.setString(4, hrg.getText());
+            p.execute();
+            p.close();
+        }
     }
 }
