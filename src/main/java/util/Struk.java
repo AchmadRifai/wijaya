@@ -29,7 +29,7 @@ public class Struk {
     private static void header(PrintWriter o) {
         o.print("<jasperReport xmlns=\"http://jasperreports.sourceforge.net/jasperreports\" xmlns:xsi=\"http://www.w3.org");
         o.print("/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://jasperreports.sourceforge.net/jasperreports http:/");
-        o.print("/jasperreports.sourceforge.net/xsd/jasperreport.xsd\" name=\"null\" language=\"groovy\" pageWidth=\"425\" ");
+        o.print("/jasperreports.sourceforge.net/xsd/jasperreport.xsd\" name=\"null\" language=\"java\" pageWidth=\"425\" ");
         o.print("pageHeight=\"255\" orientation=\"Landscape\" columnWidth=\"385\" leftMargin=\"20\" rightMargin=\"20\" ");
         o.print("topMargin=\"20\" bottomMargin=\"20\" uuid=\"f05a5a0c-a352-4601-b1b4-e8214dea82e0\">");
         data(o);
