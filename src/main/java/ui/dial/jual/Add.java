@@ -285,16 +285,19 @@ private java.awt.Frame p;
     private void muatBarang() throws SQLException {
         if(kabeh.getAllFrames().length>0)kabeh.removeAll();
         java.sql.ResultSet r=d.keluar("select kode from barang where stok>0 and not deleted");
-        int y=0;
+        int y=0, x=0;
         while(r.next()){
             BrgItem b=new BrgItem();
             if(y>0){
                 java.awt.GridBagConstraints gbc=new java.awt.GridBagConstraints();
                 gbc.gridy=y;
-                gbc.gridx=0;
+                gbc.gridx=x;
                 kabeh.add(b, gbc);
                 if(y==1)y++;
-                else y=0;
+                else {
+                	y=0;
+                	x++;
+                }
             }else{
                 kabeh.add(b, new java.awt.GridBagConstraints());
                 y++;
