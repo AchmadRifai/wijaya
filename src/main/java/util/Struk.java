@@ -179,11 +179,11 @@ public class Struk {
         o.print("</textField><textField>");
         o.print("<reportElement style=\"Detail\" x=\"200\" y=\"16\" width=\"185\" height=\"15\" uuid=\"2ff06299-a6d2-4ec0-abe1-81679dc2b2a4\"/>");
         o.print("<textElement textAlignment=\"Right\"/>");
-        o.print("<textFieldExpression><![CDATA[$F{jual_kembali}]]></textFieldExpression>");
+        o.print("<textFieldExpression><![CDATA[$F{jual_byr}]]></textFieldExpression>");
         o.print("</textField><textField>");
         o.print("<reportElement style=\"Detail\" x=\"200\" y=\"31\" width=\"185\" height=\"14\" uuid=\"48648ec7-8440-47b0-be43-847bce60a359\"/>");
         o.print("<textElement textAlignment=\"Right\"/>");
-        o.print("<textFieldExpression><![CDATA[$F{jual_byr}]]></textFieldExpression>");
+        o.print("<textFieldExpression><![CDATA[$F{jual_kembali}]]></textFieldExpression>");
         o.print("</textField>");
         keterangane(o);
     }
@@ -224,12 +224,12 @@ public class Struk {
         o.print("<staticText>");
         o.print("<reportElement style=\"Column header\" x=\"0\" y=\"4\" width=\"100\" height=\"12\" uuid=\""
                 + "93306a98-a346-4333-9e43-9ab55adc64d8\"/>");
-        o.print("<text><![CDATA[Total]]></text>");
-        o.print("</staticText><staticText>");
+        o.print("<text><![CDATA[Total]]></text></staticText>");
+        o.print("<staticText>");
         o.print("<reportElement style=\"Column header\" x=\"0\" y=\"18\" width=\"100\" height=\"12\" uuid=\""
                 + "ba32a78b-a1b9-4575-a2ba-9b0b82db51fb\"/>");
-        o.print("<text><![CDATA[Pembayaran]]></text>");
-        o.print("</staticText><staticText>");
+        o.print("<text><![CDATA[Pembayaran]]></text></staticText>");
+        o.print("<staticText>");
         o.print("<reportElement style=\"Column header\" x=\"0\" y=\"33\" width=\"100\" height=\"12\" uuid=\""
                 + "bd9439f5-ccd3-4608-94ed-6fb6861f5db4\"/>");
         o.print("<text><![CDATA[Kembalian]]></text>");
