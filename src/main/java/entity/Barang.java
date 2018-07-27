@@ -17,7 +17,7 @@ public class Barang {
     private String kode,nm,satuan;
     private Money hrg;
     private float stok;
-    private boolean deleted;
+    private boolean deleted,biji;
 
     public Barang(String kode,util.Db d) throws SQLException {
         this.kode = kode;
@@ -30,6 +30,7 @@ public class Barang {
             hrg=Money.of(CurrencyUnit.getInstance("IDR"), rs.getLong("hrg"));
             deleted=rs.getBoolean("deleted");
             stok=rs.getFloat("stok");
+            biji=rs.getBoolean("biji");
         }rs.close();
         ps.close();
     }
@@ -41,6 +42,7 @@ public class Barang {
         this.hrg = hrg;
         this.stok = stok;
         deleted=false;
+        biji=false;
     }
 
     public String getKode() {
@@ -89,5 +91,13 @@ public class Barang {
 
     public void setStok(float stok) {
         this.stok = stok;
+    }
+
+    public boolean isBiji() {
+        return biji;
+    }
+
+    public void setBiji(boolean biji) {
+        this.biji = biji;
     }
 }

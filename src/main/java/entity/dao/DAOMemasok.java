@@ -27,7 +27,7 @@ public class DAOMemasok implements DAO<Memasok>{
                 + "brg varchar(25)not null,"
                 + "sup varchar(20)not null,"
                 + "sat bigint not null,"
-                + "jum float not null,"
+                + "jum float unsigned not null,"
                 + "tgl date not null"
                 + ")");
         d.masuk("alter table memasok add foreign key(brg)references barang(kode)on update cascade on delete cascade");

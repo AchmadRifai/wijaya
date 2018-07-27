@@ -27,20 +27,22 @@ public class DAOBarang implements DAO<Barang>{
                 + "nm varchar(50)not null,"
                 + "satuan varchar(15)not null,"
                 + "hrg bigint not null,"
-                + "stok float not null,"
-                + "deleted boolean not null"
+                + "stok float unsigned not null,"
+                + "deleted boolean not null,"
+                + "biji boolean not null"
                 + ")");
     }
 
     @Override
     public void insert(Barang v) throws SQLException {
-        java.sql.PreparedStatement ps=d.getPS("insert into barang values(?,?,?,?,?,?)");
+        java.sql.PreparedStatement ps=d.getPS("insert into barang values(?,?,?,?,?,?,?)");
         ps.setString(1, v.getKode());
         ps.setString(2, v.getNm());
         ps.setString(3, v.getSatuan());
         ps.setLong(4, v.getHrg().getAmount().longValue());
         ps.setFloat(5, v.getStok());
         ps.setBoolean(6, v.isDeleted());
+        ps.setBoolean(7, v.isBiji());
         ps.execute();
         ps.close();
     }
@@ -56,12 +58,13 @@ public class DAOBarang implements DAO<Barang>{
 
     @Override
     public void update(Barang a, Barang b) throws SQLException {
-        java.sql.PreparedStatement ps=d.getPS("update barang set nm=?,satuan=?,hrg=?,stok=? where kode=?");
+        java.sql.PreparedStatement ps=d.getPS("update barang set nm=?,satuan=?,hrg=?,stok=?,biji=? where kode=?");
         ps.setString(1, b.getNm());
         ps.setString(2, b.getSatuan());
         ps.setLong(3, b.getHrg().getAmount().longValue());
         ps.setFloat(4, b.getStok());
-        ps.setString(5, a.getKode());
+        ps.setBoolean(5, b.isBiji());
+        ps.setString(6, a.getKode());
         ps.execute();
         ps.close();
     }

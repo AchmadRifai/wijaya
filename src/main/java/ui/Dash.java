@@ -703,7 +703,7 @@ private entity.Jual sj;
             if(x==javax.swing.JOptionPane.NO_OPTION)return;
         }entity.Jual j=new entity.Jual(sp.getKode(), i);
         new entity.dao.DAOJual(d).insert(j);
-        new ui.dial.jual.Add(this, rootPaneCheckingEnabled, d, j).setVisible(true);
+        new ui.dial.jual.Add2(this, rootPaneCheckingEnabled, d, j).setVisible(true);
         jual();
     } catch (SQLException ex) {
         JOptionPane.showMessageDialog(rootPane, ex.getMessage());

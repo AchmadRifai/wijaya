@@ -25,7 +25,7 @@ public class DADetJual implements DAO<DetJual>{
         d.masuk("create table detjual("
                 + "nota varchar(37)not null,"
                 + "brg varchar(25)not null,"
-                + "jum float not null,"
+                + "jum float unsigned not null,"
                 + "byr text not null"
                 + ")");
         d.masuk("alter table detjual add foreign key(nota)references jual(nota)on update cascade on delete cascade");
