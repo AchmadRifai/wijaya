@@ -257,9 +257,12 @@ private float maxBeli,curbeli;
         b=new entity.Barang(""+tblBarang.getModel().getValueAt(s, 0), d);
         maxBeli=b.getStok();
         getCurBeli(s);
-        float op = 0.1f;
-        if(b.isBiji())op=1;
-        qty.setModel(new javax.swing.SpinnerNumberModel(curbeli, 0, maxBeli, op));
+        double op = 0.1;
+        if(b.isBiji())op=1.0;
+        double min=0.0;
+        qty.setModel(new javax.swing.SpinnerNumberModel(curbeli, min, maxBeli, op));
+        javax.swing.JSpinner.NumberEditor ne=(javax.swing.JSpinner.NumberEditor) qty.getEditor();
+        ne.getFormat().setMinimumFractionDigits(1);
     } catch (SQLException ex) {
         util.Db.hindar(ex);
     }
@@ -268,7 +271,7 @@ private float maxBeli,curbeli;
     private void qtyStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_qtyStateChanged
     if(b!=null)try {
         float f=Float.parseFloat(""+qty.getValue());
-        if(f>0){
+        if(f>0.0f){
             if(isAdaItem())ubahJumlah();
             else sisipBaru();
         }else delItem();

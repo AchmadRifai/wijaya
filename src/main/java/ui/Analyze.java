@@ -59,6 +59,15 @@ private util.Db d;
         jLabel7 = new javax.swing.JLabel();
         tglAwalUR = new javax.swing.JSpinner();
         jLabel8 = new javax.swing.JLabel();
+        blnAwalUR = new javax.swing.JSpinner();
+        jLabel9 = new javax.swing.JLabel();
+        thnAwalUR = new javax.swing.JSpinner();
+        jLabel10 = new javax.swing.JLabel();
+        tglAkhirUR = new javax.swing.JSpinner();
+        jLabel11 = new javax.swing.JLabel();
+        blnAkhirUR = new javax.swing.JSpinner();
+        jLabel12 = new javax.swing.JLabel();
+        thnAkhirUR = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setType(java.awt.Window.Type.UTILITY);
@@ -205,6 +214,29 @@ private util.Db d;
 
         jLabel8.setText(":");
 
+        blnAwalUR.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
+        blnAwalUR.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                blnAwalURStateChanged(evt);
+            }
+        });
+
+        jLabel9.setText(":");
+
+        thnAwalUR.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+
+        jLabel10.setText("Sampai Dengan");
+
+        tglAkhirUR.setModel(new javax.swing.SpinnerNumberModel(1, 1, 31, 1));
+
+        jLabel11.setText(":");
+
+        blnAkhirUR.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
+
+        jLabel12.setText(":");
+
+        thnAkhirUR.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -216,7 +248,25 @@ private util.Db d;
                 .addComponent(tglAwalUR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8)
-                .addContainerGap(926, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(blnAwalUR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(thnAwalUR, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tglAkhirUR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(blnAkhirUR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(thnAkhirUR, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(339, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -225,7 +275,16 @@ private util.Db d;
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(tglAwalUR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
+                    .addComponent(jLabel8)
+                    .addComponent(blnAwalUR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9)
+                    .addComponent(thnAwalUR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10)
+                    .addComponent(tglAkhirUR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11)
+                    .addComponent(blnAkhirUR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12)
+                    .addComponent(thnAkhirUR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(481, Short.MAX_VALUE))
         );
 
@@ -310,11 +369,32 @@ private util.Db d;
         this.setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void blnAwalURStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_blnAwalURStateChanged
+        int[]p={2,4,6,9,11};
+        int max=31, saikiBln=Integer.parseInt(""+blnAwalUR.getValue()),saikiTgl=Integer.parseInt(""+tglAwalUR.getValue());
+        for(int i:p){
+            if(i==saikiBln){
+                int b=30;
+                if(i==2){
+                    if(0==Integer.parseInt(""+thnAwalUR.getValue())%4)b=29;
+                    else b=28;
+                } if(saikiTgl>b)saikiTgl=b;
+                max=b;
+                break;
+            }
+        }tglAwalUR.setModel(new javax.swing.SpinnerNumberModel(saikiTgl, 1, max, 1));
+    }//GEN-LAST:event_blnAwalURStateChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSpinner blnAkhir;
+    private javax.swing.JSpinner blnAkhirUR;
     private javax.swing.JSpinner blnAwal;
+    private javax.swing.JSpinner blnAwalUR;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -322,6 +402,7 @@ private util.Db d;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -329,10 +410,13 @@ private util.Db d;
     private javax.swing.JTabbedPane tab;
     private javax.swing.JTable tblMinta;
     private javax.swing.JSpinner tglAkhir;
+    private javax.swing.JSpinner tglAkhirUR;
     private javax.swing.JSpinner tglAwal;
     private javax.swing.JSpinner tglAwalUR;
     private javax.swing.JSpinner thnAkhir;
+    private javax.swing.JSpinner thnAkhirUR;
     private javax.swing.JSpinner thnAwal;
+    private javax.swing.JSpinner thnAwalUR;
     // End of variables declaration//GEN-END:variables
 
     private void permintaan() throws SQLException {
