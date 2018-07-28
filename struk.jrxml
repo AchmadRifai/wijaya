@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="425" pageHeight="255" orientation="Landscape" columnWidth="385" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f05a5a0c-a352-4601-b1b4-e8214dea82e0">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" 
+              name="null" language="java" pageWidth="425" pageHeight="255" orientation="Landscape" columnWidth="385" leftMargin="20" rightMargin="20" 
+              topMargin="20" bottomMargin="20" uuid="f05a5a0c-a352-4601-b1b4-e8214dea82e0">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -8,20 +11,37 @@
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="9" isBold="true"/>
 	<style name="Detail" fontName="Arial" fontSize="9"/>
 	<parameter name="nota" class="java.lang.String"/>
-	<queryString language="SQL">
-		<![CDATA[SELECT jual.`nota` AS jual_nota,
-jual.kembali as jual_kembali
-,jual.`total` AS jual_total,jual.`tgl` AS jual_tgl,detjual.`brg` AS detjual_brg,detjual.`jum` AS detjual_jum,detjual.`byr` AS detjual_byr,jual.byr as jual_byr
-FROM`jual` jual INNER JOIN `detjual` detjual ON jual.`nota` = detjual.`nota` WHERE jual.nota = $P{nota}]]>
+	<queryString>
+		<![CDATA[SELECT
+     jual.`nota` AS jual_nota,
+     jual.`kembali` AS jual_kembali,
+     jual.`total` AS jual_total,
+     jual.`tgl` AS jual_tgl,
+     detjual.`jum` AS detjual_jum,
+     detjual.`byr` AS detjual_byr,
+     jual.`byr` AS jual_byr,
+     barang.`nm` AS barang_nm,
+     barang.`satuan` AS barang_satuan,
+     barang.`hrg` AS barang_hrg,
+     pelanggan.`nm` AS pelanggan_nm
+FROM
+     `jual` jual INNER JOIN `detjual` detjual ON jual.`nota` = detjual.`nota`
+     INNER JOIN `barang` barang ON detjual.`brg` = barang.`kode`
+     INNER JOIN `pelanggan` pelanggan ON jual.`pel` = pelanggan.`kode`
+WHERE
+     jual.nota = $P{nota}]]>
 	</queryString>
 	<field name="jual_nota" class="java.lang.String"/>
-	<field name="jual_byr" class="java.lang.String"/>
-	<field name="jual_total" class="java.lang.String"/>
 	<field name="jual_kembali" class="java.lang.String"/>
+	<field name="jual_total" class="java.lang.String"/>
 	<field name="jual_tgl" class="java.sql.Date"/>
-	<field name="detjual_brg" class="java.lang.String"/>
 	<field name="detjual_jum" class="java.lang.Float"/>
 	<field name="detjual_byr" class="java.lang.String"/>
+	<field name="jual_byr" class="java.lang.String"/>
+	<field name="barang_nm" class="java.lang.String"/>
+	<field name="barang_satuan" class="java.lang.String"/>
+	<field name="barang_hrg" class="java.lang.Long"/>
+	<field name="pelanggan_nm" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -33,8 +53,12 @@ FROM`jual` jual INNER JOIN `detjual` detjual ON jual.`nota` = detjual.`nota` WHE
 				<text><![CDATA[TOKO BANGUNAN WIJAYA]]></text>
 			</staticText>
 			<textField>
-				<reportElement style="SubTitle" x="124" y="33" width="261" height="24" uuid="a81d79a1-97b2-4589-8704-58e91dac77df"/>
+				<reportElement style="SubTitle" x="0" y="35" width="190" height="24" uuid="a81d79a1-97b2-4589-8704-58e91dac77df"/>
 				<textFieldExpression><![CDATA[$F{jual_nota}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="SubTitle" x="190" y="33" width="190" height="24" uuid="3c0d8e48-3978-4532-ad64-b22d0d0935c5"/>
+				<textFieldExpression><![CDATA[$F{pelanggan_nm}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -52,9 +76,13 @@ FROM`jual` jual INNER JOIN `detjual` detjual ON jual.`nota` = detjual.`nota` WHE
 				<text><![CDATA[Qty]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="200" y="0" width="185" height="15" uuid="880e77ad-714f-4ce4-8098-f4385eaac021"/>
+				<reportElement style="Column header" x="264" y="0" width="121" height="15" uuid="880e77ad-714f-4ce4-8098-f4385eaac021"/>
 				<textElement textAlignment="Right"/>
 				<text><![CDATA[Sub Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="200" y="0" width="64" height="15" uuid="cacdf9bb-bbdb-4040-a5eb-88a92b3d8887"/>
+				<text><![CDATA[Harga]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -68,16 +96,20 @@ FROM`jual` jual INNER JOIN `detjual` detjual ON jual.`nota` = detjual.`nota` WHE
 			</line>
 			<textField>
 				<reportElement style="Detail" x="0" y="1" width="108" height="15" uuid="8c1b1731-185b-4083-8d90-33e8130bfe24"/>
-				<textFieldExpression><![CDATA[$F{detjual_brg}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{barang_nm}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="200" y="1" width="185" height="15" uuid="b008fc0b-88cb-4408-814d-e949be08dd47"/>
+				<reportElement style="Detail" x="264" y="1" width="121" height="15" uuid="b008fc0b-88cb-4408-814d-e949be08dd47"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{detjual_byr}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement style="Detail" x="108" y="1" width="92" height="15" uuid="2ed4ae12-db42-4019-b9b1-3e166ebf0107"/>
-				<textFieldExpression><![CDATA[$F{detjual_jum}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{detjual_jum}+" "+$F{barang_satuan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="200" y="1" width="64" height="15" uuid="28a93ccb-9a23-463d-91d7-dfdc9a06745e"/>
+				<textFieldExpression><![CDATA[$F{barang_hrg}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

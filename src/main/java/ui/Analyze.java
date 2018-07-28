@@ -38,9 +38,24 @@ private util.Db d;
     private void initComponents() {
 
         tab = new javax.swing.JTabbedPane();
-        permintaan = new javax.swing.JTabbedPane();
-        keuangan = new javax.swing.JTabbedPane();
-        laba = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        tglAwal = new javax.swing.JSpinner();
+        jLabel2 = new javax.swing.JLabel();
+        blnAwal = new javax.swing.JSpinner();
+        jLabel3 = new javax.swing.JLabel();
+        thnAwal = new javax.swing.JSpinner();
+        jLabel4 = new javax.swing.JLabel();
+        tglAkhir = new javax.swing.JSpinner();
+        jLabel5 = new javax.swing.JLabel();
+        blnAkhir = new javax.swing.JSpinner();
+        jLabel6 = new javax.swing.JLabel();
+        thnAkhir = new javax.swing.JSpinner();
+        jButton1 = new javax.swing.JButton();
+        pnlMinta = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblMinta = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setType(java.awt.Window.Type.UTILITY);
@@ -50,9 +65,149 @@ private util.Db d;
             }
         });
 
-        tab.addTab("PERMINTAAN", permintaan);
-        tab.addTab("UNTUNG RUGI", keuangan);
-        tab.addTab("LABA", laba);
+        jLabel1.setText("Mulai");
+
+        tglAwal.setModel(new javax.swing.SpinnerNumberModel(1, 1, 31, 1));
+
+        jLabel2.setText(":");
+
+        blnAwal.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
+        blnAwal.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                blnAwalStateChanged(evt);
+            }
+        });
+
+        jLabel3.setText(":");
+
+        thnAwal.setModel(new javax.swing.SpinnerNumberModel());
+
+        jLabel4.setText("Sampai dengan");
+
+        tglAkhir.setModel(new javax.swing.SpinnerNumberModel(1, 1, 31, 1));
+
+        jLabel5.setText(":");
+
+        blnAkhir.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
+        blnAkhir.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                blnAkhirStateChanged(evt);
+            }
+        });
+
+        jLabel6.setText(":");
+
+        thnAkhir.setModel(new javax.swing.SpinnerNumberModel());
+
+        jButton1.setText("Generate Grafik");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlMintaLayout = new javax.swing.GroupLayout(pnlMinta);
+        pnlMinta.setLayout(pnlMintaLayout);
+        pnlMintaLayout.setHorizontalGroup(
+            pnlMintaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 689, Short.MAX_VALUE)
+        );
+        pnlMintaLayout.setVerticalGroup(
+            pnlMintaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        tblMinta.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tblMinta);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(pnlMinta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tglAwal, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(blnAwal, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(thnAwal, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tglAkhir, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(blnAkhir, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(thnAkhir, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47)
+                        .addComponent(jButton1)))
+                .addGap(135, 135, 135))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(tglAwal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(blnAwal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(thnAwal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(tglAkhir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(blnAkhir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(thnAkhir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlMinta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        tab.addTab("Permintaan", jPanel1);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1049, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 513, Short.MAX_VALUE)
+        );
+
+        tab.addTab("untung rugi", jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -60,14 +215,14 @@ private util.Db d;
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tab, javax.swing.GroupLayout.DEFAULT_SIZE, 1166, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(tab, javax.swing.GroupLayout.PREFERRED_SIZE, 1054, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tab, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
+                .addComponent(tab)
                 .addContainerGap())
         );
 
@@ -76,30 +231,91 @@ private util.Db d;
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                load();
-            }
-        }).start();
+        javax.swing.table.DefaultTableModel m=new javax.swing.table.DefaultTableModel(new String[]{"Nama Barang","Jumlah"}, 0);
+        tblMinta.setModel(m);
+        LocalDate ld1=LocalDate.now(),ld2=ld1.minusWeeks(1);
+        thnAkhir.setValue(ld1.getYear());
+        blnAkhir.setValue(ld1.getMonthValue());
+        tglAkhir.setValue(ld1.getDayOfMonth());
+        thnAwal.setValue(ld2.getYear());
+        blnAwal.setValue(ld2.getMonthValue());
+        tglAwal.setValue(ld2.getDayOfMonth());
     }//GEN-LAST:event_formWindowOpened
+
+    private void blnAwalStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_blnAwalStateChanged
+        int[]p={2,4,6,9,11};
+        int max=31, saikiBln=Integer.parseInt(""+blnAwal.getValue()),saikiTgl=Integer.parseInt(""+tglAwal.getValue());
+        for(int i:p){
+            if(i==saikiBln){
+                int b=30;
+                if(i==2){
+                    if(0==Integer.parseInt(""+thnAwal.getValue())%4)b=29;
+                    else b=28;
+                } if(saikiTgl>b)saikiTgl=b;
+                max=b;
+                break;
+            }
+        }tglAwal.setModel(new javax.swing.SpinnerNumberModel(saikiTgl, 1, max, 1));
+    }//GEN-LAST:event_blnAwalStateChanged
+
+    private void blnAkhirStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_blnAkhirStateChanged
+        int[]p={2,4,6,9,11};
+        int max=31, saikiBln=Integer.parseInt(""+blnAkhir.getValue()),saikiTgl=Integer.parseInt(""+tglAkhir.getValue());
+        for(int i:p){
+            if(i==saikiBln){
+                int b=30;
+                if(i==2){
+                    if(0==Integer.parseInt(""+thnAkhir.getValue())%4)b=29;
+                    else b=28;
+                } if(saikiTgl>b)saikiTgl=b;
+                max=b;
+                break;
+            }
+        }tglAkhir.setModel(new javax.swing.SpinnerNumberModel(saikiTgl, 1, max, 1));
+    }//GEN-LAST:event_blnAkhirStateChanged
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        new Thread(()->{
+            LocalDate ld1=LocalDate.of(Integer.parseInt(""+thnAwal.getValue()), Integer.parseInt(""+blnAwal.getValue()), 
+                Integer.parseInt(""+tglAwal.getValue())),ld2=LocalDate.of(Integer.parseInt(""+thnAkhir.getValue()), 
+                        Integer.parseInt(""+blnAkhir.getValue()), Integer.parseInt(""+tglAkhir.getValue()));
+            try {
+                genaratePermintaan(ld1,ld2);
+            } catch (SQLException ex) {
+                util.Db.hindar(ex);
+            }this.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        }).start();
+        this.setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTabbedPane keuangan;
-    private javax.swing.JTabbedPane laba;
-    private javax.swing.JTabbedPane permintaan;
+    private javax.swing.JSpinner blnAkhir;
+    private javax.swing.JSpinner blnAwal;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel pnlMinta;
     private javax.swing.JTabbedPane tab;
+    private javax.swing.JTable tblMinta;
+    private javax.swing.JSpinner tglAkhir;
+    private javax.swing.JSpinner tglAwal;
+    private javax.swing.JSpinner thnAkhir;
+    private javax.swing.JSpinner thnAwal;
     // End of variables declaration//GEN-END:variables
 
     private void permintaan() throws SQLException {
         Date max=tglMax(),min=tglMin();
-        for(LocalDate l=max.toLocalDate();l.isAfter(min.toLocalDate())||l.equals(max.toLocalDate());l=l.minusMonths(1))
-            permintaan.add(""+l+" s/d "+l.plusMonths(1), buatPermintaan(l));
     }
 
     private void keuangan() throws SQLException {
         Date max=tglMax(),min=tglMin();
-        for(LocalDate l=max.toLocalDate();l.isAfter(min.toLocalDate())||l.equals(min.toLocalDate());l=l.minusWeeks(1))
-            keuangan.add(""+l+" s/d "+l.plusWeeks(1), buatKeuangan(l));
     }
 
     private void load() {
@@ -187,8 +403,6 @@ private util.Db d;
 
     private void laba() throws SQLException {
         Date max=tglMax(),min=tglMin();
-        for(LocalDate l=max.toLocalDate();l.isAfter(min.toLocalDate())||l.equals(min.toLocalDate());l=l.minusWeeks(1))
-            laba.add(""+l.minusWeeks(1)+" s/d "+l, labane(l));
     }
 
     private Component labane(LocalDate l) throws SQLException {
@@ -199,5 +413,27 @@ private util.Db d;
         }return new org.jfree.chart.ChartPanel(ChartFactory.createLineChart("Laba Bersih", "Periode", "Nilai", data,
                 PlotOrientation.VERTICAL,true,true
         ,false));
+    }
+
+    private void genaratePermintaan(LocalDate awal, LocalDate akhir) throws SQLException {
+        org.jfree.data.general.DefaultPieDataset data=new org.jfree.data.general.DefaultPieDataset();
+        javax.swing.table.DefaultTableModel m=new javax.swing.table.DefaultTableModel(new String[]{"Nama Barang","Jumlah"}, 0);
+        tblMinta.setModel(m);
+        java.sql.PreparedStatement p=d.getPS("select detjual.brg,sum(detjual.jum)as qty from jual inner join detjual where jual.tgl>=? and "
+                + "jual.tgl<? group by detjual.brg");
+        p.setDate(1, Date.valueOf(awal));
+        p.setDate(2, Date.valueOf(akhir));
+        java.sql.ResultSet r=p.executeQuery();
+        while(r.next()){
+            String brg=r.getString("brg");
+            double qty=r.getDouble("qty");
+            data.setValue(brg, qty);
+            m.addRow(new String[]{brg,""+qty});
+        }r.close();
+        p.close();
+        org.jfree.chart.ChartPanel cp
+                =new org.jfree.chart.ChartPanel(ChartFactory.createPieChart("Permintaan", data, true, true, false));
+        cp.setSize(pnlMinta.getSize());
+        pnlMinta.add(cp);
     }
 }
