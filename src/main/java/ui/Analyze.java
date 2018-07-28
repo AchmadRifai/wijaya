@@ -56,6 +56,9 @@ private util.Db d;
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMinta = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        tglAwalUR = new javax.swing.JSpinner();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setType(java.awt.Window.Type.UTILITY);
@@ -196,15 +199,34 @@ private util.Db d;
 
         tab.addTab("Permintaan", jPanel1);
 
+        jLabel7.setText("Mulai");
+
+        tglAwalUR.setModel(new javax.swing.SpinnerNumberModel(1, 1, 31, 1));
+
+        jLabel8.setText(":");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1049, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tglAwalUR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel8)
+                .addContainerGap(926, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 513, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(tglAwalUR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addContainerGap(481, Short.MAX_VALUE))
         );
 
         tab.addTab("untung rugi", jPanel2);
@@ -298,6 +320,8 @@ private util.Db d;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -306,6 +330,7 @@ private util.Db d;
     private javax.swing.JTable tblMinta;
     private javax.swing.JSpinner tglAkhir;
     private javax.swing.JSpinner tglAwal;
+    private javax.swing.JSpinner tglAwalUR;
     private javax.swing.JSpinner thnAkhir;
     private javax.swing.JSpinner thnAwal;
     // End of variables declaration//GEN-END:variables
@@ -419,8 +444,9 @@ private util.Db d;
         org.jfree.data.general.DefaultPieDataset data=new org.jfree.data.general.DefaultPieDataset();
         javax.swing.table.DefaultTableModel m=new javax.swing.table.DefaultTableModel(new String[]{"Nama Barang","Jumlah"}, 0);
         tblMinta.setModel(m);
-        java.sql.PreparedStatement p=d.getPS("select detjual.brg,sum(detjual.jum)as qty from jual inner join detjual where jual.tgl>=? and "
-                + "jual.tgl<? group by detjual.brg");
+        java.sql.PreparedStatement p=d.getPS("select detjual.brg,sum(detjual.jum)as qty from jual left join detjual on jual.nota=detjual.nota "
+                + "where jual.tgl>=? and "
+                + "jual.tgl<=? group by detjual.brg");
         p.setDate(1, Date.valueOf(awal));
         p.setDate(2, Date.valueOf(akhir));
         java.sql.ResultSet r=p.executeQuery();
@@ -434,6 +460,7 @@ private util.Db d;
         org.jfree.chart.ChartPanel cp
                 =new org.jfree.chart.ChartPanel(ChartFactory.createPieChart("Permintaan", data, true, true, false));
         cp.setSize(pnlMinta.getSize());
+        if(0<pnlMinta.getComponentCount())pnlMinta.removeAll();
         pnlMinta.add(cp);
     }
 }
