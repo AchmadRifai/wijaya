@@ -68,6 +68,25 @@ private util.Db d;
         blnAkhirUR = new javax.swing.JSpinner();
         jLabel12 = new javax.swing.JLabel();
         thnAkhirUR = new javax.swing.JSpinner();
+        pnlUR = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        tglAwalLaba = new javax.swing.JSpinner();
+        jLabel14 = new javax.swing.JLabel();
+        blnAwalLaba = new javax.swing.JSpinner();
+        jLabel15 = new javax.swing.JLabel();
+        thnAwalLaba = new javax.swing.JSpinner();
+        jLabel16 = new javax.swing.JLabel();
+        tglAkhirLaba = new javax.swing.JSpinner();
+        jLabel17 = new javax.swing.JLabel();
+        blnAkhirLaba = new javax.swing.JSpinner();
+        jLabel18 = new javax.swing.JLabel();
+        thnAkhirLaba = new javax.swing.JSpinner();
+        jButton3 = new javax.swing.JButton();
+        pnlLaba = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        ketTbl = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setType(java.awt.Window.Type.UTILITY);
@@ -237,36 +256,60 @@ private util.Db d;
 
         thnAkhirUR.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
 
+        javax.swing.GroupLayout pnlURLayout = new javax.swing.GroupLayout(pnlUR);
+        pnlUR.setLayout(pnlURLayout);
+        pnlURLayout.setHorizontalGroup(
+            pnlURLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        pnlURLayout.setVerticalGroup(
+            pnlURLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 458, Short.MAX_VALUE)
+        );
+
+        jButton2.setText("Generate Garfik");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tglAwalUR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(blnAwalUR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(thnAwalUR, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tglAkhirUR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(blnAkhirUR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel12)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(thnAkhirUR, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(339, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlUR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tglAwalUR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(blnAwalUR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(thnAwalUR, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tglAkhirUR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(blnAkhirUR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(thnAkhirUR, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)
+                        .addGap(0, 174, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -284,11 +327,138 @@ private util.Db d;
                     .addComponent(jLabel11)
                     .addComponent(blnAkhirUR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
-                    .addComponent(thnAkhirUR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(481, Short.MAX_VALUE))
+                    .addComponent(thnAkhirUR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlUR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         tab.addTab("untung rugi", jPanel2);
+
+        jLabel13.setText("Mulai");
+
+        tglAwalLaba.setModel(new javax.swing.SpinnerNumberModel(1, 1, 31, 1));
+
+        jLabel14.setText(":");
+
+        blnAwalLaba.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
+        blnAwalLaba.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                blnAwalLabaStateChanged(evt);
+            }
+        });
+
+        jLabel15.setText(":");
+
+        thnAwalLaba.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+
+        jLabel16.setText("Sampai Dengan");
+
+        tglAkhirLaba.setModel(new javax.swing.SpinnerNumberModel(1, 1, 31, 1));
+
+        jLabel17.setText(":");
+
+        blnAkhirLaba.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
+
+        jLabel18.setText(":");
+
+        thnAkhirLaba.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+
+        jButton3.setText("Generate Garfik");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlLabaLayout = new javax.swing.GroupLayout(pnlLaba);
+        pnlLaba.setLayout(pnlLabaLayout);
+        pnlLabaLayout.setHorizontalGroup(
+            pnlLabaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1025, Short.MAX_VALUE)
+        );
+        pnlLabaLayout.setVerticalGroup(
+            pnlLabaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 237, Short.MAX_VALUE)
+        );
+
+        ketTbl.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Tanggal", "Untung"
+            }
+        ));
+        jScrollPane2.setViewportView(ketTbl);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlLaba, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tglAwalLaba, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel14)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(blnAwalLaba, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel15)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(thnAwalLaba, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tglAkhirLaba, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel17)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(blnAkhirLaba, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(thnAkhirLaba, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton3))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(tglAwalLaba, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14)
+                    .addComponent(blnAwalLaba, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15)
+                    .addComponent(thnAwalLaba, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16)
+                    .addComponent(tglAkhirLaba, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17)
+                    .addComponent(blnAkhirLaba, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel18)
+                    .addComponent(thnAkhirLaba, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlLaba, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        tab.addTab("Laba", jPanel3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -315,12 +485,9 @@ private util.Db d;
         javax.swing.table.DefaultTableModel m=new javax.swing.table.DefaultTableModel(new String[]{"Nama Barang","Jumlah"}, 0);
         tblMinta.setModel(m);
         LocalDate ld1=LocalDate.now(),ld2=ld1.minusWeeks(1);
-        thnAkhir.setValue(ld1.getYear());
-        blnAkhir.setValue(ld1.getMonthValue());
-        tglAkhir.setValue(ld1.getDayOfMonth());
-        thnAwal.setValue(ld2.getYear());
-        blnAwal.setValue(ld2.getMonthValue());
-        tglAwal.setValue(ld2.getDayOfMonth());
+        fillPermintaanTgl(ld1,ld2);
+        fillURTgl(ld1,ld2);
+        fillLabaTgl(ld1,ld2);
     }//GEN-LAST:event_formWindowOpened
 
     private void blnAwalStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_blnAwalStateChanged
@@ -385,16 +552,60 @@ private util.Db d;
         }tglAwalUR.setModel(new javax.swing.SpinnerNumberModel(saikiTgl, 1, max, 1));
     }//GEN-LAST:event_blnAwalURStateChanged
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        new Thread(()->{
+            LocalDate ld1=LocalDate.of(Integer.parseInt(""+thnAwalUR.getValue()), Integer.parseInt(""+blnAwalUR.getValue()), 
+                Integer.parseInt(""+tglAwalUR.getValue())),ld2=LocalDate.of(Integer.parseInt(""+thnAkhirUR.getValue()), 
+                        Integer.parseInt(""+blnAkhirUR.getValue()), Integer.parseInt(""+tglAkhirUR.getValue()));
+            try {
+                generateUR(ld1,ld2);
+            } catch (SQLException ex) {
+                util.Db.hindar(ex);
+            }
+            this.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        }).start();
+        this.setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void blnAwalLabaStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_blnAwalLabaStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_blnAwalLabaStateChanged
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        new Thread(()->{
+            LocalDate ld1=LocalDate.of(Integer.parseInt(""+thnAwalLaba.getValue()), Integer.parseInt(""+blnAwalLaba.getValue()), 
+                Integer.parseInt(""+tglAwalLaba.getValue())),ld2=LocalDate.of(Integer.parseInt(""+thnAkhirLaba.getValue()), 
+                        Integer.parseInt(""+blnAkhirLaba.getValue()), Integer.parseInt(""+tglAkhirLaba.getValue()));
+            try {
+                generateLaba(ld1,ld2);
+            } catch (SQLException ex) {
+                util.Db.hindar(ex);
+            }
+            this.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        }).start();
+        this.setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSpinner blnAkhir;
+    private javax.swing.JSpinner blnAkhirLaba;
     private javax.swing.JSpinner blnAkhirUR;
     private javax.swing.JSpinner blnAwal;
+    private javax.swing.JSpinner blnAwalLaba;
     private javax.swing.JSpinner blnAwalUR;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -405,17 +616,26 @@ private util.Db d;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable ketTbl;
+    private javax.swing.JPanel pnlLaba;
     private javax.swing.JPanel pnlMinta;
+    private javax.swing.JPanel pnlUR;
     private javax.swing.JTabbedPane tab;
     private javax.swing.JTable tblMinta;
     private javax.swing.JSpinner tglAkhir;
+    private javax.swing.JSpinner tglAkhirLaba;
     private javax.swing.JSpinner tglAkhirUR;
     private javax.swing.JSpinner tglAwal;
+    private javax.swing.JSpinner tglAwalLaba;
     private javax.swing.JSpinner tglAwalUR;
     private javax.swing.JSpinner thnAkhir;
+    private javax.swing.JSpinner thnAkhirLaba;
     private javax.swing.JSpinner thnAkhirUR;
     private javax.swing.JSpinner thnAwal;
+    private javax.swing.JSpinner thnAwalLaba;
     private javax.swing.JSpinner thnAwalUR;
     // End of variables declaration//GEN-END:variables
 
@@ -546,5 +766,84 @@ private util.Db d;
         cp.setSize(pnlMinta.getSize());
         if(0<pnlMinta.getComponentCount())pnlMinta.removeAll();
         pnlMinta.add(cp);
+    }
+
+    private void fillPermintaanTgl(LocalDate ld1, LocalDate ld2) {
+        thnAkhir.setValue(ld1.getYear());
+        blnAkhir.setValue(ld1.getMonthValue());
+        tglAkhir.setValue(ld1.getDayOfMonth());
+        thnAwal.setValue(ld2.getYear());
+        blnAwal.setValue(ld2.getMonthValue());
+        tglAwal.setValue(ld2.getDayOfMonth());
+    }
+
+    private void fillURTgl(LocalDate ld1, LocalDate ld2) {
+        thnAkhirUR.setValue(ld1.getYear());
+        blnAkhirUR.setValue(ld1.getMonthValue());
+        tglAkhirUR.setValue(ld1.getDayOfMonth());
+        thnAwalUR.setValue(ld2.getYear());
+        blnAwalUR.setValue(ld2.getMonthValue());
+        tglAwalUR.setValue(ld2.getDayOfMonth());
+    }
+
+    private void generateUR(LocalDate ld1, LocalDate ld2) throws SQLException {
+        org.jfree.data.category.DefaultCategoryDataset data=new org.jfree.data.category.DefaultCategoryDataset();
+        LocalDate awal,akhir,loop;
+        boolean min;
+        if(ld2.isBefore(ld1)){
+            awal=ld2;
+            akhir=ld1;
+            min=false;
+        }else{
+            akhir=ld2;
+            awal=ld1;
+            min=true;
+        }for(loop=awal;min?!loop.isAfter(akhir):!loop.isBefore(akhir);){
+            data.addValue(getUntung(loop), "Untung", loop);
+            data.addValue(getRugi(loop), "Rugi", loop);
+            if(min)loop=loop.plusDays(1);
+            else loop=loop.minusDays(1);
+        }org.jfree.chart.ChartPanel cp=new org.jfree.chart.ChartPanel(ChartFactory.createBarChart("Untung Rugi", "Periode", "Nilai", data,
+                PlotOrientation.VERTICAL,true,true
+        ,false));
+        cp.setSize(pnlUR.getSize());
+        if(0<pnlUR.getComponentCount())pnlUR.removeAll();
+        pnlUR.add(cp);
+    }
+
+    private void fillLabaTgl(LocalDate ld1, LocalDate ld2) {
+        thnAkhirLaba.setValue(ld1.getYear());
+        blnAkhirLaba.setValue(ld1.getMonthValue());
+        tglAkhirLaba.setValue(ld1.getDayOfMonth());
+        thnAwalLaba.setValue(ld2.getYear());
+        blnAwalLaba.setValue(ld2.getMonthValue());
+        tglAwalLaba.setValue(ld2.getDayOfMonth());
+    }
+
+    private void generateLaba(LocalDate ld1, LocalDate ld2) throws SQLException {
+        org.jfree.data.category.DefaultCategoryDataset data=new org.jfree.data.category.DefaultCategoryDataset();
+        javax.swing.table.DefaultTableModel m=(javax.swing.table.DefaultTableModel) ketTbl.getModel();
+        ketTbl.removeAll();
+        LocalDate awal,akhir,loop;
+        boolean min;
+        if(ld2.isBefore(ld1)){
+            awal=ld2;
+            akhir=ld1;
+            min=false;
+        }else{
+            akhir=ld2;
+            awal=ld1;
+            min=true;
+        }for(loop=awal;min?!loop.isAfter(akhir):!loop.isBefore(akhir);){
+            Number u=getUntung(loop),r=getRugi(loop);
+            data.addValue(u.longValue()-r.longValue(), "Laba", loop);
+            m.addRow(new Object[]{loop,u.longValue()-r.longValue()});
+            if(min)loop=loop.plusDays(1);
+            else loop=loop.minusDays(1);
+        }org.jfree.chart.ChartPanel cp=new org.jfree.chart.ChartPanel(ChartFactory.
+                createLineChart("Laba", "Tanggal", "Laba", data, PlotOrientation.VERTICAL, true, true, false));
+        cp.setSize(pnlLaba.getSize());
+        if(0<pnlLaba.getComponentCount())pnlLaba.removeAll();
+        pnlLaba.add(cp);
     }
 }

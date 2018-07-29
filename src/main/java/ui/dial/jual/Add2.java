@@ -152,7 +152,7 @@ private float maxBeli,curbeli;
         kembali.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         kembali.setText("0");
 
-        n.setText("NEXT");
+        n.setText("BELI");
         n.setEnabled(false);
         n.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

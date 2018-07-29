@@ -241,7 +241,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="n">
       <Properties>
-        <Property name="text" type="java.lang.String" value="NEXT"/>
+        <Property name="text" type="java.lang.String" value="BELI"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>

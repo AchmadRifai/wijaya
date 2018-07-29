@@ -94,16 +94,26 @@ private entity.Jual sj;
         tblSuplier = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        tglJual = new javax.swing.JComboBox<>();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblJual = new javax.swing.JTable();
+        tglJual = new javax.swing.JSpinner();
+        jLabel4 = new javax.swing.JLabel();
+        blnJual = new javax.swing.JSpinner();
+        jLabel3 = new javax.swing.JLabel();
+        thnJual = new javax.swing.JSpinner();
+        showJual = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblPelanggan = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        tglMemasok = new javax.swing.JComboBox<>();
         jScrollPane5 = new javax.swing.JScrollPane();
         tblMemasok = new javax.swing.JTable();
+        showJual1 = new javax.swing.JButton();
+        thnPasok = new javax.swing.JSpinner();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        blnPasok = new javax.swing.JSpinner();
+        tglPasok = new javax.swing.JSpinner();
         jTabbedPane3 = new javax.swing.JTabbedPane();
         srcBarang = new javax.swing.JTextField();
         srcSuplier = new javax.swing.JTextField();
@@ -413,12 +423,6 @@ private entity.Jual sj;
 
         jLabel1.setText("Tanggal");
 
-        tglJual.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                tglJualItemStateChanged(evt);
-            }
-        });
-
         tblJual.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -449,6 +453,28 @@ private entity.Jual sj;
         });
         jScrollPane3.setViewportView(tblJual);
 
+        tglJual.setModel(new javax.swing.SpinnerNumberModel(1, 1, 31, 1));
+
+        jLabel4.setText(":");
+
+        blnJual.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
+        blnJual.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                blnJualStateChanged(evt);
+            }
+        });
+
+        jLabel3.setText(":");
+
+        thnJual.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+
+        showJual.setText("Tampilkan");
+        showJual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showJualActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -456,8 +482,18 @@ private entity.Jual sj;
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tglJual, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tglJual, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(blnJual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(thnJual, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(showJual)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 783, Short.MAX_VALUE)
         );
@@ -467,9 +503,14 @@ private entity.Jual sj;
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(tglJual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tglJual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(blnJual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(thnJual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(showJual))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("PENJUALAN", new javax.swing.ImageIcon(getClass().getResource("/wijaya/ikon-penjualan-tab.png")), jPanel1);
@@ -508,12 +549,6 @@ private entity.Jual sj;
 
         jLabel2.setText("Tanggal :");
 
-        tglMemasok.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                tglMemasokItemStateChanged(evt);
-            }
-        });
-
         tblMemasok.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -539,6 +574,28 @@ private entity.Jual sj;
         });
         jScrollPane5.setViewportView(tblMemasok);
 
+        showJual1.setText("Tampilkan");
+        showJual1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showJual1ActionPerformed(evt);
+            }
+        });
+
+        thnPasok.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+
+        jLabel5.setText(":");
+
+        jLabel6.setText(":");
+
+        blnPasok.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
+        blnPasok.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                blnPasokStateChanged(evt);
+            }
+        });
+
+        tglPasok.setModel(new javax.swing.SpinnerNumberModel(1, 1, 31, 1));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -546,8 +603,18 @@ private entity.Jual sj;
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(tglMemasok, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tglPasok, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(blnPasok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(thnPasok, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(showJual1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 783, Short.MAX_VALUE)
         );
@@ -557,9 +624,15 @@ private entity.Jual sj;
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(tglMemasok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tglPasok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6)
+                        .addComponent(blnPasok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5)
+                        .addComponent(thnPasok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(showJual1)))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("PASOKAN BARANG", new javax.swing.ImageIcon(getClass().getResource("/wijaya/list.png")), jPanel2); // NOI18N
@@ -644,19 +717,18 @@ private entity.Jual sj;
     }//GEN-LAST:event_tblBarangMouseEntered
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while(isVisible())try {
-                    refresh();
-                    } catch (SQLException ex) {
-                        JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-                        util.Db.hindar(ex);
-                    } catch (InterruptedException ex) {
-                        util.Db.hindar(ex);
-                    }
+        new Thread(() -> {
+            while(isVisible())try {
+                refresh();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+                util.Db.hindar(ex);
+            } catch (InterruptedException ex) {
+                util.Db.hindar(ex);
             }
         }).start();sb=null;
+        jualeSaiki();
+        pasokSaiki();
     }//GEN-LAST:event_formWindowOpened
 
     private void tblBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBarangMouseClicked
@@ -671,15 +743,6 @@ private entity.Jual sj;
             util.Db.hindar(ex);
         }
     }//GEN-LAST:event_tblBarangMouseClicked
-
-    private void tglJualItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tglJualItemStateChanged
-        if(null!=tglJual.getItemAt(tglJual.getSelectedIndex()))try {
-            jualTbl();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-            util.Db.hindar(ex);
-        }
-    }//GEN-LAST:event_tglJualItemStateChanged
 
     private void tblJualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblJualMouseClicked
         int s=tblJual.getSelectedRow();
@@ -773,7 +836,6 @@ private entity.Jual sj;
 
     private void btnMemasokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMemasokActionPerformed
         new ui.dial.barang.Suplied(this, rootPaneCheckingEnabled, d).setVisible(true);try {
-            if(null!=tglMemasok.getSelectedItem())memasok();
             barang();
         } catch (SQLException ex) {
             util.Db.hindar(ex);
@@ -797,14 +859,6 @@ private entity.Jual sj;
         util.Db.hindar(ex);
     }
     }//GEN-LAST:event_rdsActionPerformed
-
-    private void tglMemasokItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tglMemasokItemStateChanged
-        if(null!=tglMemasok.getSelectedItem())try {
-            memasok();
-        } catch (SQLException ex) {
-            util.Db.hindar(ex);
-        }
-    }//GEN-LAST:event_tglMemasokItemStateChanged
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         new ui.Analyze(this, true, d).setVisible(true);
@@ -887,9 +941,8 @@ private entity.Jual sj;
     }//GEN-LAST:event_srcSuplierKeyReleased
 
     private void srcJualKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_srcJualKeyReleased
-        if(null!=tglJual.getItemAt(tglJual.getSelectedIndex()))try {
-            if(!srcJual.getText().isEmpty())jualTbl(srcJual.getText());
-            else jualTbl();
+        try {
+            jualTbl(srcJual.getText());
         } catch (SQLException ex) {
             util.Db.hindar(ex);
         }
@@ -904,7 +957,73 @@ private entity.Jual sj;
         }
     }//GEN-LAST:event_srcPelangganKeyReleased
 
+    private void blnJualStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_blnJualStateChanged
+        int[]p={2,4,6,9,11};
+        int max=31,saikiBln=Integer.parseInt(""+blnJual.getValue()),
+                saikiTgl=Integer.parseInt(""+tglJual.getValue());
+        for(int i:p){
+            if(i==saikiBln){
+                int b=30;
+                if(i==2){
+                    if(0==Integer.parseInt(""+thnJual.getValue()))b=29;
+                    else b=28;
+                }if(saikiTgl>b)saikiTgl=b;
+                max=b;
+                break;
+            }
+        }tglJual.setModel(new javax.swing.SpinnerNumberModel(saikiTgl, 1, max, 1));
+    }//GEN-LAST:event_blnJualStateChanged
+
+    private void showJualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showJualActionPerformed
+    try {
+        jual();
+    } catch (SQLException ex) {
+        util.Db.hindar(ex);
+    }
+    }//GEN-LAST:event_showJualActionPerformed
+
+    private void showJual1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showJual1ActionPerformed
+        java.time.LocalDate ld=java.time.LocalDate.of(Integer.parseInt(""+thnPasok.getValue()), 
+                Integer.parseInt(""+blnPasok.getValue()), Integer.parseInt(""+tglPasok.getValue()));
+    try {
+        javax.swing.table.DefaultTableModel m=(javax.swing.table.DefaultTableModel) tblMemasok.getModel();
+        for(int x=m.getRowCount()-1;x>=0;x--)
+            m.removeRow(x);
+        java.sql.PreparedStatement p=d.getPS("select*from memasok where tgl=?");
+        p.setDate(1, java.sql.Date.valueOf(ld));
+        java.sql.ResultSet r=p.executeQuery();
+        while(r.next()){
+            entity.Barang b=new entity.Barang(r.getString("brg"), d);
+            entity.Suplier s=new entity.Suplier(r.getString("sup"), d);
+            m.addRow(new Object[]{b.getNm(),s.getNm(),org.joda.money.Money.of(CurrencyUnit.of("IDR"), r.getDouble("sat"))
+            ,r.getDouble("jum")});
+        }r.close();
+        p.close();
+    } catch (SQLException ex) {
+        util.Db.hindar(ex);
+    }
+    }//GEN-LAST:event_showJual1ActionPerformed
+
+    private void blnPasokStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_blnPasokStateChanged
+        int[]p={2,4,6,9,11};
+        int max=31,saikiBln=Integer.parseInt(""+blnPasok.getValue()),
+                saikiTgl=Integer.parseInt(""+tglPasok.getValue());
+        for(int i:p){
+            if(i==saikiBln){
+                int b=30;
+                if(i==2){
+                    if(0==Integer.parseInt(""+thnPasok.getValue()))b=29;
+                    else b=28;
+                }if(saikiTgl>b)saikiTgl=b;
+                max=b;
+                break;
+            }
+        }tglPasok.setModel(new javax.swing.SpinnerNumberModel(saikiTgl, 1, max, 1));
+    }//GEN-LAST:event_blnPasokStateChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JSpinner blnJual;
+    private javax.swing.JSpinner blnPasok;
     private javax.swing.JButton btnMemasok;
     private javax.swing.JButton eb;
     private javax.swing.JButton hb;
@@ -918,6 +1037,10 @@ private entity.Jual sj;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -938,6 +1061,8 @@ private entity.Jual sj;
     private javax.swing.JButton pb2;
     private javax.swing.JButton rds;
     private javax.swing.JButton rp;
+    private javax.swing.JButton showJual;
+    private javax.swing.JButton showJual1;
     private javax.swing.JTextField srcBarang;
     private javax.swing.JTextField srcJual;
     private javax.swing.JTextField srcPelanggan;
@@ -947,8 +1072,10 @@ private entity.Jual sj;
     private javax.swing.JTable tblMemasok;
     private javax.swing.JTable tblPelanggan;
     private javax.swing.JTable tblSuplier;
-    private javax.swing.JComboBox<String> tglJual;
-    private javax.swing.JComboBox<java.sql.Date> tglMemasok;
+    private javax.swing.JSpinner tglJual;
+    private javax.swing.JSpinner tglPasok;
+    private javax.swing.JSpinner thnJual;
+    private javax.swing.JSpinner thnPasok;
     private javax.swing.JButton up;
     // End of variables declaration//GEN-END:variables
 
@@ -957,13 +1084,7 @@ private entity.Jual sj;
         else barang();
         if(!srcSuplier.getText().isEmpty())suplier(srcSuplier.getText());
         else suplier();
-        jual();
-        if(null!=tglJual.getItemAt(tglJual.getSelectedIndex())){
-            if(!srcJual.getText().isEmpty())jualTbl(srcJual.getText());
-            else jualTbl();
-        }pelanggan();
-        initMemasok();
-        if(null!=tglMemasok.getSelectedItem())memasok();
+        pelanggan();
         Thread.sleep(10000);
     }
 
@@ -982,19 +1103,24 @@ private entity.Jual sj;
     }
 
     private void jual() throws SQLException {
-        tglJual.removeAllItems();
-        java.sql.ResultSet rs=d.keluar("select distinct tgl from jual");
-        while(rs.next())tglJual.addItem(rs.getString("tgl"));
-        rs.close();
+        java.time.LocalDate ld=java.time.LocalDate.of(Integer.parseInt(""+thnJual.getValue()), 
+                Integer.parseInt(""+blnJual.getValue()), Integer.parseInt(""+tglJual.getValue()));
         javax.swing.table.DefaultTableModel m=(javax.swing.table.DefaultTableModel) tblJual.getModel();
-        for(int x=m.getRowCount()-1;x>=0;x--)m.removeRow(x);
+        for(int x=m.getRowCount()-1;x>=0;x--)
+            m.removeRow(x);
+        java.sql.PreparedStatement p=d.getPS("select nota,total,pel from jual where not deleted and tgl=?");
+        p.setDate(1, java.sql.Date.valueOf(ld));
+        java.sql.ResultSet r=p.executeQuery();
+        while(r.next())
+            m.addRow(new String[]{r.getString("nota"),r.getString("total"),r.getString("pel")});
+        r.close();
+        p.close();
     }
 
     private void jualTbl() throws SQLException {
         javax.swing.table.DefaultTableModel m=(javax.swing.table.DefaultTableModel) tblJual.getModel();
         for(int x=m.getRowCount()-1;x>=0;x--)m.removeRow(x);
         java.sql.PreparedStatement ps=d.getPS("select nota,total,pel from jual where tgl=? and not deleted");
-        ps.setDate(1, java.sql.Date.valueOf(tglJual.getItemAt(tglJual.getSelectedIndex())));
         java.sql.ResultSet rs=ps.executeQuery();
         while(rs.next()){
             entity.Pelanggan p=new entity.Pelanggan(rs.getString("pel"), d);
@@ -1023,7 +1149,6 @@ private entity.Jual sj;
 
     private void memasok() throws SQLException {
         java.sql.PreparedStatement ps=d.getPS("select*from memasok where tgl=?");
-        ps.setDate(1, tglMemasok.getItemAt(tglMemasok.getSelectedIndex()));
         java.sql.ResultSet rs=ps.executeQuery();
         javax.swing.table.DefaultTableModel m=(javax.swing.table.DefaultTableModel) tblMemasok.getModel();
         for(int x=m.getRowCount()-1;x>=0;x--)m.removeRow(x);
@@ -1032,13 +1157,6 @@ private entity.Jual sj;
             rs.getFloat("jum")});
         rs.close();
         ps.close();
-    }
-
-    private void initMemasok() throws SQLException {
-        tglMemasok.removeAllItems();
-        java.sql.ResultSet rs=d.keluar("select distinct tgl from memasok");
-        while(rs.next())tglMemasok.addItem(rs.getDate("tgl"));
-        rs.close();
     }
 
     private void barang(String src) throws SQLException {
@@ -1071,7 +1189,6 @@ private entity.Jual sj;
         javax.swing.table.DefaultTableModel m=(javax.swing.table.DefaultTableModel) tblJual.getModel();
         for(int x=m.getRowCount()-1;x>=0;x--)m.removeRow(x);
         java.sql.PreparedStatement ps=d.getPS("select nota,total,pel from jual where tgl=? and nota like ? and not deleted");
-        ps.setDate(1, java.sql.Date.valueOf(tglJual.getItemAt(tglJual.getSelectedIndex())));
         ps.setString(2, "%"+src+"%");
         java.sql.ResultSet r=ps.executeQuery();
         while(r.next())m.addRow(new Object[]{r.getString("nota"),r.getString("total"),r.getString("pel")});
@@ -1090,5 +1207,24 @@ private entity.Jual sj;
         r.getBoolean("blocked")});
         r.close();
         p.close();
+    }
+
+    private void jualeSaiki() {
+        java.time.LocalDate ld=java.time.LocalDate.now();
+        tglJual.setValue(ld.getDayOfMonth());
+        thnJual.setValue(ld.getYear());
+        blnJual.setValue(ld.getMonthValue());try {
+        jual();
+    } catch (SQLException ex) {
+        util.Db.hindar(ex);
+    }
+    }
+
+    private void pasokSaiki() {
+        java.time.LocalDate ld=java.time.LocalDate.now();
+        tglPasok.setValue(ld.getDayOfMonth());
+        thnPasok.setValue(ld.getYear());
+        blnPasok.setValue(ld.getMonthValue());
+        this.showJual1ActionPerformed(null);
     }
 }
