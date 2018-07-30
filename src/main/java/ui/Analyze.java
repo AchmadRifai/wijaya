@@ -390,7 +390,15 @@ private util.Db d;
             new String [] {
                 "Tanggal", "Untung"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(ketTbl);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -746,8 +754,12 @@ private util.Db d;
 
     private void genaratePermintaan(LocalDate awal, LocalDate akhir) throws SQLException {
         org.jfree.data.general.DefaultPieDataset data=new org.jfree.data.general.DefaultPieDataset();
-        javax.swing.table.DefaultTableModel m=new javax.swing.table.DefaultTableModel(new String[]{"Nama Barang","Jumlah"}, 0);
-        tblMinta.setModel(m);
+        javax.swing.table.DefaultTableModel m=new javax.swing.table.DefaultTableModel(new String[]{"Nama Barang","Jumlah"}, 0){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        }; tblMinta.setModel(m);
         java.sql.PreparedStatement p=d.getPS("select detjual.brg,sum(detjual.jum)as qty from jual left join detjual on jual.nota=detjual.nota "
                 + "where jual.tgl>=? and "
                 + "jual.tgl<=? group by detjual.brg");

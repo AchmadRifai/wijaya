@@ -163,6 +163,7 @@ private java.awt.Frame f;
         if("Pilih Satu :"!=brg.getItemAt(brg.getSelectedIndex()))try {
             entity.Barang b=new entity.Barang(brg.getItemAt(brg.getSelectedIndex()), d);
             brg.setToolTipText(b.getNm());
+            if(0<sup.getSelectedIndex())cariHarga();
         } catch (SQLException ex) {
             util.Db.hindar(ex);
         }else brg.setToolTipText("");
@@ -177,7 +178,7 @@ private java.awt.Frame f;
                 JOptionPane.showMessageDialog(rootPane, "Penyuplai ini dicekal!");
                 sup.setSelectedIndex(0);
                 return;
-            }
+            } if(0<brg.getSelectedIndex())cariHarga();
         } catch (SQLException ex) {
             util.Db.hindar(ex);
         }else sup.setToolTipText("");
@@ -241,7 +242,8 @@ private java.awt.Frame f;
     // End of variables declaration//GEN-END:variables
 
     private void refresh() {
-        s.setEnabled(!brg.getToolTipText().isEmpty()&&!sup.getToolTipText().isEmpty()&&hrg.isValid()&&!hrg.getText().isEmpty()&&jum.isValid()&&!jum.getText().isEmpty()&&
+        s.setEnabled(!brg.getToolTipText().isEmpty()&&!sup.getToolTipText().isEmpty()&&hrg.isValid()&&!hrg.getText().isEmpty()&&jum.isValid()&&
+                !jum.getText().isEmpty()&&
         Color.BLACK==jum.getForeground()&&Color.BLACK==hrg.getForeground());
     }
 
@@ -253,5 +255,15 @@ private java.awt.Frame f;
         entity.Barang a=new entity.Barang(brg.getItemAt(brg.getSelectedIndex()), d),b=new entity.Barang(brg.getItemAt(brg.getSelectedIndex()), d);
         b.setStok(a.getStok()+Float.parseFloat(jum.getText()));
         new entity.dao.DAOBarang(d).update(a, b);
+    }
+
+    private void cariHarga() throws SQLException {
+        java.sql.PreparedStatement p=d.getPS("select sat from memasok where sup=? and brg=? order by tgl desc");
+        p.setString(1, sup.getItemAt(sup.getSelectedIndex()));
+        p.setString(2, brg.getItemAt(brg.getSelectedIndex()));
+        java.sql.ResultSet r=p.executeQuery();
+        if(r.next())hrg.setText(r.getString("sat"));
+        r.close();
+        p.close();
     }
 }

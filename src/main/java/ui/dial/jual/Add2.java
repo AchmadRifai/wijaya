@@ -319,8 +319,12 @@ private float maxBeli,curbeli;
 
     private void muat() {
     if(cari.getText().isEmpty())try {
-        javax.swing.table.DefaultTableModel m=new javax.swing.table.DefaultTableModel(new String[]{"Kode","Nama","Stok","Harga"}, 0);
-        tblBarang.setModel(m);
+        javax.swing.table.DefaultTableModel m=new javax.swing.table.DefaultTableModel(new String[]{"Kode","Nama","Stok","Harga"}, 0){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        }; tblBarang.setModel(m);
         entity.dao.DAOBarang dao=new entity.dao.DAOBarang(d);
         for(entity.Barang b:dao.getDatae()){
             m.addRow(new Object[]{b.getKode(),b.getNm(),""+b.getStok()+" "+b.getSatuan(),b.getHrg()});
@@ -390,8 +394,12 @@ private float maxBeli,curbeli;
     }
 
     private void fillItem() throws SQLException {
-        javax.swing.table.DefaultTableModel m=new javax.swing.table.DefaultTableModel(new String[]{"Barang","Qty","Sub Total"}, 0);
-        lstBeli.setModel(m);
+        javax.swing.table.DefaultTableModel m=new javax.swing.table.DefaultTableModel(new String[]{"Barang","Qty","Sub Total"}, 0){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        }; lstBeli.setModel(m);
         java.sql.PreparedStatement p=d.getPS("select*from detjual where nota=?");
         p.setString(1, j.getNota());
         java.sql.ResultSet r=p.executeQuery();
