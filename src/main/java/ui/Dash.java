@@ -394,14 +394,14 @@ private entity.Jual sj;
 
             },
             new String [] {
-                "ID", "NAMA", "ALAMAT", "JENIS", "DICEKAL"
+                "ID", "NAMA", "ALAMAT", "JENIS", "No. Telepon", "DICEKAL"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1173,14 +1173,14 @@ private entity.Jual sj;
     }
 
     private void suplier(String src) throws SQLException {
-        java.sql.PreparedStatement p=d.getPS("select id,nm,almt,jns,blocked from suplier where nm like ? and not deleted");
+        java.sql.PreparedStatement p=d.getPS("select id,nm,almt,jns,tlp,blocked from suplier where nm like ? and not deleted");
         p.setString(1, "%"+src+"%");
         java.sql.ResultSet r=p.executeQuery();
         javax.swing.table.DefaultTableModel m=(javax.swing.table.DefaultTableModel) tblSuplier.getModel();
         for(int x=m.getRowCount()-1;x>=0;x--)m.removeRow(x);
         while(r.next())
             m.addRow(new Object[]{r.getString("id"),r.getString("nm"),r.getString("almt"),r.getString("jns"),
-                r.getBoolean("blocked")});
+                r.getString("tlp"),r.getBoolean("blocked")});
         r.close();
         p.close();
     }
