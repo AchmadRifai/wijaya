@@ -203,12 +203,12 @@ private util.Db d;
     }//GEN-LAST:event_tlpKeyReleased
 
     private void sActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sActionPerformed
-    /*try {
+    try {
         new entity.dao.DAOSuplier(d).insert(new entity.Suplier(id.getText(), nm.getText(), almt.getText(), jns.getText(), tlp.getText()));
         this.setVisible(false);
     } catch (SQLException ex) {
         util.Db.hindar(ex);
-    }*/
+    }
     }//GEN-LAST:event_sActionPerformed
 
     private void sMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sMouseClicked
