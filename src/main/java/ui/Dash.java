@@ -622,15 +622,15 @@ private entity.Jual sj;
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(tglPasok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel6)
                         .addComponent(blnPasok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel5)
                         .addComponent(thnPasok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(showJual1)))
+                        .addComponent(showJual1))
+                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE))
         );
@@ -1112,7 +1112,7 @@ private entity.Jual sj;
         p.setDate(1, java.sql.Date.valueOf(ld));
         java.sql.ResultSet r=p.executeQuery();
         while(r.next())
-            m.addRow(new String[]{r.getString("nota"),r.getString("total"),r.getString("pel")});
+            m.addRow(new String[]{r.getString("nota"),r.getString("total"),getNamaPelanggan(r.getString("pel"))});
         r.close();
         p.close();
     }
@@ -1226,5 +1226,16 @@ private entity.Jual sj;
         thnPasok.setValue(ld.getYear());
         blnPasok.setValue(ld.getMonthValue());
         this.showJual1ActionPerformed(null);
+    }
+
+    private String getNamaPelanggan(String kode) throws SQLException {
+        String nm="";
+        java.sql.PreparedStatement p=d.getPS("select nm from pelanggan where kode=?");
+        p.setString(1, kode);
+        java.sql.ResultSet r=p.executeQuery();
+        if(r.next())nm=r.getString("nm");
+        r.close();
+        p.close();
+        return nm;
     }
 }
