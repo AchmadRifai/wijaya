@@ -1099,7 +1099,7 @@ private entity.Jual sj;
         javax.swing.table.DefaultTableModel m=(javax.swing.table.DefaultTableModel) tblSuplier.getModel();
         for(int x=m.getRowCount()-1;x>=0;x--)m.removeRow(x);
         for(entity.Suplier s:new entity.dao.DAOSuplier(d).getDatae())
-            m.addRow(new Object[]{s.getId(),s.getNm(),s.getAlmt(),s.getJns(),s.isBlocked()});
+            m.addRow(new Object[]{s.getId(),s.getNm(),s.getAlmt(),s.getJns(),s.getTlp(),s.isBlocked()});
     }
 
     private void jual() throws SQLException {
