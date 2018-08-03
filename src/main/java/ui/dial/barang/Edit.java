@@ -43,6 +43,7 @@ private entity.Barang b;
         nama = new javax.swing.JTextField();
         hrg = new javax.swing.JFormattedTextField();
         s = new javax.swing.JButton();
+        ecer = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("MENGUBAH DATA BARANG");
@@ -87,6 +88,8 @@ private entity.Barang b;
             }
         });
 
+        ecer.setText("Bisa Diecer");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -97,14 +100,17 @@ private entity.Barang b;
                     .addComponent(s, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(satu, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-                            .addComponent(nama)
-                            .addComponent(hrg))
+                            .addComponent(ecer)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel3))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(satu, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                                    .addComponent(nama)
+                                    .addComponent(hrg))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -123,9 +129,11 @@ private entity.Barang b;
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(hrg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ecer)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(s)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -156,6 +164,7 @@ private entity.Barang b;
         nama.setText(b.getNm());
         this.setTitle(this.getTitle()+" "+b.getKode());
         satu.setText(b.getSatuan());
+        ecer.setSelected(!b.isBiji());
     }//GEN-LAST:event_formWindowOpened
 
     private void sActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sActionPerformed
@@ -163,6 +172,7 @@ private entity.Barang b;
         entity.Barang n=new entity.Barang(b.getKode(), d);
         n.setNm(nama.getText());
         n.setSatuan(satu.getText());
+        n.setBiji(!ecer.isSelected());
         n.setHrg(org.joda.money.Money.of(CurrencyUnit.of("IDR"), Long.parseLong(hrg.getText())));
         new entity.dao.DAOBarang(d).update(b, n);
         this.setVisible(false);
@@ -172,6 +182,7 @@ private entity.Barang b;
     }//GEN-LAST:event_sActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox ecer;
     private javax.swing.JFormattedTextField hrg;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
