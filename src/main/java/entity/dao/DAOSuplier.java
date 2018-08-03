@@ -26,7 +26,7 @@ public class DAOSuplier implements DAO<Suplier>{
                 + "id varchar(20)primary key,"
                 + "nm varchar(40)not null,"
                 + "almt text not null,"
-                + "jns varchar(10)not null,"
+                + "jns varchar(25)not null,"
                 + "tlp char(15)not null,"
                 + "deleted boolean not null,"
                 + "blocked boolean not null"
