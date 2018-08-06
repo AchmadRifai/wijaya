@@ -181,7 +181,7 @@ private entity.Jual sj;
         });
         jToolBar1.add(jButton5);
 
-        jTabbedPane1.addTab("HOME", new javax.swing.ImageIcon(getClass().getResource("/wijaya/ikon-home-tab.png")), jToolBar1);
+        jTabbedPane1.addTab("BERANDA", new javax.swing.ImageIcon(getClass().getResource("/wijaya/ikon-home-tab.png")), jToolBar1);
 
         jToolBar2.setRollover(true);
 
@@ -276,7 +276,7 @@ private entity.Jual sj;
         });
         jToolBar3.add(rds);
 
-        jTabbedPane1.addTab("SUPLIER", new javax.swing.ImageIcon(getClass().getResource("/wijaya/ikon-supplier-tab.png")), jToolBar3); // NOI18N
+        jTabbedPane1.addTab("PEMASOK", new javax.swing.ImageIcon(getClass().getResource("/wijaya/ikon-supplier-tab.png")), jToolBar3); // NOI18N
 
         jToolBar4.setRollover(true);
 
@@ -419,7 +419,7 @@ private entity.Jual sj;
         });
         jScrollPane2.setViewportView(tblSuplier);
 
-        jTabbedPane2.addTab("SUPLIER", new javax.swing.ImageIcon(getClass().getResource("/wijaya/ikon-supplier-tab.png")), jScrollPane2);
+        jTabbedPane2.addTab("PEMASOK", new javax.swing.ImageIcon(getClass().getResource("/wijaya/ikon-supplier-tab.png")), jScrollPane2);
 
         jLabel1.setText("Tanggal");
 
@@ -651,7 +651,7 @@ private entity.Jual sj;
                 srcSuplierKeyReleased(evt);
             }
         });
-        jTabbedPane3.addTab("Pencarian Suplier", srcSuplier);
+        jTabbedPane3.addTab("Pencarian Pemasok", srcSuplier);
 
         srcJual.setToolTipText("Cari Penjualan");
         srcJual.addKeyListener(new java.awt.event.KeyAdapter() {

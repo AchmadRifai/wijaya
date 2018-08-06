@@ -724,7 +724,7 @@ private util.Db d;
         while(r.next())m=m.plus(org.joda.money.Money.parse(r.getString("total")));
         r.close();
         p.close();
-        return m.getAmount().longValueExact();
+        return m.getAmount().longValue();
     }
 
     private Number getRugi(LocalDate l2) throws SQLException {

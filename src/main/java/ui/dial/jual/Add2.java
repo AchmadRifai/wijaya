@@ -59,6 +59,7 @@ private float maxBeli,curbeli;
         byr = new javax.swing.JFormattedTextField();
         kembali = new javax.swing.JTextField();
         n = new javax.swing.JButton();
+        satuanBrg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -160,6 +161,8 @@ private float maxBeli,curbeli;
             }
         });
 
+        satuanBrg.setText("-");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -187,11 +190,13 @@ private float maxBeli,curbeli;
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cari, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(n)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(qty, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(n))
+                                .addComponent(qty, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(satuanBrg, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -207,7 +212,8 @@ private float maxBeli,curbeli;
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(qty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(qty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(satuanBrg))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -255,6 +261,7 @@ private float maxBeli,curbeli;
         int s=tblBarang.getSelectedRow();
     if(tblBarang.isRowSelected(s))try {
         b=new entity.Barang(""+tblBarang.getModel().getValueAt(s, 0), d);
+        satuanBrg.setText(b.getSatuan());
         maxBeli=b.getStok();
         getCurBeli(s);
         double op = 0.1;
@@ -313,6 +320,7 @@ private float maxBeli,curbeli;
     private javax.swing.JTable lstBeli;
     private javax.swing.JButton n;
     private javax.swing.JSpinner qty;
+    private javax.swing.JLabel satuanBrg;
     private javax.swing.JTable tblBarang;
     private javax.swing.JTextField total;
     // End of variables declaration//GEN-END:variables

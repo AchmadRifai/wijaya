@@ -71,8 +71,8 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="HOME">
-                <Property name="tabTitle" type="java.lang.String" value="HOME"/>
+              <JTabbedPaneConstraints tabName="BERANDA">
+                <Property name="tabTitle" type="java.lang.String" value="BERANDA"/>
                 <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="new javax.swing.ImageIcon(getClass().getResource(&quot;/wijaya/ikon-home-tab.png&quot;))" type="code"/>
                 </Property>
@@ -212,8 +212,8 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="SUPLIER">
-                <Property name="tabTitle" type="java.lang.String" value="SUPLIER"/>
+              <JTabbedPaneConstraints tabName="PEMASOK">
+                <Property name="tabTitle" type="java.lang.String" value="PEMASOK"/>
                 <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/wijaya/ikon-supplier-tab.png"/>
                 </Property>
@@ -455,8 +455,8 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="SUPLIER">
-                <Property name="tabTitle" type="java.lang.String" value="SUPLIER"/>
+              <JTabbedPaneConstraints tabName="PEMASOK">
+                <Property name="tabTitle" type="java.lang.String" value="PEMASOK"/>
                 <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="new javax.swing.ImageIcon(getClass().getResource(&quot;/wijaya/ikon-supplier-tab.png&quot;))" type="code"/>
                 </Property>
@@ -922,8 +922,8 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Pencarian Suplier">
-                <Property name="tabTitle" type="java.lang.String" value="Pencarian Suplier"/>
+              <JTabbedPaneConstraints tabName="Pencarian Pemasok">
+                <Property name="tabTitle" type="java.lang.String" value="Pencarian Pemasok"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
