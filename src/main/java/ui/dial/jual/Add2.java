@@ -7,9 +7,12 @@ package ui.dial.jual;
 
 import java.math.RoundingMode;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 import org.joda.money.CurrencyUnit;
 
 /**
@@ -60,6 +63,8 @@ private float maxBeli,curbeli;
         kembali = new javax.swing.JTextField();
         n = new javax.swing.JButton();
         satuanBrg = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -143,6 +148,7 @@ private float maxBeli,curbeli;
         byr.setEditable(false);
         byr.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         byr.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        byr.setText("0");
         byr.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 byrKeyReleased(evt);
@@ -163,6 +169,10 @@ private float maxBeli,curbeli;
 
         satuanBrg.setText("-");
 
+        jLabel6.setText(".00");
+
+        jLabel7.setText("IDR");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -176,10 +186,6 @@ private float maxBeli,curbeli;
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(byr, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -197,7 +203,15 @@ private float maxBeli,curbeli;
                                 .addComponent(qty, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(satuanBrg, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(byr, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel6)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -223,7 +237,9 @@ private float maxBeli,curbeli;
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(byr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(byr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -314,6 +330,8 @@ private float maxBeli,curbeli;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField kembali;
@@ -446,17 +464,23 @@ private float maxBeli,curbeli;
     }
 
     private void tayang() {
-    try {
+        int s=JOptionPane.showConfirmDialog(rootPane, "Apakah anda butuh struk?", "CETAK", JOptionPane.YES_NO_OPTION);
+    if(s==JOptionPane.YES_OPTION)try {
         java.util.Map<String,Object>m=new java.util.HashMap<String,Object>();
         m.put("nota", j.getNota());
-        new util.Laporan(p, true, JasperFillManager.fillReport(JasperCompileManager.compileReport(util.Struk.f.getAbsolutePath()), m, d.getC()))
-                .setVisible(true);
+        ///new util.Laporan(p, true, JasperFillManager.fillReport(JasperCompileManager.compileReport(util.Struk.f.getAbsolutePath()), m, d.getC())).setVisible(true);
+        java.io.File f=new java.io.File(System.getProperty("user.home")+"/Desktop/s.pdf");
+        if(!f.getParentFile().exists())f.getParentFile().mkdirs();
+        if(f.exists())f.delete();
+        JasperPrint bahan=JasperFillManager.fillReport(JasperCompileManager.compileReport(util.Struk.f.getAbsolutePath()), m, d.getC());
+        JasperExportManager.exportReportToPdfFile(bahan, f.getAbsolutePath());
     } catch (JRException ex) {
         util.Db.hindar(ex);
     }
     }
 
     private void stun() {
+        this.setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
         n.setEnabled(false);
         kembali.setEnabled(false);
         byr.setEnabled(false);

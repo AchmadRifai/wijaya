@@ -6,7 +6,6 @@
 package entity;
 
 import java.sql.SQLException;
-import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
 
 /**
@@ -27,7 +26,7 @@ public class Barang {
         if(rs.next()){
             nm=rs.getString("nm");
             satuan=rs.getString("satuan");
-            hrg=Money.of(CurrencyUnit.getInstance("IDR"), rs.getLong("hrg"));
+            hrg=Money.parse(rs.getString("hrg"));
             deleted=rs.getBoolean("deleted");
             stok=rs.getFloat("stok");
             biji=rs.getBoolean("biji");

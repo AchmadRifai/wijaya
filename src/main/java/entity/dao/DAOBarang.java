@@ -26,7 +26,7 @@ public class DAOBarang implements DAO<Barang>{
                 + "kode varchar(25)primary key,"
                 + "nm varchar(50)not null,"
                 + "satuan varchar(15)not null,"
-                + "hrg bigint not null,"
+                + "hrg text not null,"
                 + "stok float unsigned not null,"
                 + "deleted boolean not null,"
                 + "biji boolean not null"
@@ -39,7 +39,7 @@ public class DAOBarang implements DAO<Barang>{
         ps.setString(1, v.getKode());
         ps.setString(2, v.getNm());
         ps.setString(3, v.getSatuan());
-        ps.setLong(4, v.getHrg().getAmount().longValue());
+        ps.setString(4, ""+v.getHrg());
         ps.setFloat(5, v.getStok());
         ps.setBoolean(6, v.isDeleted());
         ps.setBoolean(7, v.isBiji());
@@ -61,7 +61,7 @@ public class DAOBarang implements DAO<Barang>{
         java.sql.PreparedStatement ps=d.getPS("update barang set nm=?,satuan=?,hrg=?,stok=?,biji=? where kode=?");
         ps.setString(1, b.getNm());
         ps.setString(2, b.getSatuan());
-        ps.setLong(3, b.getHrg().getAmount().longValue());
+        ps.setString(3, ""+b.getHrg());
         ps.setFloat(4, b.getStok());
         ps.setBoolean(5, b.isBiji());
         ps.setString(6, a.getKode());
