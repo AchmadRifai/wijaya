@@ -22,7 +22,7 @@ public class DAOSuplier implements DAO<Suplier>{
 
     @Override
     public void createTable() throws SQLException {
-        d.masuk("create table suplier("
+        d.masuk("create table if not exists suplier("
                 + "id varchar(20)primary key,"
                 + "nm varchar(40)not null,"
                 + "almt text not null,"

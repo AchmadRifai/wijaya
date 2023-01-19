@@ -19,7 +19,7 @@ import java.time.LocalDate;
 public class Work {
     public static void createDB(String host, int port, String name, String user, String pass) throws SQLException {
         util.Db d=new util.Db(host, "mysql", user, pass, port);
-        d.masuk("create database "+name);
+        d.masuk("create database if not exists "+name);
         d.setName(name);
         new entity.dao.DAOSuplier(d).createTable();
         new entity.dao.DAOBarang(d).createTable();

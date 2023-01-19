@@ -14,7 +14,7 @@ import org.joda.money.Money;
  */
 public class Barang {
     private String kode,nm,satuan;
-    private Money hrg;
+    private Money hrg,beli;
     private float stok;
     private boolean deleted,biji;
 
@@ -34,14 +34,15 @@ public class Barang {
         ps.close();
     }
 
-    public Barang(String kode, String nm, String satuan, Money hrg, float stok) {
+    public Barang(String kode, String nm, String satuan, Money hrg, Money beli, float stok, boolean biji) {
         this.kode = kode;
         this.nm = nm;
         this.satuan = satuan;
         this.hrg = hrg;
+        this.beli = beli;
         this.stok = stok;
-        deleted=false;
-        biji=false;
+        this.biji = biji;
+        deleted = false;
     }
 
     public String getKode() {
@@ -98,5 +99,13 @@ public class Barang {
 
     public void setBiji(boolean biji) {
         this.biji = biji;
+    }
+
+    public Money getBeli() {
+        return beli;
+    }
+
+    public void setBeli(Money beli) {
+        this.beli = beli;
     }
 }

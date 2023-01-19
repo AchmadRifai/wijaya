@@ -23,7 +23,7 @@ public class DAOMemasok implements DAO<Memasok>{
 
     @Override
     public void createTable() throws SQLException {
-        d.masuk("create table memasok("
+        d.masuk("create table if not exists memasok("
                 + "brg varchar(25)not null,"
                 + "sup varchar(20)not null,"
                 + "sat bigint not null,"

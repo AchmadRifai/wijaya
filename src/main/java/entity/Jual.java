@@ -43,7 +43,7 @@ public class Jual {
         total=org.joda.money.Money.of(CurrencyUnit.getInstance("IDR"), 0);
         kembali=org.joda.money.Money.of(CurrencyUnit.getInstance("IDR"), 0);
         byr=org.joda.money.Money.of(CurrencyUnit.getInstance("IDR"), 0);
-        nota="wijaya-"+tgl.getYear()+"-"+tgl.getMonth()+"-"+tgl.getDate()+"-"+i+"-"+pel;
+        nota=""+tgl.getYear()+"-"+tgl.getMonth()+"-"+tgl.getDate()+"-"+i+"-"+pel;
         deleted=false;
     }
 

@@ -185,8 +185,8 @@ private util.Db d;
     private void sActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sActionPerformed
     try { 
         entity.Barang b=new entity.Barang(kode.getText(), nm.getText(), satuan.getText(), org.joda.money.Money.of(CurrencyUnit.of("IDR"),
-                Long.parseLong(hrg.getText())), 0);
-        b.setBiji(!ecer.isSelected());
+                Long.parseLong(hrg.getText().replace(",", ""))), org.joda.money.Money.of(CurrencyUnit.of("IDR"), 0), 0,
+                !ecer.isSelected());
         new entity.dao.DAOBarang(d).insert(b);
     } catch (SQLException ex) {
         util.Db.hindar(ex);

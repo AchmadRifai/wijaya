@@ -13,7 +13,7 @@ import java.io.PrintWriter;
  * @author ai
  */
 public class Struk {
-    public static java.io.File f=new java.io.File(System.getProperty("user.home")+"/.wijaya/templates/struk.jrxml");
+    public static java.io.File f=new java.io.File(System.getProperty("user.home")+"/.wijaya/templates/Blank_A4.jrxml");
 
     public static void init() throws FileNotFoundException {
         if(!f.getParentFile().exists())f.getParentFile().mkdirs();

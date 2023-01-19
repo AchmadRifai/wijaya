@@ -29,9 +29,15 @@
  */
 package ui;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -70,6 +76,8 @@ private entity.Jual sj;
         pb2 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        importExcel = new javax.swing.JButton();
+        exportExcel = new javax.swing.JButton();
         jToolBar2 = new javax.swing.JToolBar();
         jButton3 = new javax.swing.JButton();
         btnMemasok = new javax.swing.JButton();
@@ -180,6 +188,28 @@ private entity.Jual sj;
             }
         });
         jToolBar1.add(jButton5);
+
+        importExcel.setText("Import Excel");
+        importExcel.setFocusable(false);
+        importExcel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        importExcel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        importExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                importExcelActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(importExcel);
+
+        exportExcel.setText("Export Excel");
+        exportExcel.setFocusable(false);
+        exportExcel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        exportExcel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        exportExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportExcelActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(exportExcel);
 
         jTabbedPane1.addTab("BERANDA", new javax.swing.ImageIcon(getClass().getResource("/wijaya/ikon-home-tab.png")), jToolBar1);
 
@@ -359,14 +389,14 @@ private entity.Jual sj;
 
             },
             new String [] {
-                "KODE", "NAMA", "HARGA", "STOK"
+                "KODE", "NAMA", "HARGA", "BELI", "STOK"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1021,14 +1051,34 @@ private entity.Jual sj;
         }tglPasok.setModel(new javax.swing.SpinnerNumberModel(saikiTgl, 1, max, 1));
     }//GEN-LAST:event_blnPasokStateChanged
 
+    private void importExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importExcelActionPerformed
+        JFileChooser chooser = excelChooser();
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) try {
+                new ExportImportLoader(this, false, true, chooser.getSelectedFile(), util.Work.currentDB()).setVisible(true);
+        } catch (GeneralSecurityException | IOException | ClassNotFoundException | SQLException ex) {
+            util.Db.hindar(ex);
+        }
+    }//GEN-LAST:event_importExcelActionPerformed
+
+    private void exportExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportExcelActionPerformed
+        JFileChooser chooser = excelChooser();
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) try {
+                new ExportImportLoader(this, false, false, chooser.getSelectedFile(), util.Work.currentDB()).setVisible(true);
+        } catch (GeneralSecurityException | IOException | ClassNotFoundException | SQLException ex) {
+            util.Db.hindar(ex);
+        }
+    }//GEN-LAST:event_exportExcelActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSpinner blnJual;
     private javax.swing.JSpinner blnPasok;
     private javax.swing.JButton btnMemasok;
     private javax.swing.JButton eb;
+    private javax.swing.JButton exportExcel;
     private javax.swing.JButton hb;
     private javax.swing.JButton hp;
     private javax.swing.JButton hs;
+    private javax.swing.JButton importExcel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -1085,14 +1135,14 @@ private entity.Jual sj;
         if(!srcSuplier.getText().isEmpty())suplier(srcSuplier.getText());
         else suplier();
         pelanggan();
-        Thread.sleep(10000);
+        Thread.sleep(5000);
     }
 
     private void barang() throws SQLException {
         javax.swing.table.DefaultTableModel m=(javax.swing.table.DefaultTableModel) tblBarang.getModel();
         for(int x=m.getRowCount()-1;x>=0;x--)m.removeRow(x);
         for(entity.Barang b:new entity.dao.DAOBarang(d).getDatae())
-            m.addRow(new Object[]{b.getKode(),b.getNm(),b.getHrg(),""+b.getStok()+" "+b.getSatuan()});
+            m.addRow(new Object[]{b.getKode(),b.getNm(),b.getHrg(),b.getBeli(),""+b.getStok()+" "+b.getSatuan()});
     }
 
     private void suplier() throws SQLException {
@@ -1160,14 +1210,13 @@ private entity.Jual sj;
     }
 
     private void barang(String src) throws SQLException {
-        java.sql.PreparedStatement p=d.getPS("select kode,nm,hrg,stok from barang where nm like ? and not deleted");
+        java.sql.PreparedStatement p=d.getPS("select kode,nm,hrg,beli,stok from barang where nm like ? and not deleted");
         p.setString(1, "%"+src+"%");
         java.sql.ResultSet r=p.executeQuery();
         javax.swing.table.DefaultTableModel m=(javax.swing.table.DefaultTableModel) tblBarang.getModel();
         for(int x=m.getRowCount()-1;x>=0;x--)m.removeRow(x);
         while(r.next())
-            m.addRow(new Object[]{r.getString("kode"),r.getString("nm"),org.joda.money.Money.of(CurrencyUnit.of("IDR"), 
-                    r.getLong("hrg")),r.getFloat("stok")});
+            m.addRow(new Object[]{r.getString("kode"),r.getString("nm"),r.getString("hrg"),r.getString("beli"),r.getFloat("stok")});
         r.close();
         p.close();
     }
@@ -1237,5 +1286,14 @@ private entity.Jual sj;
         r.close();
         p.close();
         return nm;
+    }
+
+    private JFileChooser excelChooser() {
+        JFileChooser chooser = new JFileChooser();
+        chooser.setMultiSelectionEnabled(false);
+        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        chooser.setFileHidingEnabled(false);
+        chooser.setFileFilter(new FileNameExtensionFilter("EXCEL File", "xlsx"));
+        return chooser;
     }
 }

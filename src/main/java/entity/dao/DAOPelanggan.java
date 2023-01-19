@@ -22,7 +22,7 @@ public class DAOPelanggan implements DAO<Pelanggan>{
 
     @Override
     public void createTable() throws SQLException {
-        d.masuk("create table pelanggan("
+        d.masuk("create table if not exists pelanggan("
                 + "kode varchar(25)primary key,"
                 + "nm varchar(20)not null,"
                 + "almt text not null,"
@@ -34,6 +34,12 @@ public class DAOPelanggan implements DAO<Pelanggan>{
 
     @Override
     public void insert(Pelanggan v) throws SQLException {
+        try (java.sql.PreparedStatement ps = d.getPS("select*from pelanggan where kode=?")) {
+            ps.setString(1, v.getKode());
+            try (java.sql.ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) return;
+            }
+        }
         java.sql.PreparedStatement ps=d.getPS("insert into pelanggan values(?,?,?,?,?,?)");
         ps.setString(1, v.getKode());
         ps.setString(2, v.getNm());

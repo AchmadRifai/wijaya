@@ -22,7 +22,7 @@ public class DAOJual implements DAO<entity.Jual>{
 
     @Override
     public void createTable() throws SQLException {
-        d.masuk("create table jual("
+        d.masuk("create table if not exists jual("
                 + "nota varchar(37)primary key,"
                 + "pel varchar(25)not null,"
                 + "tgl date not null,"

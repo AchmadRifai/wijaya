@@ -22,7 +22,7 @@ public class DADetJual implements DAO<DetJual>{
 
     @Override
     public void createTable() throws SQLException {
-        d.masuk("create table detjual("
+        d.masuk("create table if not exists detjual("
                 + "nota varchar(37)not null,"
                 + "brg varchar(25)not null,"
                 + "jum float unsigned not null,"

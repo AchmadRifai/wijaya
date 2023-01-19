@@ -67,4 +67,13 @@
                 <goal>deploy</goal>
             </goals>
         </action>
+        <action>
+            <actionName>CUSTOM-jajalan</actionName>
+            <displayName>jajalan</displayName>
+            <goals>
+                <goal>clean</goal>
+                <goal>package</goal>
+                <goal>exec:java</goal>
+            </goals>
+        </action>
     </actions>

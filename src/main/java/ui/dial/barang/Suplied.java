@@ -10,6 +10,7 @@ import java.math.RoundingMode;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import org.joda.money.CurrencyUnit;
+import org.joda.money.Money;
 
 /**
  *
@@ -216,7 +217,8 @@ private java.awt.Frame f;
     private void sActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sActionPerformed
     try {
         entity.Memasok m=new entity.Memasok(brg.getItemAt(brg.getSelectedIndex()), sup.getItemAt(sup.getSelectedIndex()), 
-                org.joda.money.Money.of(CurrencyUnit.of("IDR"), Double.parseDouble(hrg.getText())), Float.parseFloat(jum.getText()));
+                org.joda.money.Money.of(CurrencyUnit.of("IDR"), Double.parseDouble(hrg.getText().replace(",", ""))), 
+                Float.parseFloat(jum.getText().replace(",", "")));
         new entity.dao.DAOMemasok(d).insert(m);
         entity.Barang b=new entity.Barang(brg.getItemAt(brg.getSelectedIndex()), d);
         org.joda.money.Money du=m.getSat().dividedBy(m.getJum(), RoundingMode.FLOOR);
@@ -254,6 +256,7 @@ private java.awt.Frame f;
     private void normalkan() throws SQLException {
         entity.Barang a=new entity.Barang(brg.getItemAt(brg.getSelectedIndex()), d),b=new entity.Barang(brg.getItemAt(brg.getSelectedIndex()), d);
         b.setStok(a.getStok()+Float.parseFloat(jum.getText()));
+        b.setBeli(Money.of(CurrencyUnit.of("IDR"), Double.parseDouble(hrg.getText().replace(",", ""))));
         new entity.dao.DAOBarang(d).update(a, b);
     }
 

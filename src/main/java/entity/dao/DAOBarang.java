@@ -22,7 +22,7 @@ public class DAOBarang implements DAO<Barang>{
 
     @Override
     public void createTable() throws SQLException {
-        d.masuk("create table barang("
+        d.masuk("create table if not exists barang("
                 + "kode varchar(25)primary key,"
                 + "nm varchar(50)not null,"
                 + "satuan varchar(15)not null,"
@@ -35,14 +35,15 @@ public class DAOBarang implements DAO<Barang>{
 
     @Override
     public void insert(Barang v) throws SQLException {
-        java.sql.PreparedStatement ps=d.getPS("insert into barang values(?,?,?,?,?,?,?)");
+        java.sql.PreparedStatement ps=d.getPS("insert into barang values(?,?,?,?,?,?,?,?)");
         ps.setString(1, v.getKode());
         ps.setString(2, v.getNm());
         ps.setString(3, v.getSatuan());
         ps.setString(4, ""+v.getHrg());
-        ps.setFloat(5, v.getStok());
-        ps.setBoolean(6, v.isDeleted());
-        ps.setBoolean(7, v.isBiji());
+        ps.setString(5, ""+v.getBeli());
+        ps.setFloat(6, v.getStok());
+        ps.setBoolean(7, v.isDeleted());
+        ps.setBoolean(8, v.isBiji());
         ps.execute();
         ps.close();
     }
@@ -58,13 +59,14 @@ public class DAOBarang implements DAO<Barang>{
 
     @Override
     public void update(Barang a, Barang b) throws SQLException {
-        java.sql.PreparedStatement ps=d.getPS("update barang set nm=?,satuan=?,hrg=?,stok=?,biji=? where kode=?");
+        java.sql.PreparedStatement ps=d.getPS("update barang set nm=?,satuan=?,hrg=?,beli=?,stok=?,biji=? where kode=?");
         ps.setString(1, b.getNm());
         ps.setString(2, b.getSatuan());
         ps.setString(3, ""+b.getHrg());
-        ps.setFloat(4, b.getStok());
-        ps.setBoolean(5, b.isBiji());
-        ps.setString(6, a.getKode());
+        ps.setString(4, ""+b.getBeli());
+        ps.setFloat(5, b.getStok());
+        ps.setBoolean(6, b.isBiji());
+        ps.setString(7, a.getKode());
         ps.execute();
         ps.close();
     }
