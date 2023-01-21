@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.2.0.final using JasperReports Library version 6.2.0  -->
-<!-- 2023-01-21T21:55:43 -->
+<!-- 2023-01-13T21:26:53 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="162" pageHeight="1000" whenNoDataType="NoDataSection" columnWidth="162" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isTitleNewPage="true" whenResourceMissingType="Empty" isIgnorePagination="true" uuid="55014b59-273c-441b-bf65-4e9772d00580">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.unit." value="mm"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<parameter name="nota" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT jajal.jual.nota,
@@ -64,11 +63,11 @@ FROM jajal.detjual
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="30">
+		<band height="60">
 			<staticText>
-				<reportElement x="12" y="0" width="118" height="30" uuid="e7921245-99a2-411c-afa3-e131dd22f761"/>
+				<reportElement x="12" y="30" width="137" height="30" uuid="e7921245-99a2-411c-afa3-e131dd22f761"/>
 				<textElement textAlignment="Center">
-					<font fontName="Calibri" size="15" isBold="true"/>
+					<font fontName="Calibri" size="18" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Pahlawan Plastik]]></text>
 			</staticText>
@@ -77,7 +76,7 @@ FROM jajal.detjual
 	<pageHeader>
 		<band height="80">
 			<textField>
-				<reportElement x="60" y="60" width="70" height="20" uuid="d37719b1-2921-4327-a5d4-fd3f5c679a46"/>
+				<reportElement x="80" y="60" width="69" height="20" uuid="d37719b1-2921-4327-a5d4-fd3f5c679a46"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Dashed" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -85,14 +84,14 @@ FROM jajal.detjual
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Right">
-					<font fontName="Calibri" size="11" isItalic="true"/>
+					<font fontName="Calibri" isItalic="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{tgl}.getDate()+"-"+($F{tgl}.getMonth()+1)+"-"+($F{tgl}.getYear()+1900)]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="12" y="0" width="118" height="60" uuid="d19c6184-9855-433c-902f-32e479f21618"/>
+				<reportElement x="12" y="0" width="138" height="60" uuid="d19c6184-9855-433c-902f-32e479f21618"/>
 				<textElement textAlignment="Center">
-					<font fontName="Calibri" size="16" isBold="true"/>
+					<font fontName="Calibri" size="19" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nota}]]></textFieldExpression>
 			</textField>
@@ -101,7 +100,7 @@ FROM jajal.detjual
 	<columnHeader>
 		<band height="40">
 			<staticText>
-				<reportElement x="10" y="0" width="120" height="20" uuid="99a4afd0-7909-4c7d-9fa1-537e081dfd73"/>
+				<reportElement x="10" y="0" width="138" height="20" uuid="99a4afd0-7909-4c7d-9fa1-537e081dfd73"/>
 				<box>
 					<bottomPen lineWidth="0.1"/>
 				</box>
@@ -111,7 +110,7 @@ FROM jajal.detjual
 				<text><![CDATA[Nama Barang]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="10" y="20" width="50" height="20" uuid="8f546934-fa59-4fed-b1ca-3f13a747632b"/>
+				<reportElement x="10" y="20" width="70" height="20" uuid="8f546934-fa59-4fed-b1ca-3f13a747632b"/>
 				<box>
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="0.1"/>
@@ -122,7 +121,7 @@ FROM jajal.detjual
 				<text><![CDATA[Jumlah]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="60" y="20" width="70" height="20" uuid="f50b2281-2835-4451-bc0f-85004698cc72"/>
+				<reportElement x="80" y="20" width="69" height="20" uuid="f50b2281-2835-4451-bc0f-85004698cc72"/>
 				<box>
 					<bottomPen lineWidth="1.0"/>
 				</box>
@@ -136,7 +135,7 @@ FROM jajal.detjual
 	<detail>
 		<band height="40" splitType="Immediate">
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="10" y="0" width="120" height="20" isRemoveLineWhenBlank="true" uuid="860b4376-2f50-4daa-bab7-4e97858e4502"/>
+				<reportElement stretchType="RelativeToTallestObject" x="10" y="0" width="138" height="20" isRemoveLineWhenBlank="true" uuid="860b4376-2f50-4daa-bab7-4e97858e4502"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -150,7 +149,7 @@ FROM jajal.detjual
 				<textFieldExpression><![CDATA[$F{kode}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="10" y="20" width="50" height="20" uuid="3607b7d5-84d0-424f-b5a0-acbfe13837b1"/>
+				<reportElement stretchType="RelativeToTallestObject" x="10" y="20" width="70" height="20" uuid="3607b7d5-84d0-424f-b5a0-acbfe13837b1"/>
 				<box>
 					<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
 				</box>
@@ -160,7 +159,7 @@ FROM jajal.detjual
 				<textFieldExpression><![CDATA[$F{jum}+" "+$F{satuan}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement stretchType="RelativeToTallestObject" x="60" y="20" width="70" height="20" uuid="c8a072da-e19d-4df0-bf90-9965a074d394"/>
+				<reportElement stretchType="RelativeToTallestObject" x="80" y="20" width="69" height="20" uuid="c8a072da-e19d-4df0-bf90-9965a074d394"/>
 				<box>
 					<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
 				</box>
@@ -175,14 +174,14 @@ FROM jajal.detjual
 		<band height="16" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="mm"/>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="60" y="0" width="70" height="16" uuid="3dc250fb-b93c-43ea-bad8-62dc65904d5c"/>
+				<reportElement x="80" y="0" width="69" height="16" uuid="3dc250fb-b93c-43ea-bad8-62dc65904d5c"/>
 				<textElement textAlignment="Right">
 					<font fontName="Calibri"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="10" y="0" width="50" height="16" uuid="b052413b-56a4-49d3-a4fd-a2319e85840e"/>
+				<reportElement x="10" y="0" width="70" height="16" uuid="b052413b-56a4-49d3-a4fd-a2319e85840e"/>
 				<text><![CDATA[Total]]></text>
 			</staticText>
 		</band>
@@ -191,14 +190,14 @@ FROM jajal.detjual
 		<band height="20" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="mm"/>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="60" y="0" width="70" height="20" uuid="c9c5c428-6a5a-4f7e-ba76-c11c440be7e8"/>
+				<reportElement x="80" y="0" width="69" height="20" uuid="c9c5c428-6a5a-4f7e-ba76-c11c440be7e8"/>
 				<textElement textAlignment="Right">
 					<font fontName="Calibri"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{kembali}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="10" y="0" width="50" height="20" uuid="c970e4c9-67d9-424b-a60b-fd8bdb39eca8"/>
+				<reportElement x="10" y="0" width="70" height="20" uuid="c970e4c9-67d9-424b-a60b-fd8bdb39eca8"/>
 				<text><![CDATA[Kembali]]></text>
 			</staticText>
 		</band>
@@ -207,14 +206,14 @@ FROM jajal.detjual
 		<band height="20" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="mm"/>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="60" y="0" width="70" height="20" uuid="f8a3c362-3417-4253-9d7f-101a04262602"/>
+				<reportElement x="80" y="0" width="69" height="20" uuid="f8a3c362-3417-4253-9d7f-101a04262602"/>
 				<textElement textAlignment="Right">
 					<font fontName="Calibri"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{byr}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="12" y="0" width="48" height="20" uuid="ea2a949c-5ec8-4b11-8945-de3fda27e6e6"/>
+				<reportElement x="12" y="0" width="68" height="20" uuid="ea2a949c-5ec8-4b11-8945-de3fda27e6e6"/>
 				<text><![CDATA[Bayar]]></text>
 			</staticText>
 		</band>

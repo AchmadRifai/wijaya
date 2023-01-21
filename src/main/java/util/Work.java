@@ -9,6 +9,7 @@ import java.awt.AWTException;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
@@ -176,5 +177,26 @@ public class Work {
         rs.close();
         ps.close();
         return i;
+    }
+
+    public static String generateNota(Date tgl, int i) {
+        StringBuilder sb = new StringBuilder("PahlawanPlastik");
+        sb.append(1900+tgl.getYear());
+        sb.append(fixMonthDate(tgl.getMonth() + 1));
+        sb.append(fixMonthDate(tgl.getDate()));
+        sb.append(fillInt(i));
+        return sb.toString();
+    }
+
+    private static String fillInt(int i) {
+        StringBuilder sb = new StringBuilder();
+        String s = String.valueOf(i);
+        for(int j=0;j<5-s.length();j++)sb.append("0");
+        sb.append(s);
+        return sb.toString();
+    }
+
+    private static String fixMonthDate(int i) {
+        return 10<i ? String.valueOf(i) : "0"+i;
     }
 }

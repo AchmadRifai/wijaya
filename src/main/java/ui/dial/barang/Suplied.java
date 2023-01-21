@@ -8,6 +8,8 @@ package ui.dial.barang;
 import java.awt.Color;
 import java.math.RoundingMode;
 import java.sql.SQLException;
+import java.util.Map;
+import java.util.function.Supplier;
 import javax.swing.JOptionPane;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
@@ -192,6 +194,8 @@ private java.awt.Frame f;
             brg.addItem(b.getKode());
         for(entity.Suplier s:new entity.dao.DAOSuplier(d).getDatae())
             sup.addItem(s.getId());
+        hrg.setForeground(Color.BLACK);
+        jum.setForeground(Color.BLACK);
     } catch (SQLException ex) {
         JOptionPane.showMessageDialog(rootPane, ex.getMessage());
         util.Db.hindar(ex);
@@ -222,6 +226,8 @@ private java.awt.Frame f;
         new entity.dao.DAOMemasok(d).insert(m);
         entity.Barang b=new entity.Barang(brg.getItemAt(brg.getSelectedIndex()), d);
         org.joda.money.Money du=m.getSat().dividedBy(m.getJum(), RoundingMode.FLOOR);
+        b.setBeli(du);
+        new entity.dao.DAOBarang(d).update(b, b);
         if(du.isGreaterThan(b.getHrg())){
             JOptionPane.showMessageDialog(rootPane, "Harga beli ini telah melampaui harga jual anda!");
             new ui.dial.barang.Edit(f, true, b, d).setVisible(true);
@@ -244,9 +250,17 @@ private java.awt.Frame f;
     // End of variables declaration//GEN-END:variables
 
     private void refresh() {
-        s.setEnabled(!brg.getToolTipText().isEmpty()&&!sup.getToolTipText().isEmpty()&&hrg.isValid()&&!hrg.getText().isEmpty()&&jum.isValid()&&
-                !jum.getText().isEmpty()&&
-        Color.BLACK==jum.getForeground()&&Color.BLACK==hrg.getForeground());
+        Map<String, Supplier<Boolean>> map = Map.of(
+                "brg1",()->0<brg.getSelectedIndex(),
+                "sup1",()->0<sup.getSelectedIndex(),
+                "hrg1",hrg::isValid,
+                "hrg2",()->!hrg.getText().isEmpty(),
+                "hrg3",()->Color.BLACK==hrg.getForeground(),
+                "jum1",jum::isValid,
+                "jum3",()->Color.BLACK==jum.getForeground(),
+                "jum2",()->!jum.getText().isEmpty()
+        );
+        s.setEnabled(map.keySet().stream().map(map::get).allMatch(Supplier::get));
     }
 
     private long getSatuan() {

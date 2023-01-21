@@ -13,6 +13,7 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
 import org.joda.money.CurrencyUnit;
 
 /**
@@ -473,6 +474,7 @@ private float maxBeli,curbeli;
         if(!f.getParentFile().exists())f.getParentFile().mkdirs();
         if(f.exists())f.delete();
         JasperPrint bahan=JasperFillManager.fillReport(JasperCompileManager.compileReport(util.Struk.f.getAbsolutePath()), m, d.getC());
+        JasperPrintManager.printReport(bahan, false);
         JasperExportManager.exportReportToPdfFile(bahan, f.getAbsolutePath());
     } catch (JRException ex) {
         util.Db.hindar(ex);

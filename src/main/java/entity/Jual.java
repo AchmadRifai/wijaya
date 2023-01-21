@@ -8,6 +8,7 @@ package entity;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import org.joda.money.CurrencyUnit;
+import util.Work;
 
 /**
  *
@@ -43,7 +44,7 @@ public class Jual {
         total=org.joda.money.Money.of(CurrencyUnit.getInstance("IDR"), 0);
         kembali=org.joda.money.Money.of(CurrencyUnit.getInstance("IDR"), 0);
         byr=org.joda.money.Money.of(CurrencyUnit.getInstance("IDR"), 0);
-        nota=""+tgl.getYear()+"-"+tgl.getMonth()+"-"+tgl.getDate()+"-"+i+"-"+pel;
+        nota=Work.generateNota(tgl, i);
         deleted=false;
     }
 

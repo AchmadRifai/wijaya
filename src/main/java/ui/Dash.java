@@ -29,6 +29,7 @@
  */
 package ui;
 
+import java.awt.Cursor;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.sql.SQLException;
@@ -840,15 +841,19 @@ private entity.Jual sj;
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void ldPenjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ldPenjActionPerformed
-    try {
-        java.util.Map<String,Object>m=new java.util.HashMap<String,Object>();
-        m.put("nota", sj.getNota());
-        new util.Laporan(this, true, JasperFillManager.fillReport(JasperCompileManager.compileReport(util.Struk.f.getAbsolutePath()),
-                m, d.getC())).setVisible(true);
-        ldPenj.setEnabled(false);
-    } catch (JRException ex) {
-        util.Db.hindar(ex);
-    }
+        setCursor(new Cursor(Cursor.WAIT_CURSOR));
+        new Thread(()->{
+            try {
+                java.util.Map<String,Object>m=new java.util.HashMap<String,Object>();
+                m.put("nota", sj.getNota());
+                new util.Laporan(this, true, JasperFillManager.fillReport(JasperCompileManager.compileReport(util.Struk.f.getAbsolutePath()),
+                    m, d.getC())).setVisible(true);
+                ldPenj.setEnabled(false);
+            } catch (JRException ex) {
+                util.Db.hindar(ex);
+            }
+            setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        }).start();
     }//GEN-LAST:event_ldPenjActionPerformed
 
     private void tblSuplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSuplierMouseClicked

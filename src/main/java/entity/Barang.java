@@ -27,6 +27,7 @@ public class Barang {
             nm=rs.getString("nm");
             satuan=rs.getString("satuan");
             hrg=Money.parse(rs.getString("hrg"));
+            beli=Money.parse(rs.getString("beli"));
             deleted=rs.getBoolean("deleted");
             stok=rs.getFloat("stok");
             biji=rs.getBoolean("biji");
